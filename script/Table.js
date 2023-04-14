@@ -4,6 +4,8 @@ var subList = rJson["table"],
     timeList = rJson["timeList"],
     test_subs = rJson["base"];
 
+var colorTable = [];
+
 var active = [1,4];
 var activeprev = [-1,-1];
 drawTable();
@@ -73,5 +75,7 @@ function addTimeLineStamp(time){
 }
 
 function test(){
-    timeList.map((x)=>{console.log(timeToInt(x));})
+    var k=[];
+    timeList.map((x)=>{k.push( timeToInt(x).toString())})
+    console.log(k);
 }
