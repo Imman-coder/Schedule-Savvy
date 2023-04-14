@@ -1,5 +1,5 @@
 .modal {
-    color: var(--clr-text-fg);
+    color: $clr-text-fg;
     position: fixed;
     left: 0;
     top: 0;
@@ -19,7 +19,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--clr-body-bg);
+    background-color: $clr-body-bg;
     padding: 1rem 1.5rem;
     width: 24rem;
     border-radius: 0.5rem;

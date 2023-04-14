@@ -8,7 +8,7 @@
     transform-origin: top left;
     border: 1px solid white;
 
-    .visible {
+    &.visible {
         transform: scale(1);
         transition: transform 200ms ease-in-out;
     }
