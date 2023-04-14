@@ -21,7 +21,7 @@
 }
 
 /*------------Dark Pro------------*/
-:root {
+/* :root {
     --clr-body-bg: #1e212a;
     --clr-text-bg: #4b4949;
     --clr-text-fg: #e8e8e8;
@@ -29,7 +29,7 @@
     --dayCard-color: #5727b0;
     --sel-item-fg: #d2d1d4;
 
-}
+} */
 
 .body,
 * {

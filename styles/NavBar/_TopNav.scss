@@ -1,0 +1,23 @@
+.topnav {
+    background-color: #2a2b2e;
+    overflow: hidden;
+    padding: 14px 16px 14px 8px;
+
+    a {
+        border-radius: 18px;
+        float: left;
+        padding: 5px 21px 6px 21px;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    a:hover,
+    a.active {
+        background-color: #0385a2;
+        color: white;
+        cursor: pointer;
+    }
+}

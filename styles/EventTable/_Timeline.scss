@@ -1,0 +1,39 @@
+.schedule-timeline-group {
+    z-index: -1;
+    overflow-x: hidden;
+    padding-left: 32px;
+    display: flex;
+    flex: 80%;
+
+    .schedule-timeline {
+        display: flex;
+        position: relative;
+        justify-content: flex-start;
+        min-width: 100px;
+        width: 150px;
+
+        .circle {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin-bottom: 10px;
+            transform: translate(-43%, 20px);
+        }
+
+        span {
+            align-self: flex-start;
+            position: relative;
+            transform: translateX(calc(-50% - 10px));
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            height: calc(100% - 30px);
+            width: 1px;
+            background-color: #ccc;
+        }
+    }
+}

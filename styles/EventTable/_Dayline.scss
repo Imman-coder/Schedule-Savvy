@@ -1,0 +1,83 @@
+@import "../Global/theme";
+
+.day-wrapper {
+    margin-top: 30px;
+    margin-left: 15px;
+
+    .event-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .dayCard {
+            padding: 17px 7px;
+            margin: 4px;
+            height: min-content;
+            border-radius: 12px;
+            background-color: $dayCard-color;
+        }
+
+        .subcard-holder {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            overflow-x: hidden;
+            width: 115%;
+            margin-left: 100px;
+
+            .subCard {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: inherit;
+                border-radius: 25px;
+                background-color: rgb(223, 179, 196);
+                user-select: none;
+                cursor: pointer;
+
+                .plus {
+                    background-color: #ffffff25;
+                    font-size: 33px;
+                    align-items: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #ffffff4d;
+                    }
+                }
+
+                .active {
+                    border: 2px solid $sel-item-fg;
+                    /* box-shadow:0px 0px 2px 2px black ; */
+                }
+
+                .caret {
+                    &::after {
+                        z-index: 2;
+                        position: absolute;
+                        left: -2.7px;
+                        content: "";
+                        width: 2px;
+                        height: inherit;
+                        background-color: #238d8d;
+
+                    }
+
+                    &::before {
+                        z-index: 2;
+                        position: absolute;
+                        left: -5.6px;
+                        bottom: 0;
+                        content: "";
+                        width: 7px;
+                        height: 7px;
+                        border-radius: 50%;
+                        background-color: #61eee7;
+                    }
+                }
+            }
+        }
+    }
+}

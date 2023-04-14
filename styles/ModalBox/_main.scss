@@ -1,0 +1,72 @@
+.modal {
+    color: var(--clr-text-fg);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+
+.modal-content {
+    position: absolute;
+    z-index: 50;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--clr-body-bg);
+    padding: 1rem 1.5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+
+    border: 1px solid white;
+}
+
+.modal-content .btn-group .button {
+    float: right;
+    /* width: 1.5rem; */
+    padding: 3px 12px;
+    margin: 5px;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: rgb(70, 69, 69);
+}
+
+.modal-content .btn-group .button:hover {
+    background-color: rgb(102, 102, 102);
+}
+
+.modal-content .btn-group .disable {
+    color: rgb(138, 138, 138);
+}
+
+.modal-content .btn-group .disable:hover {
+    background-color: rgb(70, 69, 69);
+    cursor: default;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-content .box-content {
+    margin-top: 40px;
+}
+
+.modal-content .btn-group {
+    margin-top: 30px;
+}
+
+.modal-content .box-content {
+    left: 1px;
+}
