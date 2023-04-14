@@ -12,7 +12,7 @@
         <div class='topnav'>
             <a class='active' href="">Home</a>
             <a href="#news">News</a>
-            <a href="#contact">Contact</a>
+            <a onclick="generateColorPalette()">Change Color Paletter</a>
             <a onclick="toggleModal()">Add TimeLine</a>
         </div>
         <div id="main" class = "main">   
@@ -20,7 +20,21 @@
             <div class="fade-group"></div>
             <div id="time-divider" class="schedule-timeline-group"></div>
             <div id="property-menu" class="blak">
-                
+                <span>Class Number:</span>
+                <select name="cars" id="cars">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                <span>Class Type:</span>
+                <select class="">
+                    <option value="NormalClass">Normal Class</option>
+                    <option value="LabClass">Lab Class</option>
+                    <option value="Notice">Notice</option>
+                    <option value="Info">Info</option>
+                  </select>
+                <span>About:</span><input type="text">
             </div>
         </div>
     </section>

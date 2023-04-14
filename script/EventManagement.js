@@ -138,7 +138,7 @@ var item = document.getElementById("time-divider");
 window.addEventListener("wheel", function (e) {
   if (e.deltaY > 0) item.scrollLeft += 10;
   else item.scrollLeft -= 10;
-  drawTable();
+  placeEvents();
 });
 
 

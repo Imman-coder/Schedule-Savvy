@@ -20,7 +20,7 @@
 
 }
 
-/*---------*/
+/*------------Dark Pro------------*/
 :root {
     --clr-body-bg: #1e212a;
     --clr-text-bg: #4b4949;
@@ -31,7 +31,6 @@
 
 }
 
-/* e91e63 */
 .body,
 * {
     padding: 0;
@@ -71,12 +70,6 @@ body {
     text-decoration: none;
     font-size: 14px;
     margin-left: 20px;
-}
-
-
-.main-container{
-    display: flex;
-    
 }
 
 .topnav a:hover,
@@ -232,6 +225,10 @@ a.active {
 
 .small-screen-warning {
     display: none;
+}
+
+.main-container{
+    display: flex;
 }
 
 
