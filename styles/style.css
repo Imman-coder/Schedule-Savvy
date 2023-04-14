@@ -212,12 +212,10 @@ body {
   transform-origin: top left;
   border: 1px solid white;
 }
-
-#context-menu.visible {
+#context-menu .visible {
   transform: scale(1);
   transition: transform 200ms ease-in-out;
 }
-
 #context-menu .item {
   padding: 8px 10px;
   font-size: 15px;
@@ -226,24 +224,19 @@ body {
   border-radius: inherit;
   border-bottom: 1px solid rgb(46, 46, 46);
 }
-
 #context-menu .item:hover {
   background: #343434;
 }
-
-#context-menu .item.red:hover {
+#context-menu .item .red:hover {
   background: red;
 }
-
 #context-menu .hide {
   display: none;
 }
-
 #context-menu .disable {
   color: #363636;
   color: #7e7e7e;
 }
-
 #context-menu .disable:hover {
   cursor: default;
   background: #1b1a1a;
@@ -276,7 +269,6 @@ body {
   border-radius: 0.5rem;
   border: 1px solid white;
 }
-
 .modal-content .btn-group .button {
   float: right;
   /* width: 1.5rem; */
@@ -288,18 +280,24 @@ body {
   border-radius: 0.25rem;
   background-color: rgb(70, 69, 69);
 }
-
 .modal-content .btn-group .button:hover {
   background-color: rgb(102, 102, 102);
 }
-
 .modal-content .btn-group .disable {
   color: rgb(138, 138, 138);
 }
-
 .modal-content .btn-group .disable:hover {
   background-color: rgb(70, 69, 69);
   cursor: default;
+}
+.modal-content .box-content {
+  margin-top: 40px;
+}
+.modal-content .btn-group {
+  margin-top: 30px;
+}
+.modal-content .box-content {
+  left: 1px;
 }
 
 .show-modal {
@@ -307,16 +305,4 @@ body {
   visibility: visible;
   transform: scale(1);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-}
-
-.modal-content .box-content {
-  margin-top: 40px;
-}
-
-.modal-content .btn-group {
-  margin-top: 30px;
-}
-
-.modal-content .box-content {
-  left: 1px;
 }/*# sourceMappingURL=style.css.map */
