@@ -1,0 +1,5 @@
+teachername
+subjectname
+subjectcode
+timeperiod{end,start}
+classtype

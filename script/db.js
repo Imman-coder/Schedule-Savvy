@@ -1,0 +1,57 @@
+var rJson = {
+    table: [
+        [1, 1, 3, 2, 2],
+        [1, 1, 2, 5, 4],
+        [1, 1, 2, 2, 2],
+        [1, 1, 2, 1, 1, 4],
+        [2, 2, 2, 4, 1],
+        [1, 1, 2, 2, 4]],
+    timeList: [
+        "09:15AM",
+        "10:10AM",
+        "11:05AM",
+        "12:00PM",
+        "12:55AM",
+        "01:45AM",
+        "02:35AM",
+        "03:25PM",
+        "04:15AM",
+    ],
+    base: {
+        "1": {
+            name: "sub1",
+            code: "SUB101",
+            instructor: "Prof.SUB1",
+            time: 1,
+            color: "#f54251",
+        },
+        "2": {
+            name: "sub2",
+            code: "SUB102",
+            instructor: "Prof.SUB2",
+            time: 1,
+            color: "#2a6df4",
+        },
+        "3": {
+            name: "sub3",
+            code: "SUB103",
+            instructor: "Prof.SUB3",
+            time: 1,
+            color: "#ffd138",
+        },
+        "4": {
+            name: "sub4",
+            code: "SUB104",
+            instructor: "Prof.SUB4",
+            time: 3,
+            color: "#79797c",
+        },
+        "5": {
+            name: "sub5",
+            code: "SUB105",
+            instructor: "Prof.SUB5",
+            time: 1,
+            color: "#88c559",
+        },
+    },
+};

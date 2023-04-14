@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <section class="content">
+        <div class='topnav'>
+            <a class='active' href="">Home</a>
+            <a href="#news">News</a>
+            <a href="#contact">Contact</a>
+            <a onclick="toggleModal()">Add TimeLine</a>
+        </div>
+        <div id="main" class = "main">   
+            <div id="day-wrapper" class="day-wrapper"></div>
+            <div class="fade-group"></div>
+            <div id="time-divider" class="schedule-timeline-group"></div>
+            <div id="property-menu" class="blak">
+                
+            </div>
+        </div>
+    </section>
+    <div id="context-menu" class="cm">
+        <div id="menuItemCut" onclick="onContextCut()" class="item">Cut</div>
+        <div id="menuItemCopy" onclick="onContextCopy()" class="item">Copy</div>
+        <div id="menuItemPasteBefore" onclick="onContextPasteBefore()" class="item">Paste Before</div>
+        <div id="menuItemPasteAfter" onclick="onContextPasteAfter()" class="item">Paste After</div>
+        <div id="menuAdderPaste" onclick="onContextPasteBefore()" class="item">Paste</div>
+        <div id="menuItemDelete" onclick="onContextDelete()" class="item red">Delete</div>
+        <div id="menuItemPreference" onclick="onContextPreference()" class="item disable">Preferences</div>
+    </div>
+    <div class="modal ">
+        <div class="modal-content">
+            <div class="box-content">
+                <a>Add Time </a>
+                <input id="time-adder-text" type="time">
+            </div>
+            <div class="btn-group">
+                <span id="modal-ok-btn" class="button disable">Ok</span>
+                <span id="modal-cancel-btn" class="button">Cancel</span>
+            </div>
+        </div>
+    </div>
+    <section class="small-screen-warning">
+        <p class="smallscreen">Sorry, your screen is too small for this. Try a tablet or computer! <br/> If your device is big enough, make sure it is in landscape mode!</p>
+    </section>
+</body>
+<script src="script/contextMenu.js"></script>
+<script src="script/utils.js"></script>
+<script src="script/db.js"></script>
+<script src="script/EventPlacer.js"></script>
+<script src="script/EventManagement.js"></script>
+<script src="script/Table.js"></script>
+</html>
