@@ -1,72 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+
+  <body>
     <section class="content">
-        <div class='topnav'>
-            <a class='active' href="">Home</a>
-            <a href="#news">News</a>
-            <a onclick="generateColorPalette()">Change Color Paletter</a>
-            <a onclick="toggleModal()">Add TimeLine</a>
-        </div>
-        <div id="main" class = "main">   
-            <div id="day-wrapper" class="day-wrapper"></div>
-            <div class="fade-group"></div>
-            <div id="time-divider" class="schedule-timeline-group"></div>
-            <div id="property-menu" class="blak">
-                <span>Class Number:</span>
-                <select name="cars" id="cars">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
-                <span>Class Type:</span>
-                <select class="">
-                    <option value="NormalClass">Normal Class</option>
-                    <option value="LabClass">Lab Class</option>
-                    <option value="Notice">Notice</option>
-                    <option value="Info">Info</option>
-                  </select>
-                <span>About:</span><input type="text">
+      <div class="topnav">
+        <a class="active" href="">Home</a>
+        <a href="#news">News</a>
+        <a onclick="generateColorPalette()">Change Color Paletter</a>
+        <a onclick="toggleModal()">Add TimeLine</a>
+      </div>
+      <div id="main" class="main">
+        <div id="day-wrapper" class="day-wrapper"></div>
+        <div class="fade-group"></div>
+        <div id="time-divider" class="schedule-timeline-group"></div>
+        <div id="property-menu" class="blak">
+          <div class="cl-box">
+            <span>Class Number:</span>
+            <div class="k">
+              <input
+              value="1"
+                type="number"
+                id="class-number"
+                name="quantity"
+                min="1"
+                max="5"
+              />
+              <div class="counter-btn">
+                <div id="class-number-up" class="btn">+</div>
+                <div id="class-number-down" class="btn">-</div>
+              </div>
             </div>
+          </div>
+          <div class="dropdown">
+            <div class="select">
+              <span>Class Type:</span>
+              <div class="e">
+                <span class="selected">Normal Class</span>
+                <div class="caret"></div>
+              </div>
+            </div>
+            <ul class="menu">
+              <li class="active">Normal Class</li>
+              <li>Lab Class</li>
+              <li>Notice</li>
+              <li>Info</li>
+            </ul>
+          </div>
+          <span>About:</span><input type="text" />
         </div>
+      </div>
     </section>
     <div id="context-menu" class="cm">
-        <div id="menuItemCut" onclick="onContextCut()" class="item">Cut</div>
-        <div id="menuItemCopy" onclick="onContextCopy()" class="item">Copy</div>
-        <div id="menuItemPasteBefore" onclick="onContextPasteBefore()" class="item">Paste Before</div>
-        <div id="menuItemPasteAfter" onclick="onContextPasteAfter()" class="item">Paste After</div>
-        <div id="menuAdderPaste" onclick="onContextPasteBefore()" class="item">Paste</div>
-        <div id="menuItemDelete" onclick="onContextDelete()" class="item red">Delete</div>
-        <div id="menuItemPreference" onclick="onContextPreference()" class="item disable">Preferences</div>
+      <div id="menuItemCut" onclick="onContextCut()" class="item">Cut</div>
+      <div id="menuItemCopy" onclick="onContextCopy()" class="item">Copy</div>
+      <div
+        id="menuItemPasteBefore"
+        onclick="onContextPasteBefore()"
+        class="item"
+      >
+        Paste Before
+      </div>
+      <div id="menuItemPasteAfter" onclick="onContextPasteAfter()" class="item">
+        Paste After
+      </div>
+      <div id="menuAdderPaste" onclick="onContextPasteBefore()" class="item">
+        Paste
+      </div>
+      <div id="menuItemDelete" onclick="onContextDelete()" class="item red">
+        Delete
+      </div>
+      <div
+        id="menuItemPreference"
+        onclick="onContextPreference()"
+        class="item disable"
+      >
+        Preferences
+      </div>
     </div>
-    <div class="modal ">
-        <div class="modal-content">
-            <div class="box-content">
-                <a>Add Time </a>
-                <input id="time-adder-text" type="time">
-            </div>
-            <div class="btn-group">
-                <span id="modal-ok-btn" class="button disable">Ok</span>
-                <span id="modal-cancel-btn" class="button">Cancel</span>
-            </div>
+    <div class="modal">
+      <div class="modal-content">
+        <div class="box-content">
+          <a>Add Time </a>
+          <input id="time-adder-text" type="time" />
         </div>
+        <div class="btn-group">
+          <span id="modal-ok-btn" class="button disable">Ok</span>
+          <span id="modal-cancel-btn" class="button">Cancel</span>
+        </div>
+      </div>
     </div>
     <section class="small-screen-warning">
-        <p class="smallscreen">Sorry, your screen is too small for this. Try a tablet or computer! <br/> If your device is big enough, make sure it is in landscape mode!</p>
+      <p class="smallscreen">
+        Sorry, your screen is too small for this. Try a tablet or computer!
+        <br />
+        If your device is big enough, make sure it is in landscape mode!
+      </p>
     </section>
-</body>
-<script src="script/contextMenu.js"></script>
-<script src="script/utils.js"></script>
-<script src="script/db.js"></script>
-<script src="script/EventPlacer.js"></script>
-<script src="script/EventManagement.js"></script>
-<script src="script/Table.js"></script>
+  </body>
+  <script src="script/contextMenu.js"></script>
+  <script src="script/utils.js"></script>
+  <script src="script/db.js"></script>
+  <script src="script/EventPlacer.js"></script>
+  <script src="script/EventManagement.js"></script>
+  <script src="script/Table.js"></script>
+  <script src="script/propertyMenu.js"></script>
 </html>

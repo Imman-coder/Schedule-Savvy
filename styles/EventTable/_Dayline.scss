@@ -37,45 +37,46 @@
                 user-select: none;
                 cursor: pointer;
 
-                .plus {
-                    background-color: #ffffff25;
-                    font-size: 33px;
-                    align-items: normal;
-                    cursor: pointer;
 
-                    &:hover {
-                        background-color: #ffffff4d;
-                    }
+            }
+
+            .caret {
+                &::after {
+                    z-index: 2;
+                    position: absolute;
+                    left: -2.7px;
+                    content: "";
+                    width: 2px;
+                    height: inherit;
+                    background-color: #238d8d;
+
                 }
 
-                .active {
-                    border: 2px solid $sel-item-fg;
-                    /* box-shadow:0px 0px 2px 2px black ; */
+                &::before {
+                    z-index: 2;
+                    position: absolute;
+                    left: -5.6px;
+                    bottom: 0;
+                    content: "";
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background-color: #61eee7;
                 }
+            }
 
-                .caret {
-                    &::after {
-                        z-index: 2;
-                        position: absolute;
-                        left: -2.7px;
-                        content: "";
-                        width: 2px;
-                        height: inherit;
-                        background-color: #238d8d;
+            .active {
+                border: 2px solid $sel-item-fg;
+            }
 
-                    }
+            .plus {
+                background-color: #ffffff25;
+                font-size: 33px;
+                align-items: normal;
+                cursor: pointer;
 
-                    &::before {
-                        z-index: 2;
-                        position: absolute;
-                        left: -5.6px;
-                        bottom: 0;
-                        content: "";
-                        width: 7px;
-                        height: 7px;
-                        border-radius: 50%;
-                        background-color: #61eee7;
-                    }
+                &:hover {
+                    background-color: #ffffff4d;
                 }
             }
         }

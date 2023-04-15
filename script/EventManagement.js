@@ -140,5 +140,3 @@ window.addEventListener("wheel", function (e) {
   else item.scrollLeft -= 10;
   placeEvents();
 });
-
-

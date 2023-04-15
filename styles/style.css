@@ -59,20 +59,7 @@
           user-select: none;
   cursor: pointer;
 }
-.day-wrapper .event-list .subcard-holder .subCard .plus {
-  background-color: rgba(255, 255, 255, 0.1450980392);
-  font-size: 33px;
-  align-items: normal;
-  cursor: pointer;
-}
-.day-wrapper .event-list .subcard-holder .subCard .plus:hover {
-  background-color: rgba(255, 255, 255, 0.3019607843);
-}
-.day-wrapper .event-list .subcard-holder .subCard .active {
-  border: 2px solid #d2d1d4;
-  /* box-shadow:0px 0px 2px 2px black ; */
-}
-.day-wrapper .event-list .subcard-holder .subCard .caret::after {
+.day-wrapper .event-list .subcard-holder .caret::after {
   z-index: 2;
   position: absolute;
   left: -2.7px;
@@ -81,7 +68,7 @@
   height: inherit;
   background-color: #238d8d;
 }
-.day-wrapper .event-list .subcard-holder .subCard .caret::before {
+.day-wrapper .event-list .subcard-holder .caret::before {
   z-index: 2;
   position: absolute;
   left: -5.6px;
@@ -91,6 +78,18 @@
   height: 7px;
   border-radius: 50%;
   background-color: #61eee7;
+}
+.day-wrapper .event-list .subcard-holder .active {
+  border: 2px solid #d2d1d4;
+}
+.day-wrapper .event-list .subcard-holder .plus {
+  background-color: rgba(255, 255, 255, 0.1450980392);
+  font-size: 33px;
+  align-items: normal;
+  cursor: pointer;
+}
+.day-wrapper .event-list .subcard-holder .plus:hover {
+  background-color: rgba(255, 255, 255, 0.3019607843);
 }
 
 .schedule-timeline-group {
@@ -140,6 +139,148 @@
 .main {
   display: flex;
   height: 100%;
+}
+
+.dropdown {
+  min-width: 15em;
+  position: relative;
+  margin: 5px;
+}
+
+.dropdown * {
+  box-sizing: border-box;
+}
+
+.select {
+  background: #2a2f3b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px #2a2f3b solid;
+  border-radius: 0.5em;
+  padding: 1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.select span:first-child {
+  color: rgba(255, 255, 255, 0.5215686275);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.select .e {
+  display: flex;
+  align-items: center;
+}
+.select .e span {
+  color: white;
+  margin-right: 12px;
+}
+.select .e .caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: 0.3s;
+}
+.select .e .caret-rotate {
+  transform: rotate(180deg);
+}
+.select:hover {
+  background: #323741;
+}
+
+.select-clicked {
+  border: 2px #323741 solid;
+  box-shadow: 0 0 0.8em #323741;
+  background: #323741;
+}
+
+.menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: #323741;
+  border: 1px #363a43 solid;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+  color: #9fa5b5;
+  position: absolute;
+  top: 3em;
+  right: 0%;
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
+}
+.menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+.menu li:hover {
+  background: #2a2d35;
+}
+
+.active {
+  background: #23242a;
+}
+
+.menu-open {
+  display: block;
+  opacity: 1;
+}
+
+.cl-box {
+  background: #2a2f3b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px #2a2f3b solid;
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 5px;
+}
+.cl-box span:first-child {
+  color: rgba(255, 255, 255, 0.5215686275);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.cl-box .k {
+  display: flex;
+  align-items: center;
+  height: 21px;
+}
+.cl-box .k input {
+  background-color: #2a2f3b;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: white;
+  height: 32px;
+}
+.cl-box .k input:focus {
+  outline: 0;
+}
+.cl-box .k input::-webkit-inner-spin-button, .cl-box .k input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.cl-box .k .counter-btn {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.cl-box .k .counter-btn .btn {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+.cl-box .k .counter-btn .btn:hover {
+  background-color: #323741;
 }
 
 .blak {
