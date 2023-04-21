@@ -1,0 +1,96 @@
+@import "mixins";
+
+
+.classDetails {
+    @include hv-Box();
+    flex-direction: column;
+    align-items: flex-start;
+
+    .inner-stack {
+
+        display: flex;
+
+        #close-btn {
+            display: none;
+            position: absolute;
+            // right: 10px;
+            // top: -12px;
+            right: 0px;
+            top: 0px;
+            transform: translate(40%,-40%);
+            background-color: $clr-body-bg-ascent-over;
+            width: 22px;
+            height: 22px;
+            text-align: center;
+            border-radius: 7px;
+            border: 1px solid white;
+            cursor: pointer;
+
+            &:hover {
+                background-color: tomato;
+            }
+        }
+
+
+        .inner {
+            margin: 15px;
+            position: relative;
+            margin-top: 15px;
+            max-width: 500px;
+            border-radius: 10px;
+            border: 1px solid white;
+            padding-left: 15px;
+
+            &:hover{
+                #close-btn {
+                    display: block;
+                }
+            }
+
+            &.shadow{
+                opacity: 30%;
+                transition: ease opacity .2s;
+
+                &:hover{
+                    opacity: 100%;
+                }
+                #close-btn {
+                    display: none;
+                }
+            }
+
+            &.hidden{
+                display: none;
+            }
+
+            .m {
+                display: flex;
+                align-items: center;
+                margin: 15px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                span {
+                    width: 104px;
+                }
+
+                input {
+                    @include ct-txtbx();
+                    height: fit-content;
+                }
+            }
+
+
+            .class-num {
+                position: absolute;
+                transform: rotateZ(-90deg) translate(-50%, -40%);
+                left: -5%;
+                background-color: $clr-body-bg-ascent-over;
+                border: 1px solid white;
+                border-radius: 10px;
+                padding: 5px;
+            }
+        }
+    }
+
+}

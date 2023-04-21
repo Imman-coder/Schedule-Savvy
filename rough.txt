@@ -1,5 +1,4 @@
-teachername
-subjectname
-subjectcode
-timeperiod{end,start}
+Event Timespan
 classtype
+classes
+color

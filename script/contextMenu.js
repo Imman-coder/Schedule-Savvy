@@ -86,7 +86,16 @@ function onContextPasteAfter() {
     drawTable();
 }
 function onContextDelete() {
-    subList[contextMenu.getAttribute("x")].splice(contextMenu.getAttribute("y"), 1);
+    var x = contextMenu.getAttribute("x"),
+        y = contextMenu.getAttribute("y"),
+        type = contextMenu.getAttribute("type");
+
+    if (type == "event") {
+        subList[x].splice(y, 1);
+    }
+    else if (type == "timeline") {
+        timeList.splice(x, 1);
+    }
     closeContextMenu();
     drawTable();
 }

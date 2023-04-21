@@ -1,6 +1,23 @@
 @import "../Global/theme";
 
+
+@mixin psudeo-badge($t) {
+
+    & .badge {
+        position: absolute;
+        background-color: #238d8d;
+        top: 0;
+        right: 0;
+        // transform: translate(-50%, -15%);
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 5px;
+    }
+}
+
+
 .day-wrapper {
+    z-index: 1;
     margin-top: 30px;
     margin-left: 15px;
 
@@ -37,6 +54,17 @@
                 user-select: none;
                 cursor: pointer;
 
+                &[type="1"] {
+                    @include psudeo-badge("L");
+                    border-top-right-radius: 5px;
+                }
+
+                &[type="2"] {
+                    @include psudeo-badge("N");
+                    border-top-right-radius: 5px;
+                }
+
+
 
             }
 
@@ -64,9 +92,17 @@
                     background-color: #61eee7;
                 }
             }
+            & .badge {
+                    transform: translate(-2px, 2px);
+                }
 
             .active {
                 border: 2px solid $sel-item-fg;
+
+
+                & .badge {
+                    transform: translate(0px, 0px);
+                }
             }
 
             .plus {

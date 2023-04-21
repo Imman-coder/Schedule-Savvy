@@ -11,7 +11,7 @@ function initListeners() {
     e.addEventListener("drop", onEventDropListner);
     e.addEventListener("dblclick", onEventDoubbleClick);
 
-    if (e.getAttribute("type") == "2") {
+    if (e.getAttribute("type") == "-1") {
       e.addEventListener("click", function () {
         console.log("ee");
       });
@@ -20,14 +20,47 @@ function initListeners() {
     else {
       e.addEventListener("contextmenu", onEventRightClick);
       e.addEventListener("click", function () {
-        if (!(active[0] == activeprev[0] && active[1] == activeprev[1])) {
-          activeprev = [active[0], active[1]];
+        // if (!(active[0] == activeprev[0] && active[1] == activeprev[1])) {
+        //   activeprev = [active[0], active[1]];
           active = [e.getAttribute('x'), e.getAttribute('y')];
+          onEventSelect();
           drawTable();
-        }
+        // }
       });
     }
   }
+
+  
+
+  for (let index = 0; index < timeLineItems.length; index++) {
+    const e = timeLineItems[index];
+    e.addEventListener("contextmenu",onTimelineRightClick)
+  }
+}
+
+function onTimelineRightClick(event){
+  event.preventDefault();
+
+  showMenuItems(
+    Cut = false,
+    Copy = false,
+    PasteAfter = false,
+    PasteBefore = false,
+    Delete = true,
+    Preference = false,
+    Paste = false,
+  );
+  enableMenuItems(
+    Cut = true,
+    Copy = true,
+    PasteAfter = typeof copiedEvent != "undefined",
+    PasteBefore = typeof copiedEvent != "undefined",
+    Delete = true,
+    Preference = true,
+    Paste = false,
+  );
+  contextMenu.setAttribute("type","timeline");
+  showContextMenu(event);
 }
 
 function onEventRightClick(event) {
@@ -51,6 +84,7 @@ function onEventRightClick(event) {
     Preference = true,
     Paste = false,
   );
+  contextMenu.setAttribute("type","event");
 
   showContextMenu(event);
 }
@@ -78,6 +112,7 @@ function onAdderRightClick(event) {
     Paste = typeof copiedEvent != "undefined",
   );
 
+  contextMenu.setAttribute("type","event-adder");
   showContextMenu(event);
 }
 

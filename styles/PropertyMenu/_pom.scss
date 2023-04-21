@@ -1,9 +1,59 @@
-@import "./_DropDown.scss";
+@import "DropDown";
+@import "ClassDetail";
+@import "../Global/mixins";
 
-.blak {
-    min-width: 250px;
-    z-index: 1;
-    flex: 20%;
-    height: inherit;
-    background-color: rgb(126, 126, 126);
+
+
+.property-menu-stack {
+    display: flex;
+    flex-grow: 1;
+    
+
+    .event-properties {
+        padding: 5px;
+        @include d-shape();
+        margin: 0px 5px 5px 5px;
+        background-color: $clr-body-bg-ascent;
+        flex-grow: 1;
+    }
+
+    .debug-window {
+        width: 25%;
+        margin: 0px 5px 5px 0px;
+        padding: 5px;
+        @include d-shape();
+        background-color: $clr-body-bg-ascent;
+
+        span {
+            color: $clr-text-fg-accent;
+            user-select: none;
+            text-align: left;
+        }
+
+        .json-view {
+            @include d-shape();
+            background-color: $clr-body-bg-ascent-over;
+            width: 90%;
+            height: 85%;
+            margin: auto;
+            color: $clr-text-fg-accent;
+
+            .heading{
+                user-select: none;
+                position: absolute;
+                transform: translate(-52%,130%) rotateZ(-90deg);
+            }
+
+            #json-text{
+                overflow: hidden;
+            }
+        }
+
+        &.hidden{
+            display: none;
+        }
+
+    }
+
+
 }

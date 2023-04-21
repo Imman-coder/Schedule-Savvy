@@ -1,35 +1,22 @@
+@import "mixins";
+
+$hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
+
+
 .dropdown {
     min-width: 15em;
     position: relative;
-    margin: 5px;
 }
 
 .dropdown * {
     box-sizing: border-box;
 }
 
-@mixin hv-Box() {
-
-    background: #2a2f3b;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px #2a2f3b solid;
-    border-radius: 0.5em;
-    padding: 1em;
-
-    span:first-child {
-        color: #ffffff85;
-        user-select: none;
-    }
-}
-
 
 .select {
     @include hv-Box;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.2s;
 
 
     .e {
@@ -56,15 +43,15 @@
     }
 
     &:hover {
-        background: #323741;
+        background-color:$hover-ascent;
     }
 }
 
 .select-clicked {
     border: 2px #323741 solid;
-    // box-shadow: 0 0 0.8em #26489a;
     box-shadow: 0 0 0.8em #323741;
-    background: #323741;
+    // background: #323741;
+    background-color:$hover-ascent;
 }
 
 
@@ -73,7 +60,8 @@
 .menu {
     list-style: none;
     padding: 0.2em 0.5em;
-    background: #323741;
+    // background: #323741;
+    background-color:$hover-ascent;
     border: 1px #363a43 solid;
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
     border-radius: 0.5em;
@@ -81,11 +69,9 @@
     position: absolute;
     top: 3em;
     right: 0%;
-    // width: 100%;
-    // transform: translateX(-50%);
     opacity: 0;
     display: none;
-    transition: 0.2s;
+    // transition: 0.2s;
     z-index: 1;
 
     li {
@@ -95,7 +81,7 @@
         cursor: pointer;
 
         &:hover {
-            background: #2a2d35;
+            background-color:$clr-body-bg-ascent-over;
         }
     }
 }
@@ -113,7 +99,6 @@
 .cl-box {
     @include hv-Box();
 
-    margin: 5px;
 
     .k {
         display: flex;
@@ -123,24 +108,7 @@
 
 
         input {
-            background-color: #2a2f3b;
-            // border: none;
-            // border: 1px solid white;
-            border-radius: 5px;
-            margin-right: 10px;
-            color: white;
-            height: 32px;
-            // width: 15px;
-
-            &:focus {
-                outline: 0;
-            }
-
-            &::-webkit-inner-spin-button,
-            &::-webkit-outer-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
+            @include ct-txtbx();
         }
 
         .counter-btn {
@@ -150,9 +118,14 @@
                 height: 20px;
                 width: 20px;
                 cursor: pointer;
+                display:flex;
+                justify-content: center;
+                align-items: end;
 
                 &:hover {
-                    background-color: #323741;
+                    background-color:$hover-ascent;
+                    transition: background 0.2s;
+                    border-radius: 5px;
                 }
             }
         }

@@ -1,7 +1,12 @@
+@import "../Global/mixins";
+
+
 .topnav {
     background-color: #2a2b2e;
     overflow: hidden;
     padding: 14px 16px 14px 8px;
+    @include d-shape();
+    margin: 5px;
 
     a {
         border-radius: 18px;

@@ -11,8 +11,9 @@
   <body>
     <section class="content">
       <div class="topnav">
-        <a class="active" href="">Home</a>
-        <a href="#news">News</a>
+        <a onclick="javascript:saveAs(new Blob([JSON.stringify(sJson,undefined,'\t')], {type: 'application/json'}))">Download</a>
+        <a onclick="javascript:document.getElementById('myfile').click()"> <input type="file" accept="application/json" name="myfile" id="myfile" style="display:none;">Upload</a>
+        <a onclick="javascript:document.getElementsByClassName('debug-window')[0].classList.toggle('hidden')">Toggle Debug Menu</a>
         <a onclick="generateColorPalette()">Change Color Paletter</a>
         <a onclick="toggleModal()">Add TimeLine</a>
       </div>
@@ -20,17 +21,20 @@
         <div id="day-wrapper" class="day-wrapper"></div>
         <div class="fade-group"></div>
         <div id="time-divider" class="schedule-timeline-group"></div>
-        <div id="property-menu" class="blak">
+      </div>
+      <div id="property-menu" class="property-menu-stack">
+        <div class="event-properties">
           <div class="cl-box">
-            <span>Class Number:</span>
+            <span>Class Timespan:</span>
             <div class="k">
               <input
-              value="1"
+                value="1"
                 type="number"
-                id="class-number"
+                id="class-timespan"
                 name="quantity"
                 min="1"
-                max="5"
+                max="4"
+                oninput="javascript:onClassTimespanRange()"
               />
               <div class="counter-btn">
                 <div id="class-number-up" class="btn">+</div>
@@ -42,18 +46,80 @@
             <div class="select">
               <span>Class Type:</span>
               <div class="e">
-                <span class="selected">Normal Class</span>
+                <span class="selected">Theory Class</span>
                 <div class="caret"></div>
               </div>
             </div>
             <ul class="menu">
-              <li class="active">Normal Class</li>
+              <li class="active">Theory Class</li>
               <li>Lab Class</li>
               <li>Notice</li>
-              <li>Info</li>
             </ul>
           </div>
-          <span>About:</span><input type="text" />
+          <div class="classDetails">
+            <span>Class Details:</span>
+            <div class="inner-stack">
+              <div class="inner shadow">
+                <div onclick="onClassBlockDelete(0)" id="close-btn"><span>X</span></div>
+                <span class="class-num">Class 1</span>
+                <div class="m">
+                  <span>Teacher Name:</span>
+                  <input type="text" name="teacherName" id="teacherName" oninput="javascript:onClassBlockTextChange()" placeholder="Prof. Neelam Patel(NP)"/>
+                </div>
+                <div class="m">
+                  <span>Subjct Code:</span>
+                  <input type="text" name="SubjectCode" id="SubjectCode" oninput="javascript:onClassBlockTextChange()" placeholder="PRG101"/>
+                </div>
+                <div class="m">
+                  <span>Subjct Name:</span>
+                  <input type="text" name="SubjectName" id="subjectName" oninput="javascript:onClassBlockTextChange()" placeholder="Programmin in C(PC)"/>
+                </div>
+              </div>
+              <div class="inner shadow">
+                <div onclick="javascript:onClassBlockDelete(1)" id="close-btn"><span>X</span></div>
+                <span class="class-num">Class 2</span>
+                <div class="m">
+                  <span>Teacher Name:</span>
+                  <input type="text" name="TeacherName" id="teacherName" oninput="javascript:onClassBlockTextChange()" placeholder="Prof. Neelam Patel(NP)"/>
+                </div>
+                <div class="m">
+                  <span>Subjct Code:</span>
+                  <input type="text" name="SubjectCode" id="subjectCode" oninput="javascript:onClassBlockTextChange()" placeholder="PRG101"/>
+                </div>
+                <div class="m">
+                  <span>Subjct Name:</span>
+                  <input type="text" name="SubjectName" id="subjectName" oninput="javascript:onClassBlockTextChange()" placeholder="Programmin in C(PC)"/>
+                </div>
+              </div>
+              <div class="inner shadow">
+                <div oncanplay="" id="close-btn"><span>X</span></div>
+                <div onclick="javascript:onClassBlockDelete(2)" id="close-btn"><span>X</span></div>
+                <span class="class-num">Class 3</span>
+                <div class="m">
+                  <span>Teacher Name:</span>
+                  <input type="text" name="TeacherName" id="teacherName" oninput="javascript:onClassBlockTextChange()" placeholder="Prof. Neelam Patel(NP)"/>
+                </div>
+                <div class="m">
+                  <span>Subjct Code:</span>
+                  <input type="text" name="SubjectCode" id="subjectCode" oninput="javascript:onClassBlockTextChange()" placeholder="PRG101"/>
+                </div>
+                <div class="m">
+                  <span>Subjct Name:</span>
+                  <input type="text" name="SubjectName" id="subjectName" oninput="javascript:onClassBlockTextChange()" placeholder="Programmin in C(PC)"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="debug-window">
+          <span class="heading">Debug View</span>
+          <br />
+          <span>selected : <span id="Selected-event"></span> </span>
+          <br />
+          <div class="json-view">
+            <div class="heading">JSON</div>
+            <pre id="json-text"></pre>
+          </div>
         </div>
       </div>
     </section>
@@ -111,4 +177,5 @@
   <script src="script/EventManagement.js"></script>
   <script src="script/Table.js"></script>
   <script src="script/propertyMenu.js"></script>
+  <script src="script/FileSaver.js"></script>
 </html>

@@ -1,11 +1,11 @@
 .schedule-timeline-group {
-    z-index: -1;
     overflow-x: hidden;
     padding-left: 32px;
     display: flex;
     flex: 80%;
 
     .schedule-timeline {
+        user-select: none;
         display: flex;
         position: relative;
         justify-content: flex-start;
