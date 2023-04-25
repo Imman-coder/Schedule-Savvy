@@ -48,7 +48,7 @@ function drawTable() {
             // if (n > timeList.length - 2)
             //     break;
 
-            if (j == subList[i].length) {
+            if (j == subList[i].length ) {
                 k += `<div type="-1" x="` + i + `" y="` + j + `" time-span ="1" class="subCard plus">+</div>`;
             }
             else {
@@ -89,79 +89,16 @@ function drawTable() {
         singleEvents = document.getElementsByClassName("subCard"),
         timeLineItems = document.getElementsByClassName("schedule-timeline"),
         timeDayItems = document.getElementsByClassName("dayCard"),
-        timeLineStart = timeLineItems[0].getBoundingClientRect().x;
+        timeLineStart = timeLineItems[0]?.getBoundingClientRect().x||150;
     placeEvents();
     initListeners();
 }
 
 
-function sortTimeList() {
-    timeList.sort((a, b) => {
-        return timeToInt(a) > timeToInt(b) ? 1 : -1;
-    })
-}
-
 function addTimeLineStamp(time) {
     timeList.push(time)
     sortTimeList();
     drawTable();
+    if(timeList.length==1) timeLineStart = timeLineItems[0].getBoundingClientRect().x;
 }
-
-function test() {
-    var k = [];
-    timeList.map((x) => { k.push(timeToInt(x).toString()) })
-    console.log(k);
-}
-
-/*---------------------Color Palette-----------------------------*/
-
-
-// helper function to calculate color difference
-function colorDiff(color1, color2) {
-    const r1 = parseInt(color1.substring(1, 3), 16);
-    const g1 = parseInt(color1.substring(3, 5), 16);
-    const b1 = parseInt(color1.substring(5, 7), 16);
-    const r2 = parseInt(color2.substring(1, 3), 16);
-    const g2 = parseInt(color2.substring(3, 5), 16);
-    const b2 = parseInt(color2.substring(5, 7), 16);
-    return Math.sqrt(Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2));
-}
-
-function generateColorPalette() {
-    colorTable = [];
-
-    for (let i = 0; i < 10; i++) {
-        let color = '';
-        let bgDiff = 0;
-        let textDiff = 0;
-
-        // keep generating colors until one that complements the background and text is found
-        while (bgDiff < 150 || textDiff < 150) {
-            // generate a random color in hex format
-            color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-
-            // check if the color complements the background and text colors
-            bgDiff = colorDiff(color, backgroundColor);
-            textDiff = colorDiff(color, textColor);
-        }
-
-        // add the color to the array
-        colorTable.push(color);
-    }
-    drawTable();
-}
-
-
-/*---------------------------Associate Id Generater------------------------------*/
-
-function generateAssociateId() {
-    var id = 0;
-    do {
-        id = parseInt(1 + (Math.random() * 999));
-    } while (typeof subList[id.toString()] != 'undefined');
-
-    return id;
-}
-
-
 

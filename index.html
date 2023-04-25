@@ -24,92 +24,6 @@
       </div>
       <div id="property-menu" class="property-menu-stack">
         <div class="event-properties">
-          <div class="cl-box">
-            <span>Class Timespan:</span>
-            <div class="k">
-              <input
-                value="1"
-                type="number"
-                id="class-timespan"
-                name="quantity"
-                min="1"
-                max="4"
-                oninput="javascript:onClassTimespanRange()"
-              />
-              <div class="counter-btn">
-                <div id="class-number-up" class="btn">+</div>
-                <div id="class-number-down" class="btn">-</div>
-              </div>
-            </div>
-          </div>
-          <div class="dropdown">
-            <div class="select">
-              <span>Class Type:</span>
-              <div class="e">
-                <span class="selected">Theory Class</span>
-                <div class="caret"></div>
-              </div>
-            </div>
-            <ul class="menu">
-              <li class="active">Theory Class</li>
-              <li>Lab Class</li>
-              <li>Notice</li>
-            </ul>
-          </div>
-          <div class="classDetails">
-            <span>Class Details:</span>
-            <div class="inner-stack">
-              <div class="inner shadow">
-                <div onclick="onClassBlockDelete(0)" id="close-btn"><span>X</span></div>
-                <span class="class-num">Class 1</span>
-                <div class="m">
-                  <span>Teacher Name:</span>
-                  <input type="text" name="teacherName" id="teacherName" oninput="javascript:onClassBlockTextChange()" placeholder="Prof. Neelam Patel(NP)"/>
-                </div>
-                <div class="m">
-                  <span>Subjct Code:</span>
-                  <input type="text" name="SubjectCode" id="SubjectCode" oninput="javascript:onClassBlockTextChange()" placeholder="PRG101"/>
-                </div>
-                <div class="m">
-                  <span>Subjct Name:</span>
-                  <input type="text" name="SubjectName" id="subjectName" oninput="javascript:onClassBlockTextChange()" placeholder="Programmin in C(PC)"/>
-                </div>
-              </div>
-              <div class="inner shadow">
-                <div onclick="javascript:onClassBlockDelete(1)" id="close-btn"><span>X</span></div>
-                <span class="class-num">Class 2</span>
-                <div class="m">
-                  <span>Teacher Name:</span>
-                  <input type="text" name="TeacherName" id="teacherName" oninput="javascript:onClassBlockTextChange()" placeholder="Prof. Neelam Patel(NP)"/>
-                </div>
-                <div class="m">
-                  <span>Subjct Code:</span>
-                  <input type="text" name="SubjectCode" id="subjectCode" oninput="javascript:onClassBlockTextChange()" placeholder="PRG101"/>
-                </div>
-                <div class="m">
-                  <span>Subjct Name:</span>
-                  <input type="text" name="SubjectName" id="subjectName" oninput="javascript:onClassBlockTextChange()" placeholder="Programmin in C(PC)"/>
-                </div>
-              </div>
-              <div class="inner shadow">
-                <div oncanplay="" id="close-btn"><span>X</span></div>
-                <div onclick="javascript:onClassBlockDelete(2)" id="close-btn"><span>X</span></div>
-                <span class="class-num">Class 3</span>
-                <div class="m">
-                  <span>Teacher Name:</span>
-                  <input type="text" name="TeacherName" id="teacherName" oninput="javascript:onClassBlockTextChange()" placeholder="Prof. Neelam Patel(NP)"/>
-                </div>
-                <div class="m">
-                  <span>Subjct Code:</span>
-                  <input type="text" name="SubjectCode" id="subjectCode" oninput="javascript:onClassBlockTextChange()" placeholder="PRG101"/>
-                </div>
-                <div class="m">
-                  <span>Subjct Name:</span>
-                  <input type="text" name="SubjectName" id="subjectName" oninput="javascript:onClassBlockTextChange()" placeholder="Programmin in C(PC)"/>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="debug-window">
           <span class="heading">Debug View</span>
@@ -124,31 +38,6 @@
       </div>
     </section>
     <div id="context-menu" class="cm">
-      <div id="menuItemCut" onclick="onContextCut()" class="item">Cut</div>
-      <div id="menuItemCopy" onclick="onContextCopy()" class="item">Copy</div>
-      <div
-        id="menuItemPasteBefore"
-        onclick="onContextPasteBefore()"
-        class="item"
-      >
-        Paste Before
-      </div>
-      <div id="menuItemPasteAfter" onclick="onContextPasteAfter()" class="item">
-        Paste After
-      </div>
-      <div id="menuAdderPaste" onclick="onContextPasteBefore()" class="item">
-        Paste
-      </div>
-      <div id="menuItemDelete" onclick="onContextDelete()" class="item red">
-        Delete
-      </div>
-      <div
-        id="menuItemPreference"
-        onclick="onContextPreference()"
-        class="item disable"
-      >
-        Preferences
-      </div>
     </div>
     <div class="modal">
       <div class="modal-content">
@@ -170,6 +59,7 @@
       </p>
     </section>
   </body>
+  <script src="script/preference.js"></script>
   <script src="script/contextMenu.js"></script>
   <script src="script/utils.js"></script>
   <script src="script/db.js"></script>

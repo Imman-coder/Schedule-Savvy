@@ -1,5 +1,15 @@
 const contextMenu = document.getElementById("context-menu"),
-    menuItemCut = document.getElementById("menuItemCut"),
+    contextItemCut = 0,
+    contextItemCopy = 1,
+    contextItemPasteBefore = 2,
+    contextItemPasteAfter = 3,
+    contextItemPaste = 4,
+    contextItemDelete = 5,
+    contextItemPreference = 6,
+    contextItemAddTimeline = 7;
+injectContextMenu();
+
+const menuItemCut = document.getElementById("menuItemCut"),
     menuItemCopy = document.getElementById("menuItemCopy"),
     menuItemPasteBefore = document.getElementById("menuItemPasteBefore"),
     menuItemPasteAfter = document.getElementById("menuItemPasteAfter"),
@@ -7,31 +17,10 @@ const contextMenu = document.getElementById("context-menu"),
     menuItemPreference = document.getElementById("menuItemPreference"),
     menuItemPaste = document.getElementById("menuAdderPaste");
 
+const contextMenuItems = contextMenu.getElementsByClassName("item");
 
 
-function showContextMenu(event) {
-    const contextMenu = document.getElementById("context-menu");
 
-    const { clientX: mouseX, clientY: mouseY } = event;
-
-    const { normalizedX, normalizedY } = normalizePozition(mouseX, mouseY);
-
-    contextMenu.classList.remove("visible");
-
-    contextMenu.style.top = `${normalizedY}px`;
-    contextMenu.style.left = `${normalizedX}px`;
-
-    const rx = event.target.getAttribute("x"),
-        ry = event.target.getAttribute("y");
-
-    contextMenu.setAttribute("x", rx);
-    contextMenu.setAttribute("y", ry);
-
-    setTimeout(() => {
-        contextMenu.classList.add("visible");
-    });
-
-}
 
 
 function closeContextMenu() {
@@ -108,53 +97,107 @@ function onContextPreference() {
 
 /*--------------Hide/Show Menu Items-------------*/
 
-function showMenuItem(item, e = true) {
-    if (e)
+function showMenuItem(item) {
         item.classList.remove("hide");
-    else
-        item.classList.add("hide");
 }
-
-function hideMenuHelper(item, e) {
-    if (typeof item == "number") return;
-    else showMenuItem(item, e);
+function hideAllMenuItems(){
+    for (let index = 0; index < contextMenuItems.length; index++) {
+        contextMenuItems[index].classList.add("hide");
+    }
 }
-
-function showMenuItems(Cut = 3, Copy = 3, PasteAfter = 3, PasteBefore = 3, Delete = 3, Preference = 3, Paste = 3) {
-    hideMenuHelper(menuItemCut, Cut);
-    hideMenuHelper(menuItemCopy, Copy);
-    hideMenuHelper(menuItemPasteAfter, PasteAfter);
-    hideMenuHelper(menuItemPasteBefore, PasteBefore);
-    hideMenuHelper(menuItemDelete, Delete);
-    hideMenuHelper(menuItemPreference, Preference);
-    hideMenuHelper(menuItemPreference, Preference);
-    hideMenuHelper(menuItemPaste, Paste);
-}
-
 
 
 /*------------Disable/Enable Menu Items---------------*/
-function enableMenuItem(item, e = true) {
-    if (e)
-        item.classList.remove("disable");
-    else
-        item.classList.add("disable");
+function enableMenuItem(item) {
+    item.classList.remove("disable");
 }
 
-function enableMenuHelper(item, e) {
-    if (typeof item == "number") return;
-    else enableMenuItem(item, e);
+function disableAllMenuItem(){
+    for (let index = 0; index < contextMenuItems.length; index++) {
+        contextMenuItems[index].classList.add("disable");
+    }
 }
 
-function enableMenuItems(Cut = 3, Copy = 3, PasteAfter = 3, PasteBefore = 3, Delete = 3, Preference = 3, Paste = 3) {
-    enableMenuHelper(menuItemCut, Cut);
-    enableMenuHelper(menuItemCopy, Copy);
-    enableMenuHelper(menuItemPasteAfter, PasteAfter);
-    enableMenuHelper(menuItemPasteBefore, PasteBefore);
-    enableMenuHelper(menuItemDelete, Delete);
-    enableMenuHelper(menuItemPreference, Preference);
-    enableMenuHelper(menuItemPaste, Paste);
+
+/*-------------------Show Context Menu-------------------*/
+function showContextMenu(event,type,showOptions,enableOptions){
+    hideAllMenuItems();
+    disableAllMenuItem();
+    contextMenu.setAttribute("type", type);
+    for (let index = 0; index < showOptions.length; index++) {
+        const element = showOptions[index];
+        showMenuItem(contextMenuItems[element]);
+    }
+    for (let index = 0; index < enableOptions.length; index++) {
+        const element = enableOptions[index];
+        enableMenuItem(contextMenuItems[element]);
+    }
+
+    const { clientX: mouseX, clientY: mouseY } = event;
+
+    const { normalizedX, normalizedY } = normalizePozition(mouseX, mouseY);
+
+    contextMenu.classList.remove("visible");
+
+    contextMenu.style.top = `${normalizedY}px`;
+    contextMenu.style.left = `${normalizedX}px`;
+
+    const rx = event.target.getAttribute("x"),
+        ry = event.target.getAttribute("y");
+
+    contextMenu.setAttribute("x", rx);
+    contextMenu.setAttribute("y", ry);
+
+    setTimeout(() => {
+        contextMenu.classList.add("visible");
+    });
 }
+
+
+
+
+/*--------------Context Menu Injector----------------------*/
+
+function injectContextMenu(){
+    contextMenu.innerHTML=`
+    <div id="menuItemCut" onclick="onContextCut()" class="item">Cut</div>
+    <div id="menuItemCopy" onclick="onContextCopy()" class="item">Copy</div>
+    <div
+      id="menuItemPasteBefore"
+      onclick="onContextPasteBefore()"
+      class="item"
+    >
+      Paste Before
+    </div>
+    <div id="menuItemPasteAfter" onclick="onContextPasteAfter()" class="item">
+      Paste After
+    </div>
+    <div id="menuAdderPaste" onclick="onContextPasteBefore()" class="item">
+      Paste
+    </div>
+    <div id="menuItemDelete" onclick="onContextDelete()" class="item red">
+      Delete
+    </div>
+    <div
+      id="menuItemPreference"
+      onclick="onContextPreference()"
+      class="item disable"
+    >
+      Preferences
+    </div>`;
+}
+
+function contextMenuHookInjector(){
+    
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -177,7 +220,7 @@ function windowOnClick(event) {
 }
 
 function okBtnClick() {
-    addTimeLineStamp(formatTime(modalTextBox.value));
+    addTimeLineStamp(timeToInt( formatTime(modalTextBox.value)));
     modalTextBox.value = '';
     validateModalBox();
     toggleModal();
@@ -200,4 +243,3 @@ function validateModalBox() {
 modalTextBox.addEventListener("change", () => {
     validateModalBox();
 })
-

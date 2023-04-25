@@ -1,6 +1,5 @@
 var copiedEvent;
 
-
 function initListeners() {
   for (var i = 0; i < this.singleEvents.length; i++) {
     const e = singleEvents[i];
@@ -12,111 +11,69 @@ function initListeners() {
     e.addEventListener("dblclick", onEventDoubbleClick);
 
     if (e.getAttribute("type") == "-1") {
-      e.addEventListener("click", function () {
-        console.log("ee");
-      });
+      e.addEventListener("click", addNewEventListener);
       e.addEventListener("contextmenu", onAdderRightClick);
-    }
-    else {
+    } else {
       e.addEventListener("contextmenu", onEventRightClick);
       e.addEventListener("click", function () {
-        // if (!(active[0] == activeprev[0] && active[1] == activeprev[1])) {
-        //   activeprev = [active[0], active[1]];
-          active = [e.getAttribute('x'), e.getAttribute('y')];
-          onEventSelect();
-          drawTable();
-        // }
+        active = [e.getAttribute("x"), e.getAttribute("y")];
+        onEventSelect();
+        drawTable();
       });
     }
   }
-
-  
 
   for (let index = 0; index < timeLineItems.length; index++) {
     const e = timeLineItems[index];
-    e.addEventListener("contextmenu",onTimelineRightClick)
+    e.addEventListener("contextmenu", onTimelineRightClick);
   }
 }
 
-function onTimelineRightClick(event){
+function onTimelineRightClick(event) {
   event.preventDefault();
-
-  showMenuItems(
-    Cut = false,
-    Copy = false,
-    PasteAfter = false,
-    PasteBefore = false,
-    Delete = true,
-    Preference = false,
-    Paste = false,
-  );
-  enableMenuItems(
-    Cut = true,
-    Copy = true,
-    PasteAfter = typeof copiedEvent != "undefined",
-    PasteBefore = typeof copiedEvent != "undefined",
-    Delete = true,
-    Preference = true,
-    Paste = false,
-  );
-  contextMenu.setAttribute("type","timeline");
-  showContextMenu(event);
+  showContextMenu(event, "timeline", [contextItemDelete], [contextItemDelete]);
 }
 
 function onEventRightClick(event) {
   event.preventDefault();
-
-  showMenuItems(
-    Cut = true,
-    Copy = true,
-    PasteAfter = true,
-    PasteBefore = true,
-    Delete = true,
-    Preference = false,
-    Paste = false,
-  );
-  enableMenuItems(
-    Cut = true,
-    Copy = true,
-    PasteAfter = typeof copiedEvent != "undefined",
-    PasteBefore = typeof copiedEvent != "undefined",
-    Delete = true,
-    Preference = true,
-    Paste = false,
-  );
-  contextMenu.setAttribute("type","event");
-
-  showContextMenu(event);
+  if (typeof copiedEvent != "undefined")
+    showContextMenu(
+      event,
+      "event",
+      [
+        contextItemCut,
+        contextItemCopy,
+        contextItemPasteAfter,
+        contextItemPasteBefore,
+        contextItemDelete,
+      ],
+      [
+        contextItemCut,
+        contextItemCopy,
+        contextItemPasteAfter,
+        contextItemPasteBefore,
+        contextItemDelete,
+      ]
+    );
+  else
+    showContextMenu(
+      event,
+      "event",
+      [
+        contextItemCut,
+        contextItemCopy,
+        contextItemPasteAfter,
+        contextItemPasteBefore,
+        contextItemDelete,
+      ],
+      [contextItemCut, contextItemCopy, contextItemDelete]
+    );
 }
-
 
 function onAdderRightClick(event) {
   event.preventDefault();
-
-  showMenuItems(
-    Cut = false,
-    Copy = false,
-    PasteAfter = false,
-    PasteBefore = false,
-    Delete = false,
-    Preference = false,
-    Paste = true,
-  );
-  enableMenuItems(
-    Cut = true,
-    Copy = true,
-    PasteAfter = false,
-    PasteBefore = false,
-    Delete = true,
-    Preference = true,
-    Paste = typeof copiedEvent != "undefined",
-  );
-
-  contextMenu.setAttribute("type","event-adder");
-  showContextMenu(event);
+  showContextMenu(event, "event-adder", [contextItemPaste], [contextItemPaste]);
 }
-
-
 
 function onEventDoubbleClick(event) {
   event.preventDefault();
@@ -124,13 +81,15 @@ function onEventDoubbleClick(event) {
   activeprev = [-1, -1];
   console.log(active, activeprev);
   drawTable();
-  console.log("double clicked!")
+  console.log("double clicked!");
 }
 
 function onEventDragListner(event) {
-
   const e = event.target;
-  event.dataTransfer.setData("data", [e.getAttribute('x'), e.getAttribute('y')]);
+  event.dataTransfer.setData("data", [
+    e.getAttribute("x"),
+    e.getAttribute("y"),
+  ]);
 }
 
 function onEventDragEnterListner(event) {
@@ -140,9 +99,11 @@ function onEventDragEnterListner(event) {
 function onEventDragLeaveListner(event) {
   event.target.classList.remove("caret");
 }
+
 function onEventDragOverListner(event) {
   event.preventDefault();
 }
+
 function onEventDropListner(event) {
   event.preventDefault();
   event.target.classList.remove("caret");
@@ -153,25 +114,24 @@ function onEventDropListner(event) {
     ry = event.target.getAttribute("y");
 
   var delItem;
-  if (event.ctrlKey)
-    delItem = subList[sx][sy];
-  else
-    delItem = subList[sx].splice(sy, 1)[0];
+  if (event.ctrlKey) delItem = subList[sx][sy];
+  else delItem = subList[sx].splice(sy, 1)[0];
 
   subList[rx].splice(ry, 0, delItem);
   drawTable();
 }
 
-// function addNewEventListener(event){
-//   const rx=event.target.getAttribute("x"),
-//   ry=event.target.getAttribute("y");
+function addNewEventListener(event) {
+  const rx = event.target.getAttribute("x"),
+    ry = event.target.getAttribute("y"),
+    id = getNewEventId();
 
-// }
+  test_subs[id.toString()] = JSON.parse(JSON.stringify(EventBlock));
 
-var item = document.getElementById("time-divider");
+  subList[rx].push(id);
+  active = [rx, ry];
+  drawTable();
+  onEventSelect();
+}
 
-window.addEventListener("wheel", function (e) {
-  if (e.deltaY > 0) item.scrollLeft += 10;
-  else item.scrollLeft -= 10;
-  placeEvents();
-});
+var time_divider_group = document.getElementById("time-divider");

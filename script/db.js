@@ -61,11 +61,6 @@ var rJson = {
 const EventBlock = {
   "time_span":1,
   "subjects": [
-    {
-      "subject": "",
-      "subject_code": "",
-      "teacher": ""
-    }
   ],
   /*
    *   classType
@@ -73,7 +68,7 @@ const EventBlock = {
    *   1-> Lab Class
    *   2-> Notice
    */
-  "class_type": -1
+  "class_type": 0
 }
 
 var sJson = {
@@ -195,7 +190,20 @@ var sJson = {
     },
   },
 };
-
+var Json = {
+  table: [
+    [],
+    [],
+    [],
+    [],
+    [],
+    []],
+  timeList: [
+  ]
+  ,
+  base: {
+  },
+};
 [
   "#b09a11",
   "#5778b3",
