@@ -15,7 +15,7 @@
         <a onclick="javascript:document.getElementById('myfile').click()"> <input type="file" accept="application/json" name="myfile" id="myfile" style="display:none;">Upload</a>
         <a onclick="javascript:document.getElementsByClassName('debug-window')[0].classList.toggle('hidden')">Toggle Debug Menu</a>
         <a onclick="generateColorPalette()">Change Color Paletter</a>
-        <a onclick="toggleModal()">Add TimeLine</a>
+        <a onclick="openPopupMenu()">Add TimeLine</a>
       </div>
       <div id="main" class="main">
         <div id="day-wrapper" class="day-wrapper"></div>
@@ -39,11 +39,11 @@
     </section>
     <div id="context-menu" class="cm">
     </div>
-    <div id="modal-box" class="modal">
-      <div class="modal-content">
+    <div id="modal-box" class="popupMenu">
+      <div class="popupMenu-content">
         <div class="box-content">
-          <a>Add Time </a>
-          <input id="time-adder-text" type="time" />
+          <!-- <a>Add Time </a>
+          <input id="time-adder-text" type="time" /> -->
         </div>
         <div class="btn-group">
           <span id="modal-ok-btn" class="button disable">Ok</span>
@@ -59,9 +59,10 @@
       </p>
     </section>
   </body>
+  <script src="script/utils.js"></script>
   <script src="script/preference.js"></script>
   <script src="script/contextMenu.js"></script>
-  <script src="script/utils.js"></script>
+  <script src="script/popupMenu.js"></script>
   <script src="script/db.js"></script>
   <script src="script/EventPlacer.js"></script>
   <script src="script/EventManagement.js"></script>

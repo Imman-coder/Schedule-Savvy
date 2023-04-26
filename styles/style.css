@@ -514,7 +514,7 @@
   color: #7e7e7e;
 }
 
-.modal {
+.popupMenu {
   color: #e8e8e8;
   position: fixed;
   left: 0;
@@ -529,7 +529,7 @@
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
 
-.modal-content {
+.popupMenu-content {
   position: absolute;
   z-index: 50;
   top: 50%;
@@ -541,7 +541,7 @@
   border-radius: 0.5rem;
   border: 1px solid white;
 }
-.modal-content .btn-group .button {
+.popupMenu-content .btn-group .button {
   float: right;
   /* width: 1.5rem; */
   padding: 3px 12px;
@@ -552,27 +552,27 @@
   border-radius: 0.25rem;
   background-color: rgb(70, 69, 69);
 }
-.modal-content .btn-group .button:hover {
+.popupMenu-content .btn-group .button:hover {
   background-color: rgb(102, 102, 102);
 }
-.modal-content .btn-group .disable {
+.popupMenu-content .btn-group .disable {
   color: rgb(138, 138, 138);
 }
-.modal-content .btn-group .disable:hover {
+.popupMenu-content .btn-group .disable:hover {
   background-color: rgb(70, 69, 69);
   cursor: default;
 }
-.modal-content .box-content {
+.popupMenu-content .box-content {
   margin-top: 40px;
 }
-.modal-content .btn-group {
+.popupMenu-content .btn-group {
   margin-top: 30px;
 }
-.modal-content .box-content {
+.popupMenu-content .box-content {
   left: 1px;
 }
 
-.show-modal {
+.show-popupMenu {
   opacity: 1;
   visibility: visible;
   transform: scale(1);

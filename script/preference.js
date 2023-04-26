@@ -1,4 +1,6 @@
 var autoSave = false;
+var undoStep = 32;
+
 
 
 function toggleAutosave()

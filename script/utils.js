@@ -154,9 +154,6 @@ function getNewEventId() {
   var ln = Object.keys(test_subs).length
   if(ln>=MAX_EVENTS) console.warn("MAX Event Exceded!");
   var id = ln+1;
-  // do {
-  //     id = parseInt(1 + (Math.random() * MAX_EVENTS));
-  // } while (typeof subList[id.toString()] != 'undefined');
 
   return id;
 }

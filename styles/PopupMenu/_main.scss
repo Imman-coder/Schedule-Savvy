@@ -1,4 +1,4 @@
-.modal {
+.popupMenu {
     color: $clr-text-fg;
     position: fixed;
     left: 0;
@@ -14,7 +14,7 @@
 }
 
 
-.modal-content {
+.popupMenu-content {
     position: absolute;
     z-index: 50;
     top: 50%;
@@ -67,7 +67,7 @@
     }
 }
 
-.show-modal {
+.show-popupMenu {
     opacity: 1;
     visibility: visible;
     transform: scale(1.0);
