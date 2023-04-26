@@ -9,14 +9,6 @@ const contextMenu = document.getElementById("context-menu"),
     contextItemAddTimeline = 7;
 injectContextMenu();
 
-const menuItemCut = document.getElementById("menuItemCut"),
-    menuItemCopy = document.getElementById("menuItemCopy"),
-    menuItemPasteBefore = document.getElementById("menuItemPasteBefore"),
-    menuItemPasteAfter = document.getElementById("menuItemPasteAfter"),
-    menuItemDelete = document.getElementById("menuItemDelete"),
-    menuItemPreference = document.getElementById("menuItemPreference"),
-    menuItemPaste = document.getElementById("menuAdderPaste");
-
 const contextMenuItems = contextMenu.getElementsByClassName("item");
 
 
@@ -93,6 +85,11 @@ function onContextPreference() {
     closeContextMenu();
 }
 
+function onContextAddTimeline(){
+    initTimeAdderModule();
+    openPopupMenu();
+}
+
 
 
 /*--------------Hide/Show Menu Items-------------*/
@@ -160,30 +157,31 @@ function showContextMenu(event,type,showOptions,enableOptions){
 
 function injectContextMenu(){
     contextMenu.innerHTML=`
-    <div id="menuItemCut" onclick="onContextCut()" class="item">Cut</div>
-    <div id="menuItemCopy" onclick="onContextCopy()" class="item">Copy</div>
+    <div onclick="onContextCut()" class="item">Cut</div>
+    <div onclick="onContextCopy()" class="item">Copy</div>
     <div
-      id="menuItemPasteBefore"
       onclick="onContextPasteBefore()"
       class="item"
     >
       Paste Before
     </div>
-    <div id="menuItemPasteAfter" onclick="onContextPasteAfter()" class="item">
+    <div onclick="onContextPasteAfter()" class="item">
       Paste After
     </div>
-    <div id="menuAdderPaste" onclick="onContextPasteBefore()" class="item">
+    <div onclick="onContextPasteBefore()" class="item">
       Paste
     </div>
-    <div id="menuItemDelete" onclick="onContextDelete()" class="item red">
+    <div onclick="onContextDelete()" class="item red">
       Delete
     </div>
     <div
-      id="menuItemPreference"
       onclick="onContextPreference()"
       class="item disable"
     >
       Preferences
+    </div>
+    <div onclick="onContextAddTimeline()" class="item red">
+      Add Timeline
     </div>`;
 }
 

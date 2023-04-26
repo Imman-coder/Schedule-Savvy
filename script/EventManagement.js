@@ -31,7 +31,7 @@ function initListeners() {
 
 function onTimelineRightClick(event) {
   event.preventDefault();
-  showContextMenu(event, "timeline", [contextItemDelete], [contextItemDelete]);
+  showContextMenu(event, "timeline", [contextItemDelete,contextItemAddTimeline], [contextItemDelete,contextItemAddTimeline]);
 }
 
 function onEventRightClick(event) {

@@ -339,4 +339,3 @@ function injectPropertyMenu() {
 }
 
 onEventSelect();
-// validateClassBlockView();
