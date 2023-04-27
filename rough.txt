@@ -1,4 +1,2 @@
-Event Timespan
-classtype
-classes
-color
+Add Unique Button
+ghost off while on focus

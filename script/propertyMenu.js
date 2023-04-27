@@ -176,7 +176,7 @@ function validateClassBlockView() {
     let it = 0;
     for (; it < classBlocks.length; it++) {
         const elem = classBlocks[it];
-
+        
         if (isClassBlockEmpty(elem)) break;
         else {
             removeClasBlockShadow(elem);
@@ -229,10 +229,10 @@ function onClassBlockTextChange(from) {
                 lsb[it].subject = lem[2].value;
             }
         }
-        activeBlock.subjects = lsb;
-        validateClassBlockView();
-        drawTable();
     }
+    activeBlock.subjects = lsb;
+    validateClassBlockView();
+    drawTable();
 }
 
 function onClassBlockDelete(e) {

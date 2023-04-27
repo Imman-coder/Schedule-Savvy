@@ -163,30 +163,30 @@ function showContextMenu(event,type,showOptions,enableOptions){
 
 function injectContextMenu(){
     contextMenu.innerHTML=`
-    <div onclick="onContextCut()" class="item">Cut</div>
-    <div onclick="onContextCopy()" class="item">Copy</div>
+    <div onclick="onContextCut(this)" class="item">Cut</div>
+    <div onclick="onContextCopy(this)" class="item">Copy</div>
     <div
       onclick="onContextPasteBefore(this)"
       class="item"
     >
       Paste Before
     </div>
-    <div onclick="onContextPasteAfter()" class="item">
+    <div onclick="onContextPasteAfter(this)" class="item">
       Paste After
     </div>
     <div onclick="onContextPasteBefore(this)" class="item">
       Paste
     </div>
-    <div onclick="onContextDelete()" class="item red">
+    <div onclick="onContextDelete(this)" class="item red">
       Delete
     </div>
     <div
-      onclick="onContextPreference()"
+      onclick="onContextPreference(this)"
       class="item disable"
     >
       Preferences
     </div>
-    <div onclick="onContextAddTimeline()" class="item">
+    <div onclick="onContextAddTimeline(this)" class="item">
       Add Timeline
     </div>`;
 }
