@@ -87,7 +87,6 @@ class TimeAdderModule extends popupMenuDisplayModule {
         this.modalTextBox = null;
     }
     onPopupMenuOpen() {
-        super.onPopupMenuOpen();
         popupMenuBody.innerHTML = this._content;
         this.modalTextBox = popupMenuBody.getElementsByClassName("time")[0];
         this.modalTextBox.addEventListener("change", () => {
