@@ -176,7 +176,7 @@ function validateClassBlockView() {
     let it = 0;
     for (; it < classBlocks.length; it++) {
         const elem = classBlocks[it];
-
+        
         if (isClassBlockEmpty(elem)) break;
         else {
             removeClasBlockShadow(elem);

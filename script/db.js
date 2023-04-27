@@ -59,7 +59,7 @@ var rJson = {
 
 
 const EventBlock = {
-  "time_span":1,
+  "time_span": 1,
   "subjects": [
   ],
   /*
@@ -190,7 +190,7 @@ var sJson = {
     },
   },
 };
-var sJson = {
+var Json = {
   table: [
     [],
     [],
@@ -216,3 +216,22 @@ var sJson = {
   "#b124c3",
   "#6a24aa"
 ]
+
+function saveToBrowser() {
+  localStorage.setItem("sjson", JSON.stringify(sJson));
+  localStorage.setItem("color", colorTable.toString());
+}
+
+function loadFromBrowser() {
+  loadContentToTable(JSON.parse(localStorage.getItem("sjson")),localStorage.getItem("color")?.split(","));
+}
+
+function loadContentToTable(json,color=undefined){
+  sJson = json;
+  subList = sJson["table"];
+  timeList = sJson["timeList"];
+  test_subs = sJson["base"];
+  colorTable =  color || colorTable;
+  drawTable();
+  onEventSelect();
+}

@@ -1,4 +1,4 @@
-var autoSave = false;
+var autoSave = true;
 var undoStep = 32;
 
 

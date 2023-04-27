@@ -33,6 +33,7 @@ $transition-duration: 0.25s;
     user-select: none;
     -webkit-animation: fadeout 0.5s;
     animation: fadeout 0.5s;
+    height: auto;
 
     &.show {
         visibility: visible;
@@ -86,7 +87,6 @@ $transition-duration: 0.25s;
         flex-grow: 1;
         text-align: left;
         margin: 0px 15px;
-        height: 25px;
     }
     .t-progress-bar {
         display: block;

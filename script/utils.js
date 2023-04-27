@@ -170,9 +170,10 @@ class snackbar {
   static Error = "error";
   static duration = 3000;
 
+
   static #svg = {
     'close-btn': `<svg xmlns="http://www.w3.org/2000/svg" class="t-close" width="16" height="16">
-  <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"></path>
+  <path class="cb" d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"></path>
 </svg>`,
 
     'check-circle': `
@@ -199,7 +200,7 @@ class snackbar {
 `,
   };
 
-  static show(content = "", type = "Toast",duration = this.duration) {
+  static show(content = "", type = snackbar.System, duration = this.duration) {
     // Get the snackbar DIV
     var snackbarContainer = document.getElementById("snackbar-container");
 
@@ -250,18 +251,14 @@ class snackbar {
 
     const progressBar = getProgressBar(duration);
     progressBar && snackbarDiv.appendChild(progressBar);
-    progressBar.onanimationend = ()=> removeToast();
+    progressBar.onanimationend = () => removeToast();
 
-    closeBtn.addEventListener("click", removeToast);
+    snackbarDiv.hide = () => removeToast();
 
-
-
-
-
-    function removeToast() {
-      snackbarDiv.className = snackbarDiv.className.replace("snackbar show", "snackbar");
-      setTimeout(function () { snackbarContainer.removeChild(snackbarDiv); }, 400);
-    }
+    closeBtn.addEventListener("click",(event)=>{ 
+      event.stopPropagation();
+      removeToast();
+    });
 
 
     function getProgressBar(duration) {
@@ -272,7 +269,15 @@ class snackbar {
       duration && progressBar.style.setProperty('--toast-duration', `${duration}ms`);
       return progressBar;
     }
+
+    function removeToast() {
+      snackbarDiv.className = snackbarDiv.className.replace("snackbar show", "snackbar");
+      setTimeout(() => { snackbarContainer.removeChild(snackbarDiv);}, 400);
+    }
+    return snackbarDiv;
   }
+
+
 
 
 
@@ -280,10 +285,10 @@ class snackbar {
 }
 
 
-document.onkeydown = function(e) {
+document.onkeydown = function (e) {
   if (e.ctrlKey && e.key === 's') {
 
-      saveAll();
-      return false;
+    saveAll();
+    return false;
   }
 };

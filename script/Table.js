@@ -9,12 +9,7 @@ var colorTable = [];
 document.getElementById("myfile").addEventListener("change", (event) => {
     var reader = new FileReader();
     reader.onload = () => {
-        sJson = JSON.parse(reader.result);
-        console.log(sJson);
-        subList = sJson["table"],
-        timeList = sJson["timeList"],
-        test_subs = sJson["base"];
-        drawTable();
+        loadContentToTable(JSON.parse(reader.result));
     };
     reader.readAsText(event.target.files[0]);
 
@@ -43,16 +38,16 @@ function drawTable() {
             const ar = subList[i][j];
 
             var x = "";
-            if (i == active[0] && j == active[1]) x = "active";
+            if(active!=undefined) if (i == active[0] && j == active[1]) x = "active";
 
             // if (n > timeList.length - 2)
             //     break;
 
-            if (j == subList[i].length ) {
+            if (j == subList[i].length) {
                 k += `<div type="-1" x="` + i + `" y="` + j + `" time-span ="1" class="subCard plus">+</div>`;
             }
             else {
-                var subs="";
+                var subs = "";
                 if (test_subs[ar].class_type == 2)
                     subs = test_subs[ar].subjects[0]?.subject || "";
                 else if (test_subs[ar].subjects.length == 1) {
@@ -89,7 +84,7 @@ function drawTable() {
         singleEvents = document.getElementsByClassName("subCard"),
         timeLineItems = document.getElementsByClassName("schedule-timeline"),
         timeDayItems = document.getElementsByClassName("dayCard"),
-        timeLineStart = timeLineItems[0]?.getBoundingClientRect().x||150;
+        timeLineStart = timeLineItems[0]?.getBoundingClientRect().x || 150;
     placeEvents();
     initListeners();
 }
@@ -99,6 +94,7 @@ function addTimeLineStamp(time) {
     timeList.push(time)
     sortTimeList();
     drawTable();
-    if(timeList.length==1) timeLineStart = timeLineItems[0].getBoundingClientRect().x;
+    if (timeList.length == 1) timeLineStart = timeLineItems[0].getBoundingClientRect().x;
 }
+
 

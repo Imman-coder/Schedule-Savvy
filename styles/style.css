@@ -649,6 +649,7 @@ body {
      -moz-user-select: none;
           user-select: none;
   animation: fadeout 0.5s;
+  height: auto;
 }
 .snackbar.show {
   visibility: visible;
@@ -690,7 +691,6 @@ body {
   flex-grow: 1;
   text-align: left;
   margin: 0px 15px;
-  height: 25px;
 }
 .snackbar .t-progress-bar {
   display: block;

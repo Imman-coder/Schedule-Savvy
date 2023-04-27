@@ -1,7 +1,7 @@
 /*-------------------Menu Defines------------------------*/
 const popupMenu = document.getElementById("modal-box");
 const popupMenuBody = popupMenu.getElementsByClassName("box-content")[0];
-const popuMenuOkBtn = document.getElementById("modal-ok-btn");
+var popupMenuOkBtn = document.getElementById("modal-ok-btn");
 const popupMenuCancelBtn = document.getElementById("modal-cancel-btn");
 var reserved_for;
 
@@ -19,9 +19,6 @@ class popupMenuDisplayModule {
          */
         this._type = 1;
     }
-    injectContent() {
-        console.error("Abstract Method has no implementation");
-    }
     onOkBtnClick() {
         console.error("Abstract Method has no implementation");
     }
@@ -30,11 +27,11 @@ class popupMenuDisplayModule {
     }
     onPopupMenuOpen() {
         if (this._type == 0) {
-            popuMenuOkBtn.innerHTML = "Yes";
+            popupMenuOkBtn.innerHTML = "Yes";
             popupMenuCancelBtn.innerHTML = "No";
         }
         else if (this._type == 1) {
-            popuMenuOkBtn.innerHTML = "Ok";
+            popupMenuOkBtn.innerHTML = "Ok";
             popupMenuCancelBtn.innerHTML = "Cancel";
         }
     }
@@ -51,13 +48,14 @@ function openPopupMenu() {
     popupMenu.classList.add("show-popupMenu");
 }
 
-function popupMenuOkBtn(enable = false) {
+function enablePopupOkBtn(enable = false) {
+    popupMenuOkBtn.replaceWith(popupMenuOkBtn.cloneNode(true));
+    popupMenuOkBtn = document.getElementById("modal-ok-btn");
     if (enable) {
-        popuMenuOkBtn.classList.remove("disable");
-        popuMenuOkBtn.addEventListener("click", () => reserved_for.onOkBtnClick());
+        popupMenuOkBtn.classList.remove("disable");
+        popupMenuOkBtn.addEventListener("click", () => reserved_for.onOkBtnClick());
     } else {
-        popuMenuOkBtn.classList.add("disable");
-        popuMenuOkBtn.removeEventListener("click", () => reserved_for.onOkBtnClick());
+        popupMenuOkBtn.classList.add("disable");
     }
 }
 
@@ -81,20 +79,20 @@ class TimeAdderModule extends popupMenuDisplayModule {
         this._type = 1;
     }
     isValid() {
-        return this.modalTextBox.value!='';
+        return this.modalTextBox.value != '';
     }
     onOkBtnClick() {
         var l = timeToInt(formatTime(this.modalTextBox.value));
-        if(!timeList.includes(l.toString()))
+        if (!timeList.includes(l.toString()))
             addTimeLineStamp(l);
         else
-            snackbar.show("Time already added!",snackbar.Error,3000);
+            snackbar.show("Time already added!", snackbar.Error, 3000);
         closePopupMenu();
     }
     onPopupMenuClose() {
         popupMenuBody.innerHTML = "";
         this.modalTextBox.removeEventListener("change", () => {
-            popupMenuOkBtn(this.isValid());
+            enablePopupOkBtn(this.isValid());
         });
         this.modalTextBox = null;
     }
@@ -104,23 +102,62 @@ class TimeAdderModule extends popupMenuDisplayModule {
         this.modalTextBox = popupMenuBody.getElementsByClassName("time")[0];
         const ref = this;
         this.modalTextBox.addEventListener("change", () => {
-            popupMenuOkBtn(this.isValid());
+            enablePopupOkBtn(this.isValid());
         });
         this.modalTextBox.addEventListener("keyup", (event) => {
             if (event.key === "Enter") {
-                if(this.isValid()) 
+                if (this.isValid())
                     this.onOkBtnClick();
             }
         });
-    }
+    } 
 }
+
+
 
 class LoadLastSessionModule extends popupMenuDisplayModule {
     constructor() {
         super();
-        this._content = ``;
+        this._content = `<a>Do you want to load from cache? </a>`;
         this._type = 0;
         this._cancelable = false;
+        this._table_cache;
+        this._color_cache;
+
+        this._mouseoverf = () => {
+            this._table_cache = sJson;
+            this._color_cache = colorTable;
+            loadFromBrowser();
+        };
+        this._mouseleavef = () => {
+            loadContentToTable(this._table_cache, this._color_cache);
+        };
+    }
+
+    onPopupMenuOpen() {
+        super.onPopupMenuOpen();
+        popupMenuBody.innerHTML = this._content;
+        enablePopupOkBtn(true);
+        popupMenuOkBtn.addEventListener("mouseover", this._mouseoverf);
+        popupMenuOkBtn.addEventListener("mouseleave", this._mouseleavef);
+
+    }
+    onOkBtnClick() {
+        popupMenuOkBtn.removeEventListener("mouseover", this._mouseoverf);
+        popupMenuOkBtn.removeEventListener("mouseleave", this._mouseleavef);
+
+        var bar = snackbar.show("Loaded from previous session ! </br> Click to revert.");
+        bar.onclick = ()=>{
+            snackbar.show("Reverted!");
+            this._mouseleavef();
+            bar.hide();
+        };
+        closePopupMenu();
+    }
+
+    onPopupMenuClose() {
+        popupMenuBody.innerHTML = "";
+
     }
 
 }
@@ -130,4 +167,8 @@ class LoadLastSessionModule extends popupMenuDisplayModule {
 /*------------------Module Specific functions------------------*/
 function initTimeAdderModule() {
     reserved_for = new TimeAdderModule();
+}
+function initLoadLastModule() {
+    reserved_for = new LoadLastSessionModule();
+    openPopupMenu();
 }
