@@ -31,7 +31,7 @@ function initListeners() {
 
 function onTimelineRightClick(event) {
   event.preventDefault();
-  showContextMenu(event, "timeline", [contextItemDelete,contextItemAddTimeline], [contextItemDelete,contextItemAddTimeline]);
+  showContextMenu(event, "timeline", [contextItemDelete, contextItemAddTimeline], [contextItemDelete, contextItemAddTimeline]);
 }
 
 function onEventRightClick(event) {
@@ -72,7 +72,11 @@ function onEventRightClick(event) {
 
 function onAdderRightClick(event) {
   event.preventDefault();
-  showContextMenu(event, "event-adder", [contextItemPaste], [contextItemPaste]);
+  
+  if (typeof copiedEvent != "undefined")
+    showContextMenu(event, "event-adder", [contextItemPaste], [contextItemPaste]);
+  else
+    showContextMenu(event, "event-adder", [contextItemPaste], []);
 }
 
 function onEventDoubbleClick(event) {

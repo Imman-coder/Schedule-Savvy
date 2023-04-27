@@ -11,6 +11,7 @@
     z-index: 10;
     transform: scale(1.1);
     transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+    user-select: none;
 }
 
 
@@ -56,14 +57,11 @@
 
     .box-content {
         margin-top: 40px;
+        left: 1px;
     }
 
     .btn-group {
         margin-top: 30px;
-    }
-
-    .box-content {
-        left: 1px;
     }
 }
 
