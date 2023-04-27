@@ -624,4 +624,108 @@ body {
   height: 100%;
 }
 
-/*-------------------------Media Querry------------------------*//*# sourceMappingURL=style.css.map */
+/*-------------------------Media Querry------------------------*/
+#snackbar-container {
+  position: fixed;
+  right: 25px;
+  bottom: 0px;
+}
+
+.snackbar {
+  position: relative;
+  display: flex;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  margin-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  z-index: 1;
+  font-size: 17px;
+  align-items: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  animation: fadeout 0.5s;
+}
+.snackbar.show {
+  visibility: visible;
+  animation: fadein 0.5s;
+}
+.snackbar[type=success] {
+  background-color: #4caf50;
+}
+.snackbar[type=system] {
+  background-color: #2896f3;
+}
+.snackbar[type=warning] {
+  background-color: #fbc107;
+}
+.snackbar[type=error] {
+  background-color: #f55153;
+}
+.snackbar .close-btn {
+  width: 25px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.snackbar .close-btn path {
+  fill: #fff;
+}
+.snackbar .close-btn:hover {
+  opacity: 1;
+}
+.snackbar .icon {
+  width: 25px;
+  height: 25px;
+}
+.snackbar .icon svg {
+  fill: white;
+  width: 25px;
+  height: 25px;
+}
+.snackbar .text {
+  flex-grow: 1;
+  text-align: left;
+  margin: 0px 15px;
+  height: 25px;
+}
+.snackbar .t-progress-bar {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  border-radius: 0 0 0 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  animation: progress-bar-animation linear forwards var(--toast-duration, 3000ms);
+  transform-origin: left;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+@keyframes progress-bar-animation {
+  to {
+    transform: scaleX(0);
+  }
+}/*# sourceMappingURL=style.css.map */
