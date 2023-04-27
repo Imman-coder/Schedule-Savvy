@@ -12,11 +12,12 @@ class popupMenuDisplayModule {
             console.error(" Object of Abstract Class cannot be created");
         }
         this._content;
-        this._cancelable=false;
-        this._type=1; //0->Yes/No , 1->Ok/Cancel
-    }
-    isValid() {
-        console.error("Abstract Method has no implementation");
+        this._cancelable = false;
+        /**
+         * 0->Yes/No,
+         * 1->Ok/Cancel
+         */
+        this._type = 1;
     }
     injectContent() {
         console.error("Abstract Method has no implementation");
@@ -28,7 +29,14 @@ class popupMenuDisplayModule {
         console.error("Abstract Method has no implementation");
     }
     onPopupMenuOpen() {
-        console.error("Abstract Method has no implementation");
+        if (this._type == 0) {
+            popuMenuOkBtn.innerHTML = "Yes";
+            popupMenuCancelBtn.innerHTML = "No";
+        }
+        else if (this._type == 1) {
+            popuMenuOkBtn.innerHTML = "Ok";
+            popupMenuCancelBtn.innerHTML = "Cancel";
+        }
     }
 }
 
@@ -46,10 +54,10 @@ function openPopupMenu() {
 function popupMenuOkBtn(enable = false) {
     if (enable) {
         popuMenuOkBtn.classList.remove("disable");
-        popuMenuOkBtn.addEventListener("click", ()=>reserved_for.onOkBtnClick());
+        popuMenuOkBtn.addEventListener("click", () => reserved_for.onOkBtnClick());
     } else {
         popuMenuOkBtn.classList.add("disable");
-        popuMenuOkBtn.removeEventListener("click", ()=>reserved_for.onOkBtnClick());
+        popuMenuOkBtn.removeEventListener("click", () => reserved_for.onOkBtnClick());
     }
 }
 
@@ -69,14 +77,18 @@ class TimeAdderModule extends popupMenuDisplayModule {
         <input class="time" type="time" autofocus />`;
 
         this.modalTextBox;
-        this._cancelable=true;
+        this._cancelable = true;
+        this._type = 1;
     }
     isValid() {
         return this.modalTextBox.checkValidity();
     }
     onOkBtnClick() {
-        console.log(this.modalTextBox);
-        addTimeLineStamp(timeToInt(formatTime(this.modalTextBox.value)));
+        var l = timeToInt(formatTime(this.modalTextBox.value));
+        if(!timeList.includes(l.toString()))
+            addTimeLineStamp(l);
+        else
+            snackbar.show("Time already added!",snackbar.Error,3000);
         closePopupMenu();
     }
     onPopupMenuClose() {
@@ -87,6 +99,7 @@ class TimeAdderModule extends popupMenuDisplayModule {
         this.modalTextBox = null;
     }
     onPopupMenuOpen() {
+        super.onPopupMenuOpen();
         popupMenuBody.innerHTML = this._content;
         this.modalTextBox = popupMenuBody.getElementsByClassName("time")[0];
         this.modalTextBox.addEventListener("change", () => {
@@ -95,11 +108,14 @@ class TimeAdderModule extends popupMenuDisplayModule {
     }
 }
 
-class LoadLastSessionModule extends popupMenuDisplayModule{
-    constructor(){
+class LoadLastSessionModule extends popupMenuDisplayModule {
+    constructor() {
         super();
-        this._content=``;
+        this._content = ``;
+        this._type = 0;
+        this._cancelable = false;
     }
+
 }
 
 

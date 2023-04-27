@@ -69,7 +69,7 @@ function timeToInt(timeString) {
   } else if (meridiem === 'am' && hours === 12) {
     hours = 0; // convert 12 AM to 0 hours
   }
-  
+
   return (hours * 60) + minutes; // convert hours and minutes to minutes
 }
 
@@ -102,8 +102,8 @@ function getFirstLetters(name) {
   let words = name.split(" ");
   let firstLetters = "";
   for (let i = 0; i < words.length; i++) {
-    if(words[i] != "Prof.")
-      firstLetters += words[i][0]||"";
+    if (words[i] != "Prof.")
+      firstLetters += words[i][0] || "";
   }
   return firstLetters;
 }
@@ -127,22 +127,22 @@ function generateColorPalette() {
   colorTable = [];
 
   for (let i = 0; i < MAX_EVENTS; i++) {
-      let color = '';
-      let bgDiff = 0;
-      let textDiff = 0;
+    let color = '';
+    let bgDiff = 0;
+    let textDiff = 0;
 
-      // keep generating colors until one that complements the background and text is found
-      while (bgDiff < 150 || textDiff < 150) {
-          // generate a random color in hex format
-          color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    // keep generating colors until one that complements the background and text is found
+    while (bgDiff < 150 || textDiff < 150) {
+      // generate a random color in hex format
+      color = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
-          // check if the color complements the background and text colors
-          bgDiff = colorDiff(color, backgroundColor);
-          textDiff = colorDiff(color, textColor);
-      }
+      // check if the color complements the background and text colors
+      bgDiff = colorDiff(color, backgroundColor);
+      textDiff = colorDiff(color, textColor);
+    }
 
-      // add the color to the array
-      colorTable.push(color);
+    // add the color to the array
+    colorTable.push(color);
   }
   drawTable();
 }
@@ -152,8 +152,8 @@ function generateColorPalette() {
 
 function getNewEventId() {
   var ln = Object.keys(test_subs).length
-  if(ln>=MAX_EVENTS) console.warn("MAX Event Exceded!");
-  var id = ln+1;
+  if (ln >= MAX_EVENTS) console.warn("MAX Event Exceded!");
+  var id = ln + 1;
 
   return id;
 }
@@ -162,3 +162,119 @@ function sortTimeList() {
   timeList.sort();
 }
 
+
+class snackbar {
+  static System = "system";
+  static Success = "success";
+  static Warning = "warning";
+  static Error = "error";
+  static duration = 3000;
+
+  static #svg = {
+    'close-btn': `<svg xmlns="http://www.w3.org/2000/svg" class="t-close" width="16" height="16">
+  <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"></path>
+</svg>`,
+
+    'check-circle': `
+    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'>
+      <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/>
+    </svg>
+  `,
+
+    'info-circle': `
+  <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'>
+    <path d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z'/>
+  </svg>
+`,
+
+    'exclamation-circle': `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'>
+    <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z'/>
+  </svg>
+`,
+
+    'exclamation-triangle': `
+<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'>
+  <path d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
+</svg>
+`,
+  };
+
+  static show(content = "", type = "Toast",duration = this.duration) {
+    // Get the snackbar DIV
+    var snackbarContainer = document.getElementById("snackbar-container");
+
+    // Create snackbar
+    var snackbarDiv = document.createElement("div");
+    var iconDiv = document.createElement("div");
+    var textDiv = document.createElement("div");
+    var closeBtn = document.createElement("div");
+
+    snackbarDiv.className = "snackbar show";
+    closeBtn.className = "close-btn";
+    iconDiv.className = "icon";
+    textDiv.className = "text";
+
+
+
+    closeBtn.innerHTML = this.#svg['close-btn'];
+    textDiv.innerHTML = content;
+    snackbarDiv.setAttribute("type", type);
+
+    switch (type) {
+      case this.System:
+        iconDiv.innerHTML = this.#svg['info-circle'];
+        break;
+
+      case this.Warning:
+        iconDiv.innerHTML = this.#svg['exclamation-triangle'];
+        break;
+
+      case this.Error:
+        iconDiv.innerHTML = this.#svg['exclamation-circle'];
+        break;
+
+      case this.Success:
+        iconDiv.innerHTML = this.#svg['check-circle'];
+        break;
+
+      default:
+        break;
+    }
+
+
+    snackbarDiv.append(iconDiv);
+    snackbarDiv.append(textDiv);
+    snackbarDiv.append(closeBtn);
+
+    snackbarContainer.append(snackbarDiv);
+
+    const progressBar = getProgressBar(duration);
+    progressBar && snackbarDiv.appendChild(progressBar);
+    progressBar.onanimationend = ()=> removeToast();
+
+    closeBtn.addEventListener("click", removeToast);
+
+
+
+
+
+    function removeToast() {
+      snackbarDiv.className = snackbarDiv.className.replace("snackbar show", "snackbar");
+      setTimeout(function () { snackbarContainer.removeChild(snackbarDiv); }, 400);
+    }
+
+
+    function getProgressBar(duration) {
+      if (duration === 0) return;
+
+      const progressBar = document.createElement('div');
+      progressBar.classList.add('t-progress-bar');
+      duration && progressBar.style.setProperty('--toast-duration', `${duration}ms`);
+      return progressBar;
+    }
+  }
+
+
+
+
+}

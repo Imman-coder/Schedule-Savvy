@@ -1,0 +1,167 @@
+$white: #fff;
+$green: #4caf50;
+$blue: #2896f3;
+$yellow: #fbc107;
+$red: #f55153;
+$transition-duration: 0.25s;
+
+
+
+
+
+#snackbar-container {
+    position: fixed;
+    right: 25px;
+    bottom: 0px;
+}
+
+.snackbar {
+    position: relative;
+    display: flex;
+    // visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    z-index: 1;
+    font-size: 17px;
+    align-items: center;
+    user-select: none;
+    -webkit-animation: fadeout 0.5s;
+    animation: fadeout 0.5s;
+
+    &.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s;
+        animation: fadein 0.5s;
+    }
+
+    &[type="success"] {
+        background-color: $green;
+    }
+
+    &[type="system"] {
+        background-color: $blue;
+    }
+
+    &[type="warning"] {
+        background-color: $yellow;
+    }
+
+    &[type="error"] {
+        background-color: $red;
+    }
+
+    .close-btn {
+        width: 25px;
+        cursor: pointer;
+        opacity: 0.5;
+
+        path {
+            fill: #fff;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .icon {
+        width: 25px;
+        height: 25px;
+
+        svg {
+
+            fill: white;
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    .text {
+        flex-grow: 1;
+        text-align: left;
+        margin: 0px 15px;
+        height: 25px;
+    }
+    .t-progress-bar {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 6px;
+        width: 100%;
+        border-radius: 0 0 0 0.5rem;
+        background-color: rgba(255, 255, 255, 0.5);
+        animation: progress-bar-animation linear forwards var(--toast-duration, 3000ms);
+        transform-origin: left;
+      }
+
+}
+
+
+@-webkit-keyframes fadein {
+    from {
+        // bottom: 0;
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        // bottom: 30px;
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes fadein {
+    from {
+        // bottom: 0;
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        // bottom: 30px;
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        // bottom: 30px;
+        opacity: 1;
+        transform: translateX(0%);
+    }
+
+    to {
+        // bottom: 0;
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fadeout {
+    from {
+        // bottom: 30px;
+        opacity: 1;
+        transform: translateX(0%);
+    }
+
+    to {
+        // bottom: 0;
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes progress-bar-animation {
+    to {
+      transform: scaleX(0);
+    }
+}
