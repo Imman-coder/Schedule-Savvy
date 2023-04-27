@@ -151,11 +151,20 @@ function generateColorPalette() {
 /*---------------------------Associate Id Generater------------------------------*/
 
 function getNewEventId() {
-  var ln = Object.keys(test_subs).length
-  if (ln >= MAX_EVENTS) console.warn("MAX Event Exceded!");
-  var id = ln + 1;
 
-  return id;
+  for (let id = 1; id < MAX_EVENTS; id++) {
+    var has = false;
+    for (let i = 0; i < subList.length; i++) {
+      if (has) break;
+      const ei = subList[i];
+      for (let j = 0; j < ei.length; j++) {
+        if (ei[j] == id)
+          has = true;
+      }
+    }
+    if (!has) return id;
+  }
+  console.warn("MAX Event Exceded!");
 }
 
 function sortTimeList() {
@@ -255,7 +264,7 @@ class snackbar {
 
     snackbarDiv.hide = () => removeToast();
 
-    closeBtn.addEventListener("click",(event)=>{ 
+    closeBtn.addEventListener("click", (event) => {
       event.stopPropagation();
       removeToast();
     });
@@ -272,7 +281,7 @@ class snackbar {
 
     function removeToast() {
       snackbarDiv.className = snackbarDiv.className.replace("snackbar show", "snackbar");
-      setTimeout(() => { snackbarContainer.removeChild(snackbarDiv);}, 400);
+      setTimeout(() => { snackbarContainer.removeChild(snackbarDiv); }, 400);
     }
     return snackbarDiv;
   }
