@@ -81,7 +81,7 @@ class TimeAdderModule extends popupMenuDisplayModule {
         this._type = 1;
     }
     isValid() {
-        return this.modalTextBox.checkValidity();
+        return this.modalTextBox.value!='';
     }
     onOkBtnClick() {
         var l = timeToInt(formatTime(this.modalTextBox.value));
@@ -102,8 +102,15 @@ class TimeAdderModule extends popupMenuDisplayModule {
         super.onPopupMenuOpen();
         popupMenuBody.innerHTML = this._content;
         this.modalTextBox = popupMenuBody.getElementsByClassName("time")[0];
+        const ref = this;
         this.modalTextBox.addEventListener("change", () => {
             popupMenuOkBtn(this.isValid());
+        });
+        this.modalTextBox.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                if(this.isValid()) 
+                    this.onOkBtnClick();
+            }
         });
     }
 }

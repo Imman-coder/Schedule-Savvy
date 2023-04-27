@@ -278,3 +278,12 @@ class snackbar {
 
 
 }
+
+
+document.onkeydown = function(e) {
+  if (e.ctrlKey && e.key === 's') {
+
+      saveAll();
+      return false;
+  }
+};
