@@ -14,6 +14,9 @@
   text-decoration: none;
   font-size: 14px;
   margin-left: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .topnav a:hover,
 .topnav a.active {
@@ -26,6 +29,9 @@
   z-index: 1;
   margin-top: 30px;
   margin-left: 15px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .day-wrapper .event-list {
   display: flex;
@@ -424,6 +430,9 @@
   border: 1px solid white;
   border-radius: 10px;
   padding: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .property-menu-stack {
@@ -494,11 +503,14 @@
   cursor: pointer;
   border-radius: inherit;
   border-bottom: 1px solid rgb(46, 46, 46);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 #context-menu .item:hover {
   background: #343434;
 }
-#context-menu .item .red:hover {
+#context-menu .item.red:hover {
   background: red;
 }
 #context-menu .hide {
@@ -527,6 +539,9 @@
   z-index: 10;
   transform: scale(1.1);
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .popupMenu-content {
@@ -564,12 +579,10 @@
 }
 .popupMenu-content .box-content {
   margin-top: 40px;
+  left: 1px;
 }
 .popupMenu-content .btn-group {
   margin-top: 30px;
-}
-.popupMenu-content .box-content {
-  left: 1px;
 }
 
 .show-popupMenu {

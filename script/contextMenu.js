@@ -48,7 +48,8 @@ function onContextCopy() {
     closeContextMenu();
     drawTable();
 }
-function onContextPasteBefore() {
+function onContextPasteBefore(ref) {
+    if(!ref.classList.contains("disable")){
     const rx = parseInt(contextMenu.getAttribute("x")),
         ry = parseInt(contextMenu.getAttribute("y"));
 
@@ -56,8 +57,10 @@ function onContextPasteBefore() {
     subList[rx].splice(ry, 0, copiedEvent);
     closeContextMenu();
     drawTable();
+    }
 }
-function onContextPasteAfter() {
+function onContextPasteAfter(ref) {
+    if(!ref.classList.contains("disable")){
     const rx = parseInt(contextMenu.getAttribute("x")),
         ry = parseInt(contextMenu.getAttribute("y"));
 
@@ -65,8 +68,10 @@ function onContextPasteAfter() {
     subList[rx].splice(ry + 1, 0, copiedEvent);
     closeContextMenu();
     drawTable();
+    }
 }
-function onContextDelete() {
+function onContextDelete(ref) {
+    if(!ref.classList.contains("disable")){
     var x = contextMenu.getAttribute("x"),
         y = contextMenu.getAttribute("y"),
         type = contextMenu.getAttribute("type");
@@ -79,6 +84,7 @@ function onContextDelete() {
     }
     closeContextMenu();
     drawTable();
+    }
 }
 function onContextPreference() {
     console.log("Preference Menu");
@@ -160,7 +166,7 @@ function injectContextMenu(){
     <div onclick="onContextCut()" class="item">Cut</div>
     <div onclick="onContextCopy()" class="item">Copy</div>
     <div
-      onclick="onContextPasteBefore()"
+      onclick="onContextPasteBefore(this)"
       class="item"
     >
       Paste Before
@@ -168,7 +174,7 @@ function injectContextMenu(){
     <div onclick="onContextPasteAfter()" class="item">
       Paste After
     </div>
-    <div onclick="onContextPasteBefore()" class="item">
+    <div onclick="onContextPasteBefore(this)" class="item">
       Paste
     </div>
     <div onclick="onContextDelete()" class="item red">
@@ -180,13 +186,9 @@ function injectContextMenu(){
     >
       Preferences
     </div>
-    <div onclick="onContextAddTimeline()" class="item red">
+    <div onclick="onContextAddTimeline()" class="item">
       Add Timeline
     </div>`;
-}
-
-function contextMenuHookInjector(){
-    
 }
 
 
