@@ -112,7 +112,7 @@ function printToCanvas() {
 
       if (ej.time_span - 1 > 0) {
         fillSquare(j + 1, i + 1, ej.time_span - 1);
-        putText(subs, j + 1 + bias, i + 1, 1);
+        putText(subs, j + 1 + bias, i + 1, (ej.time_span - 1)/2);
       }
       else
         putText(subs, j + 1 + bias, i + 1);
