@@ -286,11 +286,6 @@ class snackbar {
     return snackbarDiv;
   }
 
-
-
-
-
-
 }
 
 
@@ -301,3 +296,13 @@ document.onkeydown = function (e) {
     return false;
   }
 };
+
+
+
+String.prototype.width = function (font='12px arial') {
+  const canvas =  document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  context.font = font;
+  const metrics = context.measureText(this);
+  return metrics.width;
+}

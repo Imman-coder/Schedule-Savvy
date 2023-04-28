@@ -728,4 +728,12 @@ body {
   to {
     transform: scaleX(0);
   }
+}
+#canvas {
+  image-rendering: pixelated;
+  z-index: -100;
+  top: 0;
+  left: 0;
+  display: none;
+  position: absolute;
 }/*# sourceMappingURL=style.css.map */
