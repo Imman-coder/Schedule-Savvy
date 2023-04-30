@@ -1,5 +1,14 @@
 const MAX_EVENTS = 50;
 
+/**
+ * The function normalizes the position of a mouse click relative to a container element and ensures
+ * that the element does not go out of bounds.
+ * @param mouseX - The horizontal position of the mouse cursor on the screen.
+ * @param mouseY - The Y coordinate of the mouse pointer on the screen.
+ * @returns An object with the normalized X and Y coordinates of the mouse position relative to the
+ * container element (scope), taking into account if the context menu element will go out of bounds on
+ * the X or Y axis and normalizing accordingly.
+ */
 const normalizePozition = (mouseX, mouseY) => {
   // ? compute what is the mouse position relative to the container element (scope)
   let {
@@ -49,6 +58,12 @@ window.addEventListener("wheel", function (e) {
 
 
 /*--------------------Time Related Calculations---------------------*/
+/**
+ * The function formats a time string in 12-hour format with AM/PM indicator.
+ * @param timeString - The input time string in the format "HH:MM", where HH represents the hour in
+ * 24-hour format and MM represents the minute.
+ * @returns The function `formatTime` returns a formatted time string in the format "hh:mmAM/PM".
+ */
 
 function formatTime(timeString) {
   const [hourString, minute] = timeString.split(":");
@@ -58,6 +73,13 @@ function formatTime(timeString) {
 }
 
 
+/**
+ * The function converts a time string in 12-hour format to an integer representing the number of
+ * minutes since midnight.
+ * @param timeString - A string representing a time in 12-hour format, e.g. "3:30pm" or "11:45am".
+ * @returns an integer value representing the input time string in minutes, converted to 24-hour
+ * format.
+ */
 function timeToInt(timeString) {
   var timeArr = timeString.match(/^(\d{1,2}):(\d{2})([ap]m)$/i); // split time string into hours, minutes and meridiem
   var hours = parseInt(timeArr[1]); // extract hours as integer
@@ -74,6 +96,14 @@ function timeToInt(timeString) {
 }
 
 
+/**
+ * The function converts an integer representing minutes into a string in the format of hours and
+ * minutes with AM or PM.
+ * @param minutes - The number of minutes to be converted into a time format (hours and minutes with
+ * AM/PM).
+ * @returns The function `intToTime` returns a string representing the time in 12-hour format, given
+ * the input `minutes` as an integer. The string includes the hours, minutes, and AM/PM indicator.
+ */
 function intToTime(minutes) {
   var hours = Math.floor(minutes / 60);
   var minutes = minutes % 60;
@@ -98,6 +128,12 @@ function padZero(num) {
 }
 
 
+/**
+ * The function takes a name as input and returns the first letters of each word in the name, excluding
+ * "Prof." if present.
+ * @param name - The input parameter is a string representing a person's name.
+ * @returns a string that contains the first letter of each word in the input string `name`.
+ */
 function getFirstLetters(name) {
   let words = name.split(" ");
   let firstLetters = "";
@@ -123,6 +159,10 @@ function colorDiff(color1, color2) {
   return Math.sqrt(Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2));
 }
 
+/**
+ * The function generates a color palette by randomly generating colors and checking if they complement
+ * the background and text colors.
+ */
 function generateColorPalette() {
   colorTable = [];
 
@@ -150,6 +190,10 @@ function generateColorPalette() {
 
 /*---------------------------Associate Id Generater------------------------------*/
 
+/**
+ * The function returns a new event ID that is not already in use by checking a list of existing IDs.
+ * @returns a new event ID that is not already present in the `subList` array.
+ */
 function getNewEventId() {
 
   for (let id = 1; id < MAX_EVENTS; id++) {
@@ -167,11 +211,16 @@ function getNewEventId() {
   console.warn("MAX Event Exceded!");
 }
 
+/**
+ * The function sorts a list of time values in ascending order.
+ */
 function sortTimeList() {
   timeList.sort();
 }
 
 
+/* The snackbar class is a JavaScript class that creates and displays a customizable notification
+message with different types and durations. */
 class snackbar {
   static System = "system";
   static Success = "success";
@@ -315,11 +364,13 @@ document.onkeydown = function (e) {
     drawTable();
     return false;
   }
-  // console.log(e.key);
 };
 
 
 
+/* The above code is adding a new method called `width` to the `String` prototype in JavaScript. This
+method takes an optional argument `font` which defaults to `'12px arial'`. The purpose of this
+method is to calculate the width of the string in pixels when rendered with the specified font. */
 String.prototype.width = function (font = '12px arial') {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
