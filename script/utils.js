@@ -291,18 +291,40 @@ class snackbar {
 
 document.onkeydown = function (e) {
   if (e.ctrlKey && e.key === 's') {
-
     saveAll();
     return false;
   }
+  else if (e.ctrlKey && e.key === 'c') {
+    copiedEvent = subList[active[0]][active[1]];
+    return false;
+  }
+  else if (e.ctrlKey && e.key === 'v') {
+    subList[active[0]].splice(active[1], 0, copiedEvent);
+    drawTable();
+    return false;
+  }
+  else if (e.key === "Delete") {
+    // copiedEvent = subList[active[0]][active[1]];
+    subList[active[0]].splice(active[1], 1);
+    drawTable();
+    return false;
+  }
+  else if (e.ctrlKey && e.key === "x") {
+    copiedEvent = subList[active[0]][active[1]];
+    subList[active[0]].splice(active[1], 1);
+    drawTable();
+    return false;
+  }
+  // console.log(e.key);
 };
 
 
 
-String.prototype.width = function (font='12px arial') {
-  const canvas =  document.createElement("canvas");
+String.prototype.width = function (font = '12px arial') {
+  const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   context.font = font;
   const metrics = context.measureText(this);
   return metrics.width;
 }
+
