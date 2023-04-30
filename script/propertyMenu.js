@@ -339,3 +339,4 @@ function injectPropertyMenu() {
 }
 
 onEventSelect();
+initSaveAsImageModule();

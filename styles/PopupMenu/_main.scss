@@ -14,7 +14,6 @@
     user-select: none;
 }
 
-
 .popupMenu-content {
     position: absolute;
     z-index: 50;
@@ -55,9 +54,93 @@
         }
     }
 
+    &:has(.left) {
+        width: unset;
+    }
+
     .box-content {
         margin-top: 40px;
         left: 1px;
+
+        &:has(.left) {
+            display: flex;
+            align-items: center;
+
+            input {
+                @include ct-txtbx();
+                height: 25px;
+            }
+
+            .left {
+                tr>td {
+                    padding: 7px 5px;
+                    text-align: left;
+                }
+            }
+
+            .divider {
+                height: 210px;
+                width: 1px;
+                background-color: rgb(126, 122, 122);
+                margin: 0px 5px;
+            }
+
+            .right {
+                .i {
+                    width: 200px;
+                    // min-height: 200px;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 10px;
+                    margin: 5px;
+                    // overflow: hidden;
+
+                    img {
+                        width: 200px;
+                        // height: 200px;
+                        background-color: rgb(255, 255, 255);
+                        border-radius: 10px;
+                        border: 0px;
+                        transition: transform .3s, border-radius .3s;
+
+                        &.zoom {
+                            position: absolute;
+                            cursor: zoom-out;
+                            border-radius: 0px;
+                            // right: 50%;
+                            transform: translate(-70%) scale(6);
+                        }
+                    }
+
+                    .block-img {
+                        position: absolute;
+                        display: none;
+                        width: 200px;
+                        // height: 200px;
+                        height: 100%;
+                        border-radius: 10px;
+                        cursor: zoom-in;
+                        background-color: rgba(102, 102, 102, 0.397);
+
+                        span {
+                            color: black;
+                        }
+                    }
+
+                    &:hover {
+                        .block-img {
+                            display: block;
+                            color: black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .btn-group {
@@ -68,6 +151,6 @@
 .show-popupMenu {
     opacity: 1;
     visibility: visible;
-    transform: scale(1.0);
+    transform: scale(1);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }

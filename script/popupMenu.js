@@ -14,26 +14,39 @@ class popupMenuDisplayModule {
         this._content;
         this._cancelable = false;
         /**
+         * -1->No buttons
          * 0->Yes/No,
          * 1->Ok/Cancel
          */
-        this._type = 1;
+        this._button_type = 1;
+        enablePopupOkBtn(false);
     }
     onOkBtnClick() {
-        console.error("Abstract Method has no implementation");
+        console.trace("Abstract Method has no implementation");
     }
     onPopupMenuClose() {
-        console.error("Abstract Method has no implementation");
+        console.trace("Abstract Method has no implementation");
     }
     onPopupMenuOpen() {
-        if (this._type == 0) {
+        if (typeof this._button_type == 'object') {
+            popupMenuOkBtn.innerHTML = this._button_type[1];
+            popupMenuCancelBtn.innerHTML = this._button_type[0];
+        }
+        else if (this._button_type == 0) {
             popupMenuOkBtn.innerHTML = "Yes";
             popupMenuCancelBtn.innerHTML = "No";
-        }
-        else if (this._type == 1) {
+        } else if (this._button_type == 1) {
             popupMenuOkBtn.innerHTML = "Ok";
             popupMenuCancelBtn.innerHTML = "Cancel";
         }
+        else {
+
+            popupMenuOkBtn.style.display = 'none';
+            popupMenuCancelBtn.style.display = 'none';
+        }
+    }
+    onPopupRequestLeave() {
+        console.trace("Abstract Method has no implementation");
     }
 }
 
@@ -63,7 +76,10 @@ function enablePopupOkBtn(enable = false) {
 popupMenuCancelBtn.addEventListener("click", closePopupMenu);
 
 popupMenu.addEventListener("click", (event) => {
-    if (event.target == popupMenu && reserved_for._cancelable) closePopupMenu();
+    if (event.target == popupMenu) {
+
+        if (reserved_for.onPopupRequestLeave(event) && reserved_for._cancelable) closePopupMenu();
+    }
 });
 
 /*-------------------Module Specific Class Declerations-------------------*/
@@ -76,17 +92,15 @@ class TimeAdderModule extends popupMenuDisplayModule {
 
         this.modalTextBox;
         this._cancelable = true;
-        this._type = 1;
+        this._button_type = 1;
     }
     isValid() {
-        return this.modalTextBox.value != '';
+        return this.modalTextBox.value != "";
     }
     onOkBtnClick() {
         var l = timeToInt(formatTime(this.modalTextBox.value));
-        if (!timeList.includes(l.toString()))
-            addTimeLineStamp(l);
-        else
-            snackbar.show("Time already added!", snackbar.Error, 3000);
+        if (!timeList.includes(l.toString())) addTimeLineStamp(l);
+        else snackbar.show("Time already added!", snackbar.Error, 3000);
         closePopupMenu();
     }
     onPopupMenuClose() {
@@ -106,20 +120,17 @@ class TimeAdderModule extends popupMenuDisplayModule {
         });
         this.modalTextBox.addEventListener("keyup", (event) => {
             if (event.key === "Enter") {
-                if (this.isValid())
-                    this.onOkBtnClick();
+                if (this.isValid()) this.onOkBtnClick();
             }
         });
-    } 
+    }
 }
-
-
 
 class LoadLastSessionModule extends popupMenuDisplayModule {
     constructor() {
         super();
         this._content = `<a>Do you want to load from cache? </a>`;
-        this._type = 0;
+        this._button_type = 0;
         this._cancelable = false;
         this._table_cache;
         this._color_cache;
@@ -140,14 +151,15 @@ class LoadLastSessionModule extends popupMenuDisplayModule {
         enablePopupOkBtn(true);
         popupMenuOkBtn.addEventListener("mouseover", this._mouseoverf);
         popupMenuOkBtn.addEventListener("mouseleave", this._mouseleavef);
-
     }
     onOkBtnClick() {
         popupMenuOkBtn.removeEventListener("mouseover", this._mouseoverf);
         popupMenuOkBtn.removeEventListener("mouseleave", this._mouseleavef);
 
-        var bar = snackbar.show("Loaded from previous session ! </br> Click to revert.");
-        bar.onclick = ()=>{
+        var bar = snackbar.show(
+            "Loaded from previous session ! </br> Click to revert."
+        );
+        bar.onclick = () => {
             snackbar.show("Reverted!");
             this._mouseleavef();
             bar.hide();
@@ -157,18 +169,139 @@ class LoadLastSessionModule extends popupMenuDisplayModule {
 
     onPopupMenuClose() {
         popupMenuBody.innerHTML = "";
-
     }
-
 }
 
 
+
+class saveAsImage extends popupMenuDisplayModule {
+    constructor() {
+        super();
+        this._content = `
+    <div class="left">
+      <table>
+        <tr>
+          <td><span>Title : </span></td>
+          <td><input type="text" name="Title" id="title" /></td>
+        </tr>
+        <tr>
+          <td><span>Filename : </span></td>
+          <td><input type="text" name="Fiename" id="filename" /></td>
+        </tr>
+        <tr>
+          <td><span>Show Title : </span></td>
+          <td><input type="checkbox" name="ShowTitle" id="showTitle" /></td>
+        </tr>
+      </table>
+    </div>
+    <div class="divider"></div>
+    <div class="right">
+    <span>Preview:</span>
+      <div class="i">
+        <div class="block-img">
+          <span>Click to Enlarge</span>
+        </div>
+        <img id="preview-image" /> 
+      </div>
+    </div>`;
+        this._button_type = ["Cancel", "Save"];
+        this._cancelable = false;
+        this._image_div;
+        this._image_block;
+        this._title;
+        this._filename;
+        this._show_title;
+        this._image_div_zoomed = false;
+    }
+
+    zoomInImage(e) {
+
+        this._image_div.classList.add("zoom");
+        this._image_div_zoomed = true;
+        e.stopPropagation();
+    }
+    zoomOutImage(e) {
+
+        this._image_div.classList.remove("zoom");
+        this._image_div_zoomed = false;
+        e.stopPropagation();
+    }
+
+    onTitlechanged() {
+        if (this._show_title.checked) {
+            printToCanvas(this._title.value);
+            this.loadImageFromCanvas();
+        }
+        else {
+            printToCanvas();
+            this.loadImageFromCanvas();
+        }
+    }
+
+    onFileNameChanged() {
+        enablePopupOkBtn(this._filename.value != "");
+    }
+
+    loadImageFromCanvas() {
+        this._image_div.src = canvas.toDataURL("image/jpeg", 1.0);
+    }
+
+    onPopupMenuOpen() {
+        super.onPopupMenuOpen();
+        popupMenuBody.innerHTML = this._content;
+
+        this._image_div = document.getElementById("preview-image");
+        this._image_block = document.getElementsByClassName("block-img")[0];
+        this._title = document.getElementById("title");
+        this._filename = document.getElementById("filename");
+        this._show_title = document.getElementById("showTitle");
+        this.loadImageFromCanvas();
+        this._image_div.onclick = this.zoomOutImage.bind(this);
+        this._image_block.onclick = this.zoomInImage.bind(this);
+        this._show_title.onchange = this.onTitlechanged.bind(this);
+        this._title.oninput = this.onTitlechanged.bind(this);
+        this._filename.oninput = this.onFileNameChanged.bind(this);
+    }
+    onPopupRequestLeave(event) {
+        if (this._image_div_zoomed) {
+            this.zoomOutImage(event);
+            return false
+        }
+        return true;
+    }
+
+    onPopupMenuClose() {
+        setTimeout(() => {
+            popupMenuBody.innerHTML = "";
+            reserved_for = undefined;
+        }, 400);
+
+    }
+    onOkBtnClick() {
+        if (this._filename.value.includes(".")) {
+            var extension = this._filename.value.split(".");
+            var dataURL = canvas.toDataURL("image/" + extension[extension.length - 1], 1.0);
+            downloadImage(dataURL, this._filename.value);
+        }
+        else
+            downloadImage(dataURL, `${this._filename.value}.jpeg`);
+
+        closePopupMenu();
+    }
+}
 
 /*------------------Module Specific functions------------------*/
 function initTimeAdderModule() {
     reserved_for = new TimeAdderModule();
 }
 function initLoadLastModule() {
-    reserved_for = new LoadLastSessionModule();
+    if (localStorage.getItem("sjson") != undefined) {
+        reserved_for = new LoadLastSessionModule();
+        openPopupMenu();
+    }
+}
+
+function initSaveAsImageModule() {
+    reserved_for = new saveAsImage();
     openPopupMenu();
 }

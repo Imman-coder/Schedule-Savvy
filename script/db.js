@@ -278,6 +278,7 @@ function saveToBrowser() {
 }
 
 function loadFromBrowser() {
+  if(localStorage.getItem("sjson")!=undefined)
   loadContentToTable(JSON.parse(localStorage.getItem("sjson")),localStorage.getItem("color")?.split(","));
 }
 

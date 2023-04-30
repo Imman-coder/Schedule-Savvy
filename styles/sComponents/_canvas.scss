@@ -1,4 +1,9 @@
 #canvas {
     image-rendering: pixelated;
+    z-index: 90;
+    scale: .93;
+    position: absolute;
+    left: 0;
+    top:0;
     display: none;
 }
