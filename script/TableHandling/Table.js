@@ -6,14 +6,6 @@ var subList = sJson["table"],
 
 var colorTable = [];
 
-document.getElementById("myfile").addEventListener("change", (event) => {
-    var reader = new FileReader();
-    reader.onload = () => {
-        loadContentToTable(JSON.parse(reader.result));
-    };
-    reader.readAsText(event.target.files[0]);
-
-})
 
 var active = [1, 4];
 var activeprev = [-1, -1];
@@ -90,11 +82,5 @@ function drawTable() {
 }
 
 
-function addTimeLineStamp(time) {
-    timeList.push(time)
-    sortTimeList();
-    drawTable();
-    if (timeList.length == 1) timeLineStart = timeLineItems[0].getBoundingClientRect().x;
-}
 
 
