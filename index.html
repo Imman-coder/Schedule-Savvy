@@ -15,25 +15,59 @@
     <canvas id="canvas"></canvas>
     <section class="content">
       <div class="topnav">
-        <a
-          onclick="javascript:saveAs(new Blob([JSON.stringify(sJson,undefined,'\t')], {type: 'application/json'}))"
-          >Download</a
-        >
-        <a onclick="javascript:document.getElementById('myfile').click()">
-          <input
-            type="file"
-            accept="application/json"
-            name="myfile"
-            id="myfile"
-            style="display: none"
-          />Upload</a
-        >
-        <a
-          onclick="javascript:document.getElementsByClassName('debug-window')[0].classList.toggle('hidden')"
-          >Toggle Debug Menu</a
-        >
-        <a onclick="generateColorPalette()">Change Color Paletter</a>
-        <a onclick="onContextAddTimeline()">Add TimeLine</a>
+        <!-- <a
+        onclick="javascript:saveAs(new Blob([JSON.stringify(sJson,undefined,'\t')], {type: 'application/json'}))">Download</a>
+      <a onclick="javascript:document.getElementById('myfile').click()">
+        <input type="file" accept="application/json" name="myfile" id="myfile" style="display: none" />Upload</a>
+      <a onclick="javascript:document.getElementsByClassName('debug-window')[0].classList.toggle('hidden')">Toggle Debug
+        Menu</a>
+      <a onclick="generateColorPalette()">Change Color Paletter</a>
+      <a onclick="onContextAddTimeline()">Add TimeLine</a> -->
+        <ul>
+          <li>
+            <a>File</a>
+            <ul>
+              <li><a>New</a></li>
+              <li><a>Open</a></li>
+              <li><a>Save</a></li>
+              <li>
+                <a>Export</a>
+                <ul>
+                  <li><a>as Image</a></li>
+                  <li><a>as Json</a></li>
+                </ul>
+              </li>
+              <li>
+                <a>Defaults</a>
+                <ul>
+                  <li><a>Save Startup file</a></li>
+                  <li><a>Load Factory Setting</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a>Edit</a>
+            <ul>
+              <li><a>Cut</a></li>
+              <li><a>Copy</a></li>
+              <li><a>Paste After</a></li>
+              <li><a>Paste Before</a></li>
+              <li><a>Delete</a></li>
+              <li><a>Change Color Palette</a></li>
+            </ul>
+          </li>
+          <li>
+            <a>Preference</a>
+            <ul>
+              <li><a>Show Debug Menu</a></li>
+              <li><a>Theme</a></li>
+              <li><a>Auto Backup</a></li>
+              <li><a>Auto Save </a></li>
+              <li><a>Undo Steps</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
       <div id="main" class="main">
         <div id="day-wrapper" class="day-wrapper"></div>
@@ -57,8 +91,7 @@
     <div id="context-menu" class="cm"></div>
     <div id="modal-box" class="popupMenu">
       <div class="popupMenu-content">
-        <div class="box-content">
-        </div>
+        <div class="box-content"></div>
         <div class="btn-group">
           <span id="modal-ok-btn" class="button disable">Ok</span>
           <span id="modal-cancel-btn" class="button">Cancel</span>
