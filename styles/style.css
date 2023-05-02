@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .topnav {
   z-index: 9;
   background-color: #2a2b2e;
@@ -14,6 +15,11 @@
 
 .topnav ul {
   list-style-type: none;
+  min-width: 100px;
+}
+
+.topnav.ss > ul > li:hover > ul {
+  display: block;
 }
 
 .topnav > ul {
@@ -21,12 +27,14 @@
   display: -ms-flexbox;
   display: flex;
   height: inherit;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .topnav > ul > li {
   position: relative;
   white-space: nowrap;
-  min-width: 100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,10 +55,6 @@
           transform: translateY(-1px);
 }
 
-.topnav > ul > li:hover > ul {
-  display: block;
-}
-
 .topnav > ul > li ul {
   top: 100%;
   left: 0px;
@@ -60,6 +64,7 @@
   background-color: #232427;
   border-radius: 5px;
   display: none;
+  min-width: 100px;
   padding: 1px;
 }
 
@@ -73,6 +78,37 @@
   border-radius: 5px;
 }
 
+.topnav > ul > li ul li.checked:after {
+  content: "☑";
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  -webkit-transform: translateY(45%);
+          transform: translateY(45%);
+}
+
+.topnav > ul > li ul li.unchecked:after {
+  content: "☐";
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  -webkit-transform: translateY(45%);
+          transform: translateY(45%);
+}
+
+.topnav > ul > li ul li.selected:after {
+  content: "●";
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  -webkit-transform: translateY(45%);
+          transform: translateY(45%);
+}
+
+.topnav > ul > li ul li.disabled > a {
+  opacity: 0.5;
+}
+
 .topnav > ul > li ul li:hover {
   border: 2px;
 }
@@ -83,6 +119,16 @@
 
 .topnav > ul > li ul li:hover ul {
   display: block;
+}
+
+.topnav > ul > li ul li:has(ul)::after {
+  content: "▶";
+  position: absolute;
+  right: 5px;
+  top: 20%;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+  font-size: 10px;
 }
 
 .topnav > ul > li ul li ul {

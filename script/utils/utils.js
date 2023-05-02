@@ -1,4 +1,5 @@
 const MAX_EVENTS = 50;
+const SHOW_DEBUG_MESSAGES = true;
 
 /**
  * The function normalizes the position of a mouse click relative to a container element and ensures
@@ -344,27 +345,56 @@ document.onkeydown = function (e) {
     return false;
   }
   else if (e.ctrlKey && e.key === 'c') {
-    copiedEvent = subList[active[0]][active[1]];
     return false;
   }
   else if (e.ctrlKey && e.key === 'v') {
-    subList[active[0]].splice(active[1], 0, copiedEvent);
-    drawTable();
+    pasteEvent()
     return false;
   }
   else if (e.key === "Delete") {
-    // copiedEvent = subList[active[0]][active[1]];
-    subList[active[0]].splice(active[1], 1);
-    drawTable();
+    deleteEvent()
     return false;
   }
   else if (e.ctrlKey && e.key === "x") {
-    copiedEvent = subList[active[0]][active[1]];
-    subList[active[0]].splice(active[1], 1);
-    drawTable();
+    cutEvent()
     return false;
   }
 };
+
+/**
+ * The function copies an event from a sublist based on the given indices or the active indices.
+ * @param x - The index of the sublist that contains the event to be copied. If no value is provided,
+ * it defaults to the index of the currently active sublist (active[0]).
+ * @param y - The parameter "y" is the index of the item within the sublist that is being copied.
+ */
+function copyEvent(x,y) {
+  copiedEvent = subList[x||active[0]][y||active[1]];
+}
+
+
+function pasteEvent(x,y) {
+  subList[x||active[0]].splice(y||active[1], 0, copiedEvent);
+  drawTable();
+}
+
+
+function pasteEventAfter(x,y) {
+  subList[x||active[0]].splice(y||active[1]+1, 0, copiedEvent);
+  drawTable();
+}
+
+
+function deleteEvent(x,y) {
+  subList[x||active[0]].splice(y||active[1], 1);
+  drawTable();
+}
+
+
+function cutEvent(x,y) {
+  copiedEvent = subList[x||active[0]][y||active[1]];
+  subList[x||active[0]].splice(y||active[1], 1);
+  drawTable();
+}
 
 
 
@@ -379,3 +409,15 @@ String.prototype.width = function (font = '12px arial') {
   return metrics.width;
 }
 
+
+/**
+ * The function returns the current date and time in a specific format.
+ * @returns The function `getCurrentTimeDate()` returns a string that represents the current date and
+ * time in the format "YYYY-MM-DD HH:MM:SS".
+ */
+function getCurrentTimeDate(){
+  var today = new Date();
+  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  return date + ' ' + time;
+}

@@ -15,13 +15,3 @@ function addTimeLineStamp(time) {
     if (timeList.length == 1) timeLineStart = timeLineItems[0].getBoundingClientRect().x;
 }
 
-
-
-document.getElementById("myfile").addEventListener("change", (event) => {
-    var reader = new FileReader();
-    reader.onload = () => {
-        loadContentToTable(JSON.parse(reader.result));
-    };
-    reader.readAsText(event.target.files[0]);
-
-})

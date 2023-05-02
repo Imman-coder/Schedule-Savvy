@@ -1,60 +1,8 @@
-var rJson = {
-  table: [
-    [1, 1, 3, 2, 2],
-    [1, 1, 2, 5, 4],
-    [1, 1, 2, 2, 2],
-    [1, 1, 2, 1, 1, 4],
-    [2, 2, 2, 4, 1],
-    [1, 1, 2, 2, 4]],
-  timeList: [
-    "09:15AM",
-    "10:10AM",
-    "11:05AM",
-    "12:00PM",
-    "12:55PM",
-    "01:45PM",
-    "02:35PM",
-    "03:25PM",
-    "04:15PM",
-  ],
-  base: {
-    "1": {
-      name: "sub1",
-      code: "SUB101",
-      instructor: "Prof.SUB1",
-      time: 1,
-      color: "#f54251",
-    },
-    "2": {
-      name: "sub2",
-      code: "SUB102",
-      instructor: "Prof.SUB2",
-      time: 1,
-      color: "#2a6df4",
-    },
-    "3": {
-      name: "sub3",
-      code: "SUB103",
-      instructor: "Prof.SUB3",
-      time: 1,
-      color: "#ffd138",
-    },
-    "4": {
-      name: "sub4",
-      code: "SUB104",
-      instructor: "Prof.SUB4",
-      time: 3,
-      color: "#79797c",
-    },
-    "5": {
-      name: "sub5",
-      code: "SUB105",
-      instructor: "Prof.SUB5",
-      time: 1,
-      color: "#88c559",
-    },
-  },
-};
+const tableId = "sJson";
+const lastLoadVarsId = "lastloadvars"
+const lastLoadTabId = "lastloadtable"
+const colorTableId = "colortable"
+
 
 
 
@@ -243,7 +191,7 @@ var sJson = {
     }
   }
 }
-;
+  ;
 var Json = {
   table: [
     [],
@@ -259,6 +207,20 @@ var Json = {
   },
 };
 
+var nJson = {
+  table: [
+    [],
+    [],
+    [],
+    [],
+    [],
+    []],
+  timeList: [
+  ]
+  ,
+  base: {
+  },
+};
 [
   "#b09a11",
   "#5778b3",
@@ -273,21 +235,103 @@ var Json = {
 ]
 
 function saveToBrowser() {
-  localStorage.setItem("sjson", JSON.stringify(sJson));
-  localStorage.setItem("color", colorTable.toString());
+  localStorage.setItem(tableId, JSON.stringify(sJson));
+  localStorage.setItem(colorTableId, colorTable.toString());
 }
 
 function loadFromBrowser() {
-  if(localStorage.getItem("sjson")!=undefined)
-  loadContentToTable(JSON.parse(localStorage.getItem("sjson")),localStorage.getItem("color")?.split(","));
+  if (localStorage.getItem(tableId) != undefined)
+    loadContentToTable(JSON.parse(localStorage.getItem(tableId)), localStorage.getItem("color")?.split(","));
 }
 
-function loadContentToTable(json,color=undefined){
+function loadContentToTable(json, color = undefined) {
   sJson = json;
   subList = sJson["table"];
   timeList = sJson["timeList"];
   test_subs = sJson["base"];
-  colorTable =  color || colorTable;
+  colorTable = color || colorTable;
   drawTable();
   onEventSelect();
+}
+
+function hasTableBackup() { return (localStorage.getItem(tableId) != undefined); };
+
+function hasLastSession() { return false };
+function hasLastAutoSave() { return false };
+
+function initializeDb() {
+
+  if (hasStartupVars()) {
+    var vs = JSON.parse(localStorage.getItem(lastLoadTabId));
+    autoBackup = vs.autoBackup;
+    undoStep = vs.undoStep;
+    autoSave = vs.autoSave;
+    showDebugMenu = vs.showDebugMenu;
+    initDebugMenu();
+    updateBackupTimmer();
+  }
+
+  if (hasTableBackup())
+    initLoadLastModule();
+}
+
+function hasStartupTable() { return localStorage.getItem(lastLoadTabId) != undefined };
+function hasStartupVars() { return localStorage.getItem(lastLoadTabId) != undefined };
+
+function newProject() {
+
+  if (hasStartupTable()) {
+    loadContentToTable(JSON.parse(localStorage.getItem(lastLoadTabId)));
+  }
+  else
+    loadContentToTable(nJson);
+
+  if (hasStartupVars()) {
+    var vs = JSON.parse(localStorage.getItem(lastLoadTabId));
+    autoBackupInterval = vs.autoBackupInterval;
+    undoStep = vs.undoStep;
+    autoSave = vs.autoSave;
+    showDebugMenu = vs.showDebugMenu;
+    initDebugMenu();
+    startBackupTimmer();
+  }
+}
+
+function saveStartupFile() {
+  localStorage.setItem(lastLoadVarsId, JSON.stringify({
+    autoSave: autoSave,
+    undoStep: undoStep,
+    autoBackupInterval: autoBackupInterval,
+    showDebugMenu: showDebugMenu,
+  }));
+  localStorage.setItem(lastLoadTabId, JSON.stringify(sJson));
+}
+
+function loadFactorySetting() {
+  localStorage.clear();
+  newProject();
+}
+
+
+
+function makeBackup() {
+  fullBackupToBrowser(backupFileName);
+}
+
+
+function fullBackupToBrowser(fileName) {
+  localStorage.setItem(fileName, JSON.stringify({
+      prefs: JSON.stringify({
+          autoSave: autoSave,
+          undoStep: undoStep,
+          autoBackupInterval: autoBackupInterval,
+          showDebugMenu: showDebugMenu,
+      }),
+      table: JSON.stringify(sJson),
+      colorTable: colorTable.toString(),
+  }));
+}
+
+function fullBackupFromBrowser(fileName) {
+  return localStorage.getItem(fileName);
 }

@@ -104,11 +104,14 @@ class TimeAdderModule extends popupMenuDisplayModule {
         closePopupMenu();
     }
     onPopupMenuClose() {
-        popupMenuBody.innerHTML = "";
         this.modalTextBox.removeEventListener("change", () => {
             enablePopupOkBtn(this.isValid());
         });
         this.modalTextBox = null;
+        setTimeout(() => {
+            popupMenuBody.innerHTML = "";
+            reserved_for = undefined;
+        }, 400);
     }
     onPopupMenuOpen() {
         super.onPopupMenuOpen();
@@ -168,7 +171,10 @@ class LoadLastSessionModule extends popupMenuDisplayModule {
     }
 
     onPopupMenuClose() {
-        popupMenuBody.innerHTML = "";
+        setTimeout(() => {
+            popupMenuBody.innerHTML = "";
+            reserved_for = undefined;
+        }, 400);
     }
 }
 
@@ -205,7 +211,7 @@ class saveAsImage extends popupMenuDisplayModule {
       </div>
     </div>`;
         this._button_type = ["Cancel", "Save"];
-        this._cancelable = false;
+        this._cancelable = true;
         this._image_div;
         this._image_block;
         this._title;
@@ -295,7 +301,7 @@ function initTimeAdderModule() {
     reserved_for = new TimeAdderModule();
 }
 function initLoadLastModule() {
-    if (localStorage.getItem("sjson") != undefined) {
+    if (localStorage.getItem(tableId) != undefined) {
         reserved_for = new LoadLastSessionModule();
         openPopupMenu();
     }
