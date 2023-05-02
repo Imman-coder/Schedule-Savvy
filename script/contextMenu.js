@@ -37,14 +37,14 @@ document.body.addEventListener("click", (e) => {
 
 /*----------Menu Item Click Handler-----------*/
 function onContextCut() {
-    copiedEvent = subList[contextMenu.getAttribute("x")][contextMenu.getAttribute("y")];
-    subList[contextMenu.getAttribute("x")].splice(contextMenu.getAttribute("y"), 1);
+    copiedEvent = Table.table[contextMenu.getAttribute("x")][contextMenu.getAttribute("y")];
+    Table.table[contextMenu.getAttribute("x")].splice(contextMenu.getAttribute("y"), 1);
     closeContextMenu();
     drawTable();
 }
 
 function onContextCopy() {
-    copiedEvent = subList[contextMenu.getAttribute("x")][contextMenu.getAttribute("y")];
+    copiedEvent = Table.table[contextMenu.getAttribute("x")][contextMenu.getAttribute("y")];
     closeContextMenu();
     drawTable();
 }
@@ -54,7 +54,7 @@ function onContextPasteBefore(ref) {
         ry = parseInt(contextMenu.getAttribute("y"));
 
 
-    subList[rx].splice(ry, 0, copiedEvent);
+    Table.table[rx].splice(ry, 0, copiedEvent);
     closeContextMenu();
     drawTable();
     }
@@ -65,7 +65,7 @@ function onContextPasteAfter(ref) {
         ry = parseInt(contextMenu.getAttribute("y"));
 
 
-    subList[rx].splice(ry + 1, 0, copiedEvent);
+    Table.table[rx].splice(ry + 1, 0, copiedEvent);
     closeContextMenu();
     drawTable();
     }
@@ -77,7 +77,7 @@ function onContextDelete(ref) {
         type = contextMenu.getAttribute("type");
 
     if (type == "event") {
-        subList[x].splice(y, 1);
+        Table.table[x].splice(y, 1);
     }
     else if (type == "timeline") {
         timeList.splice(x, 1);

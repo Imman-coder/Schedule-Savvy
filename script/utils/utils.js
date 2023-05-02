@@ -185,7 +185,7 @@ function generateColorPalette() {
     // add the color to the array
     colorTable.push(color);
   }
-  drawTable();
+  Table.Draw();
 }
 
 

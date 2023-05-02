@@ -25,7 +25,7 @@ const maxClassNo = classTimespan.getAttribute("max");
 /*---------Sys defines--------*/
 var classtypeList = ["Theory Class", "Lab Class", "Notice"];
 var classtypeListr = { "Theory Class": "0", "Lab Class": "1", Notice: "2" };
-var activeBlock = test_subs[subList[active[0]][active[1]]];
+var activeBlock = Table.base[Table.table[active[0]][active[1]]];
 
 /*-------------Class Type Dropdown Handlers------------*/
 function showMenu() {
@@ -88,7 +88,7 @@ classTimespanUp.addEventListener("click", () => {
 /*-----------------------Menu----------------------------*/
 
 function onEventSelect() {
-    activeBlock = test_subs[subList[active[0]][active[1]]];
+    activeBlock = Table.base[Table.table[active[0]][active[1]]];
     classTimespan.value = activeBlock?.time_span || 0;
     var k = activeBlock?.class_type;
     selected.innerHTML = classtypeList[k];

@@ -28,7 +28,7 @@ function printToCanvas(title = undefined) {
   var hasTitle = title != undefined;
   var titlePadding = hasTitle ? 01 : 0;
 
-  var w_spacing = wx / timeList.length;
+  var w_spacing = wx / Table.timeList.length;
   var h_spacing = hx / (7 + titlePadding);
 
   function putText(text, i, j, leftBias = 0) {
@@ -48,7 +48,7 @@ function printToCanvas(title = undefined) {
     ctx.fillStyle = "black";
   }
 
-  for (let i = 0; i < timeList.length + 2; i++) {
+  for (let i = 0; i < Table.timeList.length + 2; i++) {
     ctx.moveTo(w_spacing * i + padding, 0 + padding);
     ctx.lineTo(w_spacing * i + padding, hx + padding);
     ctx.moveTo(w_spacing * i + padding, 0 + padding);
@@ -73,18 +73,18 @@ function printToCanvas(title = undefined) {
 
   ctx.stroke();
 
-  for (let i = 0; i < timeList.length - 1; i++) {
-    putTextFirst(intToTime(timeList[i]), i + 1, 0 + titlePadding)
+  for (let i = 0; i < Table.timeList.length - 1; i++) {
+    putTextFirst(intToTime(Table.timeList[i]), i + 1, 0 + titlePadding)
     putText("-", i + 1, 0 + titlePadding)
-    putTextSecond(intToTime(timeList[i + 1]), i + 1, 0 + titlePadding)
+    putTextSecond(intToTime(Table.timeList[i + 1]), i + 1, 0 + titlePadding)
   }
 
 
-  for (let i = 0; i < subList.length; i++) {
-    const ei = subList[i];
+  for (let i = 0; i < Table.table.length; i++) {
+    const ei = Table.table[i];
     var bias = 0;
     for (let j = 0; j < ei.length; j++) {
-      const ej = test_subs[ei[j]];
+      const ej = Table.base[ei[j]];
       var subs = "";
       var teach = "";
       if (ej.class_type == 0) {
@@ -128,8 +128,8 @@ function printToCanvas(title = undefined) {
     }
   }
   if (hasTitle) {
-    fillSquare(0, 0, timeList.length-1);
-    putText(title,timeList.length/2 - .5 ,0);
+    fillSquare(0, 0, Table.timeList.length-1);
+    putText(title,Table.timeList.length/2 - .5 ,0);
   }
 }
 

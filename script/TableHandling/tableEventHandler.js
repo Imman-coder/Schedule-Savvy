@@ -18,7 +18,7 @@ function initListeners() {
       e.addEventListener("click", function () {
         active = [e.getAttribute("x"), e.getAttribute("y")];
         onEventSelect();
-        drawTable();
+        Table.Draw();
       });
     }
   }
@@ -84,7 +84,7 @@ function onEventDoubbleClick(event) {
   active = [activeprev[0], activeprev[1]];
   activeprev = [-1, -1];
   console.log(active, activeprev);
-  drawTable();
+  Table.Draw();
   console.log("double clicked!");
 }
 
@@ -117,12 +117,15 @@ function onEventDropListner(event) {
     rx = event.target.getAttribute("x"),
     ry = event.target.getAttribute("y");
 
-  var delItem;
-  if (event.ctrlKey) delItem = subList[sx][sy];
-  else delItem = subList[sx].splice(sy, 1)[0];
+  var delItem= Table.table[sx][sy];
+  if (!event.ctrlKey){
+    // delItem = Table.table[sx].splice(sy, 1)[0];
+    Table.table[sx]=Table.table[sx].slice(0,sy).concat( Table.table[sx].slice(sy+1));
 
-  subList[rx].splice(ry, 0, delItem);
-  drawTable();
+  }
+
+  Table.table[rx].splice(ry, 0, delItem);
+  // Table.Draw();
 }
 
 function addNewEventListener(event) {
@@ -132,9 +135,9 @@ function addNewEventListener(event) {
 
   test_subs[id.toString()] = JSON.parse(JSON.stringify(EventBlock));
 
-  subList[rx].push(id);
+  Table.table[rx].push(id);
   active = [rx, ry];
-  drawTable();
+  Table.Draw();
   onEventSelect();
 }
 
