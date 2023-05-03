@@ -109,25 +109,23 @@ function onEventSelect() {
 }
 
 function onClassTypeChange(from) {
-    if (from || autoSave) {
+    if (from ||  Preferences.autoSave) {
         activeBlock.class_type = classtypeListr[selected.innerHTML];
-        drawTable();
     }
 }
 
 function onClassTimespanChange(from) {
-    if (from || autoSave) {
+    if (from ||  Preferences.autoSave) {
         activeBlock.time_span = classTimespan.value;
-        drawTable();
     }
 }
 function onClassTimespanRange(from) {
     var k = classTimespan.value;
     if (k <= minClassNo) k = minClassNo;
     else if (k >= maxClassNo) k = maxClassNo;
-    if (from || autoSave) {
         classTimespan.value = k;
-        drawTable();
+    if (from || Preferences.autoSave) {
+        activeBlock.time_span=k;
     }
 }
 
@@ -208,7 +206,7 @@ function updateClassBlockText() {
 }
 
 function onClassBlockTextChange(from) {
-    if (from || autoSave) {
+    if (from ||  Preferences.autoSave) {
         var lsb = [];
         for (let it = 0; it < classBlocks.length; it++) {
             const elm = classBlocks[it];
@@ -232,7 +230,6 @@ function onClassBlockTextChange(from) {
     }
     activeBlock.subjects = lsb;
     validateClassBlockView();
-    drawTable();
 }
 
 function onClassBlockDelete(e) {

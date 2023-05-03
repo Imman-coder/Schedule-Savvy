@@ -363,6 +363,10 @@ document.onkeydown = function (e) {
     Table.cutEvent();
     return false;
   }
+  else if (e.ctrlKey && e.key === "p") {
+    generateColorPalette()
+    return false;
+  }
 };
 
 
