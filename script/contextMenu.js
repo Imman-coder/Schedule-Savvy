@@ -62,7 +62,10 @@ function onContextPasteAfter(ref) {
 }
 function onContextDelete(ref) {
     if (!ref.classList.contains("disable")) {
-        Table.deleteEvent(contextMenu.x(), contextMenu.y());
+        if(contextMenu.getAttribute("type")=="event")
+            Table.deleteEvent(contextMenu.x(), contextMenu.y());
+        if(contextMenu.getAttribute("type")=="timeline")
+            Table.deleteTimeLineStamp(contextMenu.x());
         closeContextMenu();
     }
 }

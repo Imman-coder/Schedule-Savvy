@@ -99,7 +99,7 @@ class TimeAdderModule extends popupMenuDisplayModule {
     }
     onOkBtnClick() {
         var l = timeToInt(formatTime(this.modalTextBox.value));
-        if (!timeList.includes(l.toString())) addTimeLineStamp(l);
+        if (!Table.Data.TimeList.includes(l.toString())) Table.addTimeLineStamp(l);
         else snackbar.show("Time already added!", snackbar.Error, 3000);
         closePopupMenu();
     }
