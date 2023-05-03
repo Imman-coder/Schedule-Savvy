@@ -2,5 +2,5 @@
     "liveServer.settings.port": 5501,
     "docwriter.progress.trackClasses": false,
     "docwriter.progress.trackFunctions": false,
-    "docwriter.progress.trackMethods": true
+    "docwriter.progress.trackMethods": false
 }

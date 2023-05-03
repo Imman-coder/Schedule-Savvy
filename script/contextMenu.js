@@ -11,6 +11,9 @@ injectContextMenu();
 
 const contextMenuItems = contextMenu.getElementsByClassName("item");
 
+contextMenu.x = () => contextMenu.getAttribute("x");
+contextMenu.y = () => contextMenu.getAttribute("Y");
+
 
 
 
@@ -37,53 +40,30 @@ document.body.addEventListener("click", (e) => {
 
 /*----------Menu Item Click Handler-----------*/
 function onContextCut() {
-    copiedEvent = Table.table[contextMenu.getAttribute("x")][contextMenu.getAttribute("y")];
-    Table.table[contextMenu.getAttribute("x")].splice(contextMenu.getAttribute("y"), 1);
+    Table.cutEvent(contextMenu.x(), contextMenu.y());
     closeContextMenu();
-    drawTable();
 }
 
 function onContextCopy() {
-    copiedEvent = Table.table[contextMenu.getAttribute("x")][contextMenu.getAttribute("y")];
+    Table.copyEvent(contextMenu.x(), contextMenu.y());
     closeContextMenu();
-    drawTable();
 }
 function onContextPasteBefore(ref) {
-    if(!ref.classList.contains("disable")){
-    const rx = parseInt(contextMenu.getAttribute("x")),
-        ry = parseInt(contextMenu.getAttribute("y"));
-
-
-    Table.table[rx].splice(ry, 0, copiedEvent);
-    closeContextMenu();
-    drawTable();
+    if (!ref.classList.contains("disable")) {
+        Table.putEvent(contextMenu.x(), contextMenu.y());
+        closeContextMenu();
     }
 }
 function onContextPasteAfter(ref) {
-    if(!ref.classList.contains("disable")){
-    const rx = parseInt(contextMenu.getAttribute("x")),
-        ry = parseInt(contextMenu.getAttribute("y"));
-
-
-    Table.table[rx].splice(ry + 1, 0, copiedEvent);
-    closeContextMenu();
-    drawTable();
+    if (!ref.classList.contains("disable")) {
+        Table.putEventAfter(contextMenu.x(), contextMenu.y());
+        closeContextMenu();
     }
 }
 function onContextDelete(ref) {
-    if(!ref.classList.contains("disable")){
-    var x = contextMenu.getAttribute("x"),
-        y = contextMenu.getAttribute("y"),
-        type = contextMenu.getAttribute("type");
-
-    if (type == "event") {
-        Table.table[x].splice(y, 1);
-    }
-    else if (type == "timeline") {
-        timeList.splice(x, 1);
-    }
-    closeContextMenu();
-    drawTable();
+    if (!ref.classList.contains("disable")) {
+        Table.deleteEvent(contextMenu.x(), contextMenu.y());
+        closeContextMenu();
     }
 }
 function onContextPreference() {
@@ -91,7 +71,7 @@ function onContextPreference() {
     closeContextMenu();
 }
 
-function onContextAddTimeline(){
+function onContextAddTimeline() {
     initTimeAdderModule();
     openPopupMenu();
 }
@@ -101,9 +81,9 @@ function onContextAddTimeline(){
 /*--------------Hide/Show Menu Items-------------*/
 
 function showMenuItem(item) {
-        item.classList.remove("hide");
+    item.classList.remove("hide");
 }
-function hideAllMenuItems(){
+function hideAllMenuItems() {
     for (let index = 0; index < contextMenuItems.length; index++) {
         contextMenuItems[index].classList.add("hide");
     }
@@ -115,7 +95,7 @@ function enableMenuItem(item) {
     item.classList.remove("disable");
 }
 
-function disableAllMenuItem(){
+function disableAllMenuItem() {
     for (let index = 0; index < contextMenuItems.length; index++) {
         contextMenuItems[index].classList.add("disable");
     }
@@ -123,7 +103,7 @@ function disableAllMenuItem(){
 
 
 /*-------------------Show Context Menu-------------------*/
-function showContextMenu(event,type,showOptions,enableOptions){
+function showContextMenu(event, type, showOptions, enableOptions) {
     hideAllMenuItems();
     disableAllMenuItem();
     contextMenu.setAttribute("type", type);
@@ -161,8 +141,8 @@ function showContextMenu(event,type,showOptions,enableOptions){
 
 /*--------------Context Menu Injector----------------------*/
 
-function injectContextMenu(){
-    contextMenu.innerHTML=`
+function injectContextMenu() {
+    contextMenu.innerHTML = `
     <div onclick="onContextCut(this)" class="item">Cut</div>
     <div onclick="onContextCopy(this)" class="item">Copy</div>
     <div

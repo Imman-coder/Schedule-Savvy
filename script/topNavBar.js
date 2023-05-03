@@ -51,11 +51,11 @@ var menu2 = [
     },
     {
         title: "Edit", child: [
-            { title: "Cut", action: () => { cutEvent() } },
-            { title: "Copy", action: () => { copyEvent() } },
-            { title: "Paste After", action: () => { pasteEventAfter() }, enabled: () => copiedEvent != undefined },
-            { title: "Paste Before", action: () => { pasteEvent() }, enabled: () => copiedEvent != undefined },
-            { title: "Delete", action: () => { deleteEvent() }, enabled: () => active != undefined },
+            { title: "Cut", action: () => { Table.cutEvent() } },
+            { title: "Copy", action: () => { Table.copyEvent() } },
+            { title: "Paste Before", action: () => { Table.putEvent() }, enabled: () => Table.Data.copiedEvent != undefined },
+            { title: "Paste After", action: () => { Table.putEventAfter() }, enabled: () => Table.Data.copiedEvent != undefined },
+            { title: "Delete", action: () => { Table.deleteEvent() }, enabled: () => Table.Data.active != undefined },
             { title: "Add Timeline", action: () => { onContextAddTimeline() } },
             { title: "Change Color Palette", action: () => { generateColorPalette() } },
         ]

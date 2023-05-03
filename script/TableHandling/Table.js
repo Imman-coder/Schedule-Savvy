@@ -8,9 +8,6 @@ var colorTable = [];
 
 
 var active = [1, 4];
-var activeprev = [-1, -1];
-const backgroundColor = '#1a1a1a';
-const textColor = '#e8e8e8';
 // generateColorPalette();
 
 // function drawTable() {

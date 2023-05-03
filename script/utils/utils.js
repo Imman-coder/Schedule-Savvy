@@ -1,6 +1,9 @@
 const MAX_EVENTS = 50;
 const SHOW_DEBUG_MESSAGES = true;
 
+const backgroundColor = '#1a1a1a';
+const textColor = '#e8e8e8';
+
 /**
  * The function normalizes the position of a mouse click relative to a container element and ensures
  * that the element does not go out of bounds.
@@ -199,9 +202,9 @@ function getNewEventId() {
 
   for (let id = 1; id < MAX_EVENTS; id++) {
     var has = false;
-    for (let i = 0; i < subList.length; i++) {
+    for (let i = 0; i < Table.Data.EventList.length; i++) {
       if (has) break;
-      const ei = subList[i];
+      const ei = Table.Data.EventList[i];
       for (let j = 0; j < ei.length; j++) {
         if (ei[j] == id)
           has = true;
@@ -345,62 +348,52 @@ document.onkeydown = function (e) {
     return false;
   }
   else if (e.ctrlKey && e.key === 'c') {
+    Table.copyEvent();
     return false;
   }
   else if (e.ctrlKey && e.key === 'v') {
-    pasteEvent()
+    Table.putEvent();
     return false;
   }
   else if (e.key === "Delete") {
-    deleteEvent()
+    Table.deleteEvent();
     return false;
   }
   else if (e.ctrlKey && e.key === "x") {
-    cutEvent()
+    Table.cutEvent();
     return false;
   }
 };
 
-/**
- * The function copies an event from a sublist based on the given indices or the active indices.
- * @param x - The index of the sublist that contains the event to be copied. If no value is provided,
- * it defaults to the index of the currently active sublist (active[0]).
- * @param y - The parameter "y" is the index of the item within the sublist that is being copied.
- */
-function copyEvent(x,y) {
-  copiedEvent = subList[x||active[0]][y||active[1]];
-}
+
+// function copyEvent(x,y) {
+//   Table.Data.copiedEvent = Table.Data.EventTable[x||Table.Data.active[0]][y||Table.Data.active[1]];
+// }
 
 
-function pasteEvent(x,y) {
-  subList[x||active[0]].splice(y||active[1], 0, copiedEvent);
-  drawTable();
-}
+// function pasteEvent(x,y,Event) {
+//   Table.putEvent(x,y,Event)
+// }
 
 
-function pasteEventAfter(x,y) {
-  subList[x||active[0]].splice(y||active[1]+1, 0, copiedEvent);
-  drawTable();
-}
+// function pasteEventAfter(x,y,Event) {
+//   Table.putEvent(x||Table.Data.active[0],(y||Table.Data.active[1])+1,Event);
+// }
 
 
-function deleteEvent(x,y) {
-  subList[x||active[0]].splice(y||active[1], 1);
-  drawTable();
-}
+// function deleteEvent(x,y) {
+//   Table.deleteEvent(x,y);
+// }
 
 
-function cutEvent(x,y) {
-  copiedEvent = subList[x||active[0]][y||active[1]];
-  subList[x||active[0]].splice(y||active[1], 1);
-  drawTable();
-}
+// function cutEvent(x,y) {
+//   Table.Data.copiedEvent = Table.Data.EventTable[x||Table.Data.active[0]][y||Table.Data.active[1]];
+//   Table.deleteEvent(x,y);
+// }
 
 
 
-/* The above code is adding a new method called `width` to the `String` prototype in JavaScript. This
-method takes an optional argument `font` which defaults to `'12px arial'`. The purpose of this
-method is to calculate the width of the string in pixels when rendered with the specified font. */
+/* The function returns the width of the string in pixels when rendered with the specified font. */
 String.prototype.width = function (font = '12px arial') {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");

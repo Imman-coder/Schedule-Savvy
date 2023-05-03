@@ -15,11 +15,9 @@ function initListeners() {
       e.addEventListener("contextmenu", onAdderRightClick);
     } else {
       e.addEventListener("contextmenu", onEventRightClick);
-      e.addEventListener("click", function () {
-        active = [e.getAttribute("x"), e.getAttribute("y")];
-        onEventSelect();
-        Table.Draw();
-      });
+      e.addEventListener("click", () =>
+        Table.Data.active = [e.getAttribute("x"), e.getAttribute("y")]
+      );
     }
   }
 
@@ -31,12 +29,17 @@ function initListeners() {
 
 function onTimelineRightClick(event) {
   event.preventDefault();
-  showContextMenu(event, "timeline", [contextItemDelete, contextItemAddTimeline], [contextItemDelete, contextItemAddTimeline]);
+  showContextMenu(
+    event,
+    "timeline",
+    [contextItemDelete, contextItemAddTimeline],
+    [contextItemDelete, contextItemAddTimeline]
+  );
 }
 
 function onEventRightClick(event) {
   event.preventDefault();
-  if (typeof copiedEvent != "undefined")
+  if (Table.Data.copiedEvent != undefined)
     showContextMenu(
       event,
       "event",
@@ -72,11 +75,15 @@ function onEventRightClick(event) {
 
 function onAdderRightClick(event) {
   event.preventDefault();
-  
-  if (typeof copiedEvent != "undefined")
-    showContextMenu(event, "event-adder", [contextItemPaste], [contextItemPaste]);
-  else
-    showContextMenu(event, "event-adder", [contextItemPaste], []);
+
+  if (typeof Table.Data.copiedEvent != "undefined")
+    showContextMenu(
+      event,
+      "event-adder",
+      [contextItemPaste],
+      [contextItemPaste]
+    );
+  else showContextMenu(event, "event-adder", [contextItemPaste], []);
 }
 
 function onEventDoubbleClick(event) {
@@ -112,33 +119,19 @@ function onEventDropListner(event) {
   event.preventDefault();
   event.target.classList.remove("caret");
 
-  const sx = event.dataTransfer.getData("data")[0],
+  const
+    sx = event.dataTransfer.getData("data")[0],
     sy = event.dataTransfer.getData("data")[2],
     rx = event.target.getAttribute("x"),
     ry = event.target.getAttribute("y");
 
-  var delItem= Table.table[sx][sy];
-  if (!event.ctrlKey){
-    // delItem = Table.table[sx].splice(sy, 1)[0];
-    Table.table[sx]=Table.table[sx].slice(0,sy).concat( Table.table[sx].slice(sy+1));
-
-  }
-
-  Table.table[rx].splice(ry, 0, delItem);
-  // Table.Draw();
+  if (event.ctrlKey) Table.putEvent(rx, ry, Table.getEventID(sx, sy));
+  else Table.moveEvent(sx, sy, rx, ry);
 }
 
 function addNewEventListener(event) {
   const rx = event.target.getAttribute("x"),
-    ry = event.target.getAttribute("y"),
-    id = getNewEventId();
-
-  test_subs[id.toString()] = JSON.parse(JSON.stringify(EventBlock));
-
-  Table.table[rx].push(id);
-  active = [rx, ry];
-  Table.Draw();
-  onEventSelect();
+    ry = event.target.getAttribute("y");
+  Table.addNewBlankEvent(rx, ry);
 }
 
-var time_divider_group = document.getElementById("time-divider");
