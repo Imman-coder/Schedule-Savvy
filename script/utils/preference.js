@@ -7,7 +7,7 @@ var PreferenceVars = {
     autoSave: true,
     undoStep: 32,
     autoBackupInterval: 60000,
-    theme:"dark",
+    theme:undefined,
     dump: undefined,
     showDebugMenu: false,
 };
@@ -76,7 +76,8 @@ function onShowDebugMenuChange() {
 }
 
 function onThemeChange(){
-    
+    document.body.classList=Preferences.theme;
+    generateColorPalette();
 }
 
 

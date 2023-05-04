@@ -7,13 +7,13 @@
 .property-menu-stack {
     display: flex;
     flex-grow: 1;
-    
+
 
     .event-properties {
         padding: 5px;
         @include d-shape();
         margin: 0px 5px 5px 5px;
-        background-color: $clr-body-bg-ascent;
+        background-color: var(--primary);
         flex-grow: 1;
     }
 
@@ -22,34 +22,35 @@
         margin: 0px 5px 5px 0px;
         padding: 5px;
         @include d-shape();
-        background-color: $clr-body-bg-ascent;
+        background-color: var(--primary);
 
-        span {
-            color: $clr-text-fg-accent;
-            user-select: none;
-            text-align: left;
-        }
+        // span {
+        //     color: var(--on-error-container);
+        //     user-select: none;
+        //     text-align: left;
+        // }
 
         .json-view {
             @include d-shape();
-            background-color: $clr-body-bg-ascent-over;
+            background-color: var(--primary-container);
             width: 90%;
             height: 85%;
             margin: auto;
-            color: $clr-text-fg-accent;
+            color: var(--primary-container);
 
-            .heading{
+            .heading {
                 user-select: none;
+                color: var(--on-primary-container);
                 position: absolute;
-                transform: translate(-52%,130%) rotateZ(-90deg);
+                transform: translate(-52%, 130%) rotateZ(-90deg);
             }
 
-            #json-text{
+            #json-text {
                 overflow: hidden;
             }
         }
 
-        &.hidden{
+        &.hidden {
             display: none;
         }
 

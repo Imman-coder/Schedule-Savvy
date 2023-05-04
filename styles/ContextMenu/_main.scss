@@ -2,11 +2,12 @@
     position: fixed;
     z-index: 10;
     width: 150px;
-    background: #1b1a1a;
+    background: var(--secondary);
     border-radius: 5px;
     transform: scale(0);
     transform-origin: top left;
     border: 1px solid white;
+    box-shadow: 0 0 0.8em var(--secondary-container);
 
     &.visible {
         transform: scale(1);
@@ -16,18 +17,16 @@
     .item {
         padding: 8px 10px;
         font-size: 15px;
-        color: #eee;
-        cursor: pointer;
+        color: var(--on-secondary-container);
         border-radius: inherit;
-        border-bottom: 1px solid rgb(46, 46, 46);
         user-select: none;
 
         &:hover {
-            background: #343434;
+            background: var(--secondary-container);
         }
 
         &.red:hover {
-            background: red;
+            background: var(--error);
         }
     }
 
@@ -36,13 +35,10 @@
     }
 
     .disable {
-        color: #363636;
-        color: #7e7e7e;
+        color: var(--on-secondary);
 
         &:hover {
             cursor: default;
-            background: #1b1a1a;
-            color: #7e7e7e;
         }
     }
 }

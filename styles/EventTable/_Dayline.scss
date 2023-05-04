@@ -2,10 +2,9 @@
 
     & .badge {
         position: absolute;
-        background-color: #238d8d;
+        background-color: var(--color1);
         top: 0;
         right: 0;
-        // transform: translate(-50%, -15%);
         text-align: center;
         padding: 4px 8px;
         border-radius: 5px;
@@ -29,7 +28,7 @@
             margin: 4px;
             height: min-content;
             border-radius: 12px;
-            background-color: $dayCard-color;
+            background-color: var(--color1);
         }
 
         .subcard-holder {
@@ -48,7 +47,7 @@
                 width: 100%;
                 height: inherit;
                 border-radius: 25px;
-                background-color: rgb(223, 179, 196);
+                background-color: rgb(116, 79, 93);
                 user-select: none;
                 cursor: pointer;
 
@@ -74,7 +73,7 @@
                     content: "";
                     width: 2px;
                     height: inherit;
-                    background-color: #238d8d;
+                    background-color: var(--color3);
 
                 }
 
@@ -87,7 +86,7 @@
                     width: 7px;
                     height: 7px;
                     border-radius: 50%;
-                    background-color: #61eee7;
+                    background-color: var(--color3);
                 }
             }
             & .badge {
@@ -95,7 +94,7 @@
                 }
 
             .active {
-                border: 2px solid $sel-item-fg;
+                border: 2px solid var(--color2);
 
 
                 & .badge {
@@ -104,13 +103,13 @@
             }
 
             .plus {
-                background-color: #ffffff25;
+                background-color: var(--secondary);
                 font-size: 33px;
                 align-items: normal;
                 cursor: pointer;
 
                 &:hover {
-                    background-color: #ffffff4d;
+                    background-color: var(--secondary-container);
                 }
             }
         }

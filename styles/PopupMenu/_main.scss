@@ -1,5 +1,5 @@
 .popupMenu {
-    color: $clr-text-fg;
+    color: var(--on-primary);
     position: fixed;
     left: 0;
     top: 0;
@@ -20,7 +20,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: $clr-body-bg;
+    background-color: var(--primary);
+    color: var(--on-primary);
     padding: 1rem 1.5rem;
     width: 24rem;
     border-radius: 0.5rem;
@@ -37,10 +38,10 @@
             text-align: center;
             cursor: pointer;
             border-radius: 0.25rem;
-            background-color: rgb(70, 69, 69);
+            background-color: var(--primary-container);
 
             &:hover {
-                background-color: rgb(102, 102, 102);
+                background-color: var(--secondary-container);
             }
         }
 
@@ -48,7 +49,7 @@
             color: rgb(138, 138, 138);
 
             &:hover {
-                background-color: rgb(70, 69, 69);
+                background-color: var(--primary-container);
                 cursor: default;
             }
         }

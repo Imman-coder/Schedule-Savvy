@@ -2,7 +2,7 @@
 
 .topnav {
     z-index: 9;
-    background-color: $clr-body-bg-ascent;
+    background-color: var(--primary);
     user-select: none;
     padding-left: 16px;
     padding-right: 16px;
@@ -13,7 +13,6 @@
     ul {
         list-style-type: none;
         min-width: 100px;
-        
     }
 
     &.ss {
@@ -23,7 +22,6 @@
             }
         }
     }
-
 
     &>ul {
         display: flex;
@@ -38,34 +36,35 @@
 
             &:hover {
                 &>a {
-                    background-color: $clr-body-bg-ascent-over;
-                    border-radius: 5px;
+                    background-color: var(--primary-container);
                 }
+            }
+
+            &>a {
+                color: var(--on-primary-container);
+                border-radius: 5px;
             }
 
             a {
                 text-decoration: none;
                 padding: 10px 20px;
                 transform: translateY(-1px);
-            }
 
-            // &:hover {
-            //     &>ul {
-            //         display: block;
-            //     }
-            // }
+            }
 
             ul {
                 top: 100%;
                 left: 0px;
                 display: block;
                 position: absolute;
-                border: 2px $clr-body-bg-ascent-over-border solid;
-                background-color: $clr-body-bg-ascent-over;
+                border: 2px var(--secondary-border) solid;
+                background-color: var(--secondary);
                 border-radius: 5px;
                 display: none;
                 min-width: 100px;
                 padding: 1px;
+
+                box-shadow: 0 0 0.8em var(--secondary-container);
 
                 li {
                     padding: 1px;
@@ -107,14 +106,12 @@
                     }
 
                     &.disabled>a {
-                        opacity: 0.5;
+                        opacity: 0.4;
                     }
 
                     &:hover {
-
                         &>a {
-                            background-color: $clr-body-bg-ascent-over-hover;
-
+                            background-color: var(--primary-container);
                         }
 
                         ul {
@@ -133,7 +130,6 @@
                             transform: translateY(50%);
                             font-size: 10px;
                         }
-
                     }
 
                     ul {
@@ -147,7 +143,6 @@
                         li {
                             position: relative;
                             width: auto;
-
                         }
                     }
                 }

@@ -1,1 +1,81 @@
-@import "./Themes/Dark";
+:root {
+    /* Primary colors */
+    --primary: #d4f0ee;
+    --on-primary: #000000;
+    --primary-border: #f4f5ff;
+    --primary-container: #b5d8e250;
+    --on-primary-container: #546e7a;
+
+    /* Secondary colors */
+    --secondary: #ffffff;
+    --on-secondary: #1153538f;
+    --secondary-container: #f7eff2;
+    --on-secondary-container: #646464;
+
+    /* Body/Surface color */
+    --surface: #fff;
+
+    /* Error colors */
+    --error: #ff5370;
+    --on-error: #000000;
+    --error-container: #212121;
+    --on-error-container: #FFFFFF;
+
+    /* Variation colors*/
+    --color1: #9b75e2;
+    --color2: #238d8d;
+    --color3: #238d8d;
+    --opacity: 80;
+}
+
+
+.dark {
+    /* Primary colors */
+    --primary: #212121;
+    --on-primary: #B0BEC5;
+    --primary-border: #292929;
+    --primary-container: #323232;
+    --on-primary-container: #FFFFFF;
+
+    /* Secondary colors */
+    --secondary: #292929;
+    --on-secondary: #b6b6b6;
+    --secondary-container: #3F3F3F;
+    --on-secondary-container: #FFFFFF;
+
+    /* Body/Surface color */
+    --surface: #1A1A1A;
+    --on-surface: #009688;
+
+    /* Variation colors*/
+    --color1: #5727b0;
+    --color2: #238d8d;
+    --color3: #238d8d;
+    --opacity: FF;
+}
+
+
+.vlue {
+    /* Primary colors */
+    --primary: #263238;
+    --on-primary: #B0BEC5;
+    --primary-border: #2A373E;
+    --primary-container: #2E3C43;
+    --on-primary-container: #FFFFFF;
+
+    /* Secondary colors */
+    --secondary: #32424A;
+    --on-secondary: #b6b6b6;
+    --secondary-container: #425B67;
+    --on-secondary-container: #FFFFFF;
+
+    /* Body/Surface color */
+    --surface: #1E272C;
+    --on-surface: #009688;
+
+    /* Variation colors*/
+    --color1: #5727b0;
+    --color2: #238d8d;
+    --color3: #238d8d;
+    --opacity: 9F;
+}

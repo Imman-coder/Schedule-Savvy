@@ -1,8 +1,7 @@
-
 @mixin hv-Box() {
 
-    background: $clr-body-bg-ascent-over;
-    color: $clr-text-fg;
+    background: var(--secondary);
+    color: var(--on-secondary);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,22 +11,29 @@
     margin: 5px;
 
     span:first-child {
-        color: $clr-text-fg-accent;
+        color: var(--on-secondary);
         user-select: none;
     }
 }
 
-@mixin ct-txtbx(){
-    
-    background-color: $clr-body-bg-ascent-over;
+@mixin ct-txtbx() {
+
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
     border-radius: 5px;
     margin-right: 10px;
-    color: $clr-text-fg;
     height: 32px;
+
+    &:focus {
+        box-shadow: 0 0 0.8em var(--secondary-container);
+    }
+
 
     &:focus {
         outline: 0;
     }
+
+    border: 1px solid var(--secondary-container);
 
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {

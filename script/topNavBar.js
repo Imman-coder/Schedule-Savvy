@@ -63,7 +63,15 @@ var menu2 = [
     {
         title: "Preference", child: [
             { title: () => !Preferences.showDebugMenu ? "Show Debug Menu" : "Hide Debug Menu", action: () => { Preferences.showDebugMenu = !Preferences.showDebugMenu; } },
-            { title: "Themes", action: () => { } },
+            {
+                title: "Themes", child: [
+                    { title: "Dark", selected: () => Preferences.theme === "dark", action: () => { Preferences.theme = "dark"; } },
+                    { title: "Vlue", selected: () => Preferences.theme === "vlue", action: () => { Preferences.theme = "vlue"; } },
+                    { title: "Light", selected: () => Preferences.theme === "light", action: () => { Preferences.theme = "light"; } },
+                    { title: "--", selected: () => Preferences.theme === "", action: () => { Preferences.theme = ""; } },
+                    { title: "--", selected: () => Preferences.theme === "", action: () => { Preferences.theme = ""; } },
+                ]
+            },
             {
                 title: "Auto Backup Interval", child: [
                     { title: "None", selected: () => Preferences.autoBackupInterval === -1, action: () => { Preferences.autoBackupInterval = -1; } },
@@ -76,11 +84,11 @@ var menu2 = [
             { title: "Auto Save", action: () => { Preferences.autoSave = !Preferences.autoSave }, checked: () => { return Preferences.autoSave } },
             {
                 title: "Undo Steps", child: [
-                    { title: "8", selected: () =>  Preferences.undoStep === 8, action: () => {  Preferences.undoStep = 8; } },
-                    { title: "16", selected: () =>  Preferences.undoStep === 16, action: () => {  Preferences.undoStep = 16; } },
-                    { title: "24", selected: () =>  Preferences.undoStep === 24, action: () => {  Preferences.undoStep = 24; } },
-                    { title: "32", selected: () =>  Preferences.undoStep === 32, action: () => {  Preferences.undoStep = 32; } },
-                    { title: "40", selected: () =>  Preferences.undoStep === 40, action: () => {  Preferences.undoStep = 40; } },
+                    { title: "8", selected: () => Preferences.undoStep === 8, action: () => { Preferences.undoStep = 8; } },
+                    { title: "16", selected: () => Preferences.undoStep === 16, action: () => { Preferences.undoStep = 16; } },
+                    { title: "24", selected: () => Preferences.undoStep === 24, action: () => { Preferences.undoStep = 24; } },
+                    { title: "32", selected: () => Preferences.undoStep === 32, action: () => { Preferences.undoStep = 32; } },
+                    { title: "40", selected: () => Preferences.undoStep === 40, action: () => { Preferences.undoStep = 40; } },
                 ]
             },
         ]

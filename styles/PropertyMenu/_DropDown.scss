@@ -1,8 +1,5 @@
 @import "mixins";
 
-$hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
-
-
 .dropdown {
     min-width: 15em;
     position: relative;
@@ -24,7 +21,7 @@ $hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
         align-items: center;
 
         span {
-            color: #ffff;
+            color: var(--on-secondary-container);
             margin-right: 12px;
         }
 
@@ -43,15 +40,14 @@ $hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
     }
 
     &:hover {
-        background-color:$hover-ascent;
+        background-color: var(--secondary-container);
     }
 }
 
 .select-clicked {
-    border: 2px #323741 solid;
-    box-shadow: 0 0 0.8em #323741;
-    // background: #323741;
-    background-color:$hover-ascent;
+    border: 2px var(--on-secondary-container-border, #323741) solid;
+    box-shadow: 0 0 0.8em var(--secondary-container);
+    background-color: var(--secondary-container);
 }
 
 
@@ -60,18 +56,16 @@ $hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
 .menu {
     list-style: none;
     padding: 0.2em 0.5em;
-    // background: #323741;
-    background-color:$hover-ascent;
-    border: 1px #363a43 solid;
+    background-color: var(--secondary-container);
+    border: 1px var(--secondary-container-border, #363a43) solid;
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
     border-radius: 0.5em;
-    color: #9fa5b5;
+    color: var(--on-secondary-container);
     position: absolute;
     top: 3em;
     right: 0%;
     opacity: 0;
     display: none;
-    // transition: 0.2s;
     z-index: 1;
 
     li {
@@ -81,13 +75,13 @@ $hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
         cursor: pointer;
 
         &:hover {
-            background-color:$clr-body-bg-ascent-over;
+            background-color: var(--primary-container);
         }
     }
 }
 
 .active {
-    background: #23242a;
+    background: var(--primary-container);
 }
 
 .menu-open {
@@ -118,12 +112,12 @@ $hover-ascent:lighten($color: $clr-body-bg-ascent-over, $amount: 4);
                 height: 20px;
                 width: 20px;
                 cursor: pointer;
-                display:flex;
+                display: flex;
                 justify-content: center;
                 align-items: end;
 
                 &:hover {
-                    background-color:$hover-ascent;
+                    background-color: var(--secondary-container);
                     transition: background 0.2s;
                     border-radius: 5px;
                 }

@@ -18,16 +18,16 @@
             right: 0px;
             top: 0px;
             transform: translate(40%,-40%);
-            background-color: $clr-body-bg-ascent-over;
+            background-color: var(--secondary);
             width: 22px;
             height: 22px;
             text-align: center;
             border-radius: 7px;
-            border: 1px solid white;
+            border: 1px solid var(--secondary-container , white);;
             cursor: pointer;
 
             &:hover {
-                background-color: tomato;
+                background-color: var(--error);
             }
         }
 
@@ -38,7 +38,7 @@
             margin-top: 15px;
             max-width: 500px;
             border-radius: 10px;
-            border: 1px solid white;
+            border: 1px solid var(--secondary-container , white);
             padding-left: 15px;
 
             &:hover{
@@ -76,7 +76,8 @@
 
                 input {
                     @include ct-txtbx();
-                    height: fit-content;
+                    // height: fit-content;
+                    margin-left: 12px;
                 }
             }
 
@@ -85,8 +86,9 @@
                 position: absolute;
                 transform: rotateZ(-90deg) translate(-50%, -40%);
                 left: -5%;
-                background-color: $clr-body-bg-ascent-over;
-                border: 1px solid white;
+                background-color: var(--secondary);
+                border: 1px solid var(--secondary-container);
+                color: var(--on-secondary-container);
                 border-radius: 10px;
                 padding: 5px;
                 user-select: none;

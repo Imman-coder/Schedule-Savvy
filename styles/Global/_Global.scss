@@ -14,14 +14,10 @@ body,
     // scroll-behavior: smooth;
 }
 
-a,
-span {
-    color: $clr-text-fg;
-}
 
 body {
-    background-color: $clr-body-bg;
-    color: $clr-text-fg;
+    background-color: var(--surface);
+    color: var(--on-primary);
     overflow-x: hidden;
     height: 100vh;
 }
