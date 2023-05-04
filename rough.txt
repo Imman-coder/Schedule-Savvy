@@ -1,2 +1,0 @@
-Add Unique Button
-ghost off while on focus
