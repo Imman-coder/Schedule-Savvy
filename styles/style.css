@@ -97,6 +97,27 @@ body {
 }
 
 /*-------------------------Media Querry------------------------*/
+@media only screen and (max-width: 1230px) {
+  .small-screen-warning {
+    z-index: 100;
+    display: flex;
+    background-color: tomato;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+  .content {
+    display: none;
+  }
+  .modal {
+    visibility: hidden;
+  }
+  #context-menu.visible {
+    transform: scale(0);
+    transition: none;
+  }
+}
 .topnav {
   z-index: 9;
   background-color: var(--primary);
