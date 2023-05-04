@@ -7,6 +7,7 @@ var PreferenceVars = {
     autoSave: true,
     undoStep: 32,
     autoBackupInterval: 60000,
+    theme:"dark",
     dump: undefined,
     showDebugMenu: false,
 };
@@ -25,6 +26,7 @@ var PreferenceHandler = {
             if (key === "autoSave") onAutosaveChange();
             if (key === "undoStep") onUndoStepChange();
             if (key === "autoBackupInterval") onAutoBackupIntervalChange();
+            if (key === "theme") onThemeChange();
             if (key === "showDebugMenu") onShowDebugMenuChange();
             localStorage.setItem(PreferenceId, Preferences.dump)
         }
@@ -50,7 +52,8 @@ function onAutosaveChange() {
 }
 
 function onUndoStepChange() {
-    //TODO
+    UndoManager.undoStack = UndoManager.undoStack.slice(Math.max(UndoManager.undoStack.length - Preferences.undoStep , 0));
+    UndoManager.redoStack = UndoManager.redoStack.slice(0,Math.min(Preferences.undoStep,UndoManager.redoStack.length ));
 }
 
 /**
@@ -72,7 +75,9 @@ function onShowDebugMenuChange() {
         document.getElementsByClassName("debug-window")[0].classList.add("hidden");
 }
 
-
+function onThemeChange(){
+    
+}
 
 
 onShowDebugMenuChange();
