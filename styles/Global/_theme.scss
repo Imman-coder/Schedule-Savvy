@@ -1,4 +1,4 @@
-:root {
+.light {
     /* Primary colors */
     --primary: #d4f0ee;
     --on-primary: #000000;
@@ -29,7 +29,7 @@
 }
 
 
-.dark {
+:root {
     /* Primary colors */
     --primary: #212121;
     --on-primary: #B0BEC5;
