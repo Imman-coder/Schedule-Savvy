@@ -26,7 +26,8 @@ function closeContextMenu() {
 
 
 document.body.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
+    if(e.target.localName!="input")
+        e.preventDefault();
 });
 
 

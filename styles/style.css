@@ -13,11 +13,6 @@
   --on-secondary-container: #646464;
   /* Body/Surface color */
   --surface: #fff;
-  /* Error colors */
-  --error: #ff5370;
-  --on-error: #000000;
-  --error-container: #212121;
-  --on-error-container: #FFFFFF;
   /* Variation colors*/
   --color1: #9b75e2;
   --color2: #238d8d;
@@ -25,7 +20,7 @@
   --opacity: 80;
 }
 
-.dark {
+:root {
   /* Primary colors */
   --primary: #212121;
   --on-primary: #B0BEC5;
@@ -44,10 +39,15 @@
   --color1: #5727b0;
   --color2: #238d8d;
   --color3: #238d8d;
-  --opacity: FF;
+  --opacity: 8E;
+  /* Error colors */
+  --error: #ff5370;
+  --on-error: #000000;
+  --error-container: #212121;
+  --on-error-container: #FFFFFF;
 }
 
-:root {
+.vlue {
   /* Primary colors */
   --primary: #263238;
   --on-primary: #B0BEC5;
@@ -97,71 +97,67 @@ body {
 }
 
 /*-------------------------Media Querry------------------------*/
-@media only screen and (max-width: 1230px) {
-  .small-screen-warning {
-    z-index: 100;
-    display: flex;
-    background-color: tomato;
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-  }
-  .content {
-    display: none;
-  }
-  .modal {
-    visibility: hidden;
-  }
-  #context-menu.visible {
-    transform: scale(0);
-    transition: none;
-  }
-}
 .topnav {
   z-index: 9;
-  background-color: var(--primary);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  height: 50px;
+  margin: 5px;
+  display: flex;
+}
+.topnav .install {
+  background-color: var(--primary);
+  border-radius: 15px;
+  padding: 0 16px;
+  height: 50px;
+  display: grid;
+  align-items: center;
+  margin-left: 5px;
+}
+.topnav .install a {
+  transform: translateY(-2px);
+}
+.topnav .menus {
+  background-color: var(--primary);
+  border-radius: 15px;
+  flex-grow: 1;
+  height: 50px;
   padding-left: 16px;
   padding-right: 16px;
-  height: 50px;
-  border-radius: 15px;
-  margin: 5px;
 }
-.topnav ul {
+.topnav .menus ul {
   list-style-type: none;
   min-width: 100px;
 }
-.topnav.ss > ul > li:hover > ul {
+.topnav .menus.ss > ul > li:hover > ul {
   display: block;
 }
-.topnav > ul {
+.topnav .menus > ul {
   display: flex;
   height: inherit;
   width: -moz-fit-content;
   width: fit-content;
 }
-.topnav > ul > li {
+.topnav .menus > ul > li {
   position: relative;
   white-space: nowrap;
   display: flex;
   align-items: center;
 }
-.topnav > ul > li:hover > a {
+.topnav .menus > ul > li:hover > a {
   background-color: var(--primary-container);
 }
-.topnav > ul > li > a {
+.topnav .menus > ul > li > a {
   color: var(--on-primary-container);
   border-radius: 5px;
 }
-.topnav > ul > li a {
+.topnav .menus > ul > li a {
   text-decoration: none;
   padding: 10px 20px;
   transform: translateY(-1px);
 }
-.topnav > ul > li ul {
+.topnav .menus > ul > li ul {
   top: 100%;
   left: 0px;
   display: block;
@@ -174,63 +170,77 @@ body {
   padding: 1px;
   box-shadow: 0 0 0.8em var(--secondary-container);
 }
-.topnav > ul > li ul li {
+.topnav .menus > ul > li ul li {
   padding: 1px;
   position: relative;
 }
-.topnav > ul > li ul li > a {
+.topnav .menus > ul > li ul li > a {
   display: block;
   border-radius: 5px;
+  text-align: start;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.topnav > ul > li ul li.checked:after {
+.topnav .menus > ul > li ul li > a .shortcut {
+  font-weight: 100;
+  padding: 0px 0px 0px 35px;
+  font-size: small;
+  right: 0;
+  opacity: 0.4;
+}
+.topnav .menus > ul > li ul li.checked:after {
   content: "☑";
   position: absolute;
   top: 0px;
-  left: 10px;
+  right: 10px;
   transform: translateY(45%);
 }
-.topnav > ul > li ul li.unchecked:after {
+.topnav .menus > ul > li ul li.unchecked:after {
   content: "☐";
   position: absolute;
   top: 0px;
-  left: 10px;
+  right: 10px;
   transform: translateY(45%);
 }
-.topnav > ul > li ul li.selected:after {
+.topnav .menus > ul > li ul li.selected:after {
   content: "●";
   position: absolute;
   top: 0px;
-  left: 10px;
+  right: 10px;
   transform: translateY(45%);
 }
-.topnav > ul > li ul li.disabled > a {
+.topnav .menus > ul > li ul li.disabled > a {
   opacity: 0.4;
 }
-.topnav > ul > li ul li:hover {
+.topnav .menus > ul > li ul li.disabled > a .shortcut {
+  opacity: 1;
+}
+.topnav .menus > ul > li ul li:hover {
   border: 2px;
 }
-.topnav > ul > li ul li:hover > a {
+.topnav .menus > ul > li ul li:hover > a {
   background-color: var(--primary-container);
 }
-.topnav > ul > li ul li:hover ul {
+.topnav .menus > ul > li ul li:hover ul {
   display: block;
 }
-.topnav > ul > li ul li:has(ul)::after {
+.topnav .menus > ul > li ul li:has(ul)::after {
   content: "▶";
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: 20%;
   transform: translateY(50%);
   font-size: 10px;
 }
-.topnav > ul > li ul li ul {
+.topnav .menus > ul > li ul li ul {
   position: absolute;
   left: 100%;
   display: none;
   transform: translateY(-2px);
   top: 0;
 }
-.topnav > ul > li ul li ul li {
+.topnav .menus > ul > li ul li ul li {
   position: relative;
   width: auto;
 }

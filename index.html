@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="cache-control" content="no-cache" />
+    <!-- <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <title>Document</title>
+    <meta http-equiv="pragma" content="no-cache" /> -->
     <link rel="stylesheet" href="styles/style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js" integrity="sha512-zInFF17qBFVvvvFpIfeBzo7Tj7+rQxLeTJDmbxjBz5/zIr89YVbTNelNhdTT+/DCrxoVzBeUPVFJsczKbB7sew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  </head>
+    <link rel="manifest" href="manifest.json" />
+    <title>Document</title>
+</head>
 
   <body class="theme-dark">
     <canvas id="canvas"></canvas>
     <section class="content">
-      <div class="topnav"></div>
+      <div class="topnav"><div class="menus"></div><div class="install"><a>Install</a></div></div>
       <div id="main" class="main">
         <div id="day-wrapper" class="day-wrapper"></div>
         <div class="fade-group"></div>
@@ -54,7 +54,6 @@
       </p>
     </section>
   </body>
-  <script src="script/utils/FileSaver.js"></script>
   <script src="script/utils/utils.js"></script>
   <script src="script/utils/BackupHandler.js"></script>
   <script src="script/contextMenu.js"></script>

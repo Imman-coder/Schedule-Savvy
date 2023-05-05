@@ -54,7 +54,7 @@ const normalizePozition = (mouseX, mouseY) => {
 window.addEventListener("wheel", function (e) {
     if (e.deltaY > 0) time_divider_group.scrollLeft += 10;
     else time_divider_group.scrollLeft -= 10;
-    placeEvents();
+    Table.AdjustPlacement();
 });
 
 /*--------------------Time Related Calculations---------------------*/
@@ -182,8 +182,8 @@ function generateColorPalette() {
         // keep generating colors until one that complements the background and text is found
         while (bgDiff < 150 || textDiff < 150) {
             // generate a random color in hex format
-            color = "#" + Math.floor(Math.random() * 16777215).toString(16)+opacity;
-            
+            color = "#" + Math.floor(Math.random() * 16777215).toString(16) + opacity;
+
 
             // check if the color complements the background and text colors
             bgDiff = colorDiff(color, backgroundColor);
@@ -191,7 +191,7 @@ function generateColorPalette() {
         }
 
         // add the color to the array
-        
+
         colorTable.push(color);
     }
     Table.Draw();
@@ -355,29 +355,38 @@ class snackbar {
 
 document.onkeydown = function (e) {
     if (!e.repeat) {
-        if (e.ctrlKey && e.key === "s") {
-            saveAll();
+        if (document.activeElement.localName != "input") {
+            if (e.ctrlKey && e.key === "c") {
+                Table.copyEvent();
+                return false;
+            } else if (e.ctrlKey && e.key === "v") {
+                Table.putEvent();
+                return false;
+            } else if (e.key === "Delete") {
+                Table.deleteEvent();
+                return false;
+            } else if (e.ctrlKey && e.key === "x") {
+                Table.cutEvent();
+                return false;
+            } else if (e.ctrlKey && e.key === "z") {
+                UndoManager.undo();
+                return false;
+            } else if (e.ctrlKey && e.shiftKey && e.key === "Z") {
+                UndoManager.redo();
+                return false;
+            }
+        }
+        else if (e.ctrlKey && e.key === "s") {
+            Db.saveToBrowser();
             return false;
-        } else if (e.ctrlKey && e.key === "c") {
-            Table.copyEvent();
-            return false;
-        } else if (e.ctrlKey && e.key === "v") {
-            Table.putEvent();
-            return false;
-        } else if (e.key === "Delete") {
-            Table.deleteEvent();
-            return false;
-        } else if (e.ctrlKey && e.key === "x") {
-            Table.cutEvent();
-            return false;
-        } else if (e.ctrlKey && e.key === "p") {
+        }
+        else if (e.ctrlKey && e.key === "p") {
             generateColorPalette();
             return false;
-        } else if (e.ctrlKey && e.key === "z") {
-            UndoManager.undo();
-            return false;
-        } else if (e.ctrlKey && e.shiftKey && e.key === "Z") {
-            UndoManager.redo();
+        } else if (e.ctrlKey && e.key === "m") {
+            Table.newTable();
+            e.stopPropagation();
+            e.preventDefault();
             return false;
         }
     }
@@ -414,11 +423,12 @@ class UndoManager {
     static undoStack = [];
     static redoStack = [];
 
-    static recordUndoState(object, key) {
+    static recordUndoState(object, key, desc) {
         const currentState = {
             name: object,
             key: key,
             value: JSON.parse(JSON.stringify(object[key])),
+            desc: desc,
         };
         this.undoStack = this.undoStack.slice(
             Math.max(this.undoStack.length - Preferences.undoStep + 1, 0)
@@ -463,3 +473,19 @@ class UndoManager {
         }
     }
 }
+
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('./sw.js')
+        .then(() => { if (SHOW_DEBUG_MESSAGES) console.log('Service Worker Registered'); });
+}
+
+self.addEventListener('activate', e => {
+    console.log(e);
+    self.clients.claim();
+});
+
+
+setInterval(() => {
+}, 1000)

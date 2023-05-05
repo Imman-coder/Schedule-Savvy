@@ -15,11 +15,6 @@
     /* Body/Surface color */
     --surface: #fff;
 
-    /* Error colors */
-    --error: #ff5370;
-    --on-error: #000000;
-    --error-container: #212121;
-    --on-error-container: #FFFFFF;
 
     /* Variation colors*/
     --color1: #9b75e2;
@@ -29,7 +24,7 @@
 }
 
 
-.dark {
+:root {
     /* Primary colors */
     --primary: #212121;
     --on-primary: #B0BEC5;
@@ -51,11 +46,17 @@
     --color1: #5727b0;
     --color2: #238d8d;
     --color3: #238d8d;
-    --opacity: FF;
+    --opacity: 8E;
+    
+    /* Error colors */
+    --error: #ff5370;
+    --on-error: #000000;
+    --error-container: #212121;
+    --on-error-container: #FFFFFF;
 }
 
 
-:root {
+.vlue {
     /* Primary colors */
     --primary: #263238;
     --on-primary: #B0BEC5;

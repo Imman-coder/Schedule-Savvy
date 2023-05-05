@@ -1,0 +1,16 @@
+{
+    "short_name": "Schedule Scavvy",
+    "name": "Schedule Scavvy",
+    "icons": [
+        {
+            "src": "icon/task-list.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#000000",
+    "display": "fullscreen",
+    "theme_color": "#000000",
+    "description": ""
+}

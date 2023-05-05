@@ -1,8 +1,9 @@
-var topNavBar = document.getElementsByClassName("topnav")[0];
+var topNavMenu = document.getElementsByClassName("menus")[0];
+
 
 var inputFile = document.createElement("input");
 inputFile.setAttribute("type", "file");
-inputFile.setAttribute("accept", "application/json");
+inputFile.setAttribute("accept", "application/json , .ssv");
 inputFile.style.display = "none";
 
 
@@ -10,54 +11,76 @@ inputFile.style.display = "none";
 inputFile.onchange = (event) => {
     var reader = new FileReader();
     reader.onload = () => {
-        loadContentToTable(JSON.parse(reader.result));
+        Table.Data.dump = reader.result;
         snackbar.show("File Opened!");
+        Table.Draw();
     };
     reader.readAsText(event.target.files[0]);
 
 }
+const downloadFile = () => {
+    const link = document.createElement("a");
+    const content = JSON.stringify(Table.Data.dump, undefined, '\t');
+    const file = new Blob([content], { type: 'application/json' });
+    link.href = URL.createObjectURL(file);
+    link.download = "Table.json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+};
+
+const saveFile = () => {
+    const link = document.createElement("a");
+    const content = JSON.stringify({ table: Table.Data.dump, color: colorTable, }, undefined, '\t');
+    const file = new Blob([content], { type: '.ssv' });
+    link.href = URL.createObjectURL(file);
+    link.download = "Project.ssv";
+    link.click();
+    URL.revokeObjectURL(link.href);
+};
 
 
 var menu2 = [
     {
         title: "File", child: [
-            { title: "New", action: () => { snackbar.show("New Project Loaded!"); newProject() } },
-            { title: "Open", action: () => { inputFile.click(); } },
+            { title: "New", shortcut: "Ctrl N", action: () => { snackbar.show("New Project Loaded!"); Table.newTable() } },
+            { title: "Open", shortcut: "Ctrl O", action: () => { inputFile.click(); } },
             {
                 title: "Recover", child: [
-                    { title: "Last Session", action: () => { }, enabled: hasLastSession },
-                    { title: "Auto Save", action: () => { }, enabled: hasLastAutoSave },
+                    { title: "Last Save", action: () => { Db.loadFromBrowser() }, enabled: () => Db.hasSavedToBrowser },
+                    { title: "Auto Save", action: () => { }, enabled: () => false },
                 ]
             },
             {
                 title: "Save", child: [
-                    { title: "As file", action: () => { } },
-                    { title: "In browser", action: () => { snackbar.show("Saved To Browser!"); saveToBrowser() } },
+                    { title: "As file", action: () => { saveFile() } },
+                    { title: "In browser", shortcut: "Ctrl S", action: () => { Db.saveToBrowser() } },
                 ]
             },
             {
                 title: "Export", child: [
                     { title: "as Image", action: () => { initSaveAsImageModule() } },
-                    { title: "as Json", action: () => { saveAs(new Blob([JSON.stringify(sJson, undefined, '\t')], { type: 'application/json' })); } },
+                    { title: "as Json", shortcut: "Ctrl E", action: downloadFile },
                 ],
             },
             {
                 title: "Defaults", child: [
-                    { title: "Save Startup File", action: () => { snackbar.show("Startup File Saved!"); saveStartupFile(); } },
-                    { title: "Load Factory Setting", action: () => { loadFactorySetting } },
+                    { title: "Save Startup File", action: () => { snackbar.show("Startup File Saved!"); Db.saveStartupFile(); } },
+                    { title: "Load Factory Setting", action: () => { Db.loadFactorySetting(); } },
                 ]
             },
         ]
     },
     {
         title: "Edit", child: [
-            { title: "Cut", action: () => { Table.cutEvent() } },
-            { title: "Copy", action: () => { Table.copyEvent() } },
-            { title: "Paste Before", action: () => { Table.putEvent() }, enabled: () => Table.Data.copiedEvent != undefined },
-            { title: "Paste After", action: () => { Table.putEventAfter() }, enabled: () => Table.Data.copiedEvent != undefined },
-            { title: "Delete", action: () => { Table.deleteEvent() }, enabled: () => Table.Data.active != undefined },
+            { title: "Cut", shortcut: "Ctrl X", action: () => { Table.cutEvent() } },
+            { title: "Copy", shortcut: "Ctrl C", action: () => { Table.copyEvent() } },
+            { title: "Paste Before", shortcut: "Ctrl V", action: () => { Table.putEvent() }, enabled: () => Table.Data.copiedEvent != undefined },
+            { title: "Paste After", shortcut: "Ctrl Shift V", action: () => { Table.putEventAfter() }, enabled: () => Table.Data.copiedEvent != undefined },
+            { title: "Delete", shortcut: "Del", action: () => { Table.deleteEvent() }, enabled: () => Table.Data.active != undefined },
+            { title: "Undo", shortcut: "Ctrl Z", action: () => { UndoManager.undo() }, enabled: () => UndoManager.undoStack.length != 0 },
+            { title: "Redo", shortcut: "Ctrl Shift Z", action: () => { UndoManager.redo() }, enabled: () => UndoManager.redoStack.length != 0 },
             { title: "Add Timeline", action: () => { onContextAddTimeline() } },
-            { title: "Change Color Palette", action: () => { generateColorPalette() } },
+            { title: "Change Color Palette", shortcut: "Ctrl P", action: () => { generateColorPalette() } },
         ]
     },
     {
@@ -68,8 +91,6 @@ var menu2 = [
                     { title: "Dark", selected: () => Preferences.theme === "dark", action: () => { Preferences.theme = "dark"; } },
                     { title: "Vlue", selected: () => Preferences.theme === "vlue", action: () => { Preferences.theme = "vlue"; } },
                     { title: "Light", selected: () => Preferences.theme === "light", action: () => { Preferences.theme = "light"; } },
-                    { title: "--", selected: () => Preferences.theme === "", action: () => { Preferences.theme = ""; } },
-                    { title: "--", selected: () => Preferences.theme === "", action: () => { Preferences.theme = ""; } },
                 ]
             },
             {
@@ -81,7 +102,7 @@ var menu2 = [
                     { title: "5 min", selected: () => Preferences.autoBackupInterval === 300000, action: () => { Preferences.autoBackupInterval = 300000; } },
                 ]
             },
-            { title: "Auto Save", action: () => { Preferences.autoSave = !Preferences.autoSave }, checked: () => { return Preferences.autoSave } },
+            // { title: "Auto Save", action: () => { Preferences.autoSave = !Preferences.autoSave }, checked: () => { return Preferences.autoSave } },
             {
                 title: "Undo Steps", child: [
                     { title: "8", selected: () => Preferences.undoStep === 8, action: () => { Preferences.undoStep = 8; } },
@@ -122,9 +143,15 @@ function addChild(child) {
                 item.onclick = undefined;
                 enabled = false;
             }
-
         }
         c.appendChild(item);
+        if (element.shortcut != undefined) {
+            var sholder = document.createElement("a");
+            sholder.innerText = element.shortcut;
+            sholder.classList = "shortcut";
+            item.appendChild(sholder);
+
+        }
         if (element.child != undefined && enabled) {
             c.appendChild(addChild(element.child));
         }
@@ -136,25 +163,25 @@ function addChild(child) {
 
 function refreshTopNavBar() {
 
-    topNavBar.firstChild.onclick = () => {
-        topNavBar.innerHTML = "";
-        topNavBar.append(addChild(menu2));
-        topNavBar.classList.toggle("ss")
+    topNavMenu.firstChild.onclick = () => {
+        topNavMenu.innerHTML = "";
+        var nav = addChild(menu2);
+        topNavMenu.append(nav);
+        topNavMenu.classList.toggle("ss")
         closeContextMenu();
         refreshTopNavBar();
     };
 
-    topNavBar.firstChild.addEventListener("mouseleave", () => {
-        topNavBar.classList.remove("ss")
+    topNavMenu.firstChild.addEventListener("mouseleave", () => {
+        topNavMenu.classList.remove("ss")
     });
 }
 
 function initTopNavBar() {
 
-    topNavBar.innerHTML = "";
-    topNavBar.append(addChild(menu2));
+    topNavMenu.innerHTML = "";
+    topNavMenu.append(addChild(menu2));
 }
 
 initTopNavBar();
 refreshTopNavBar();
-initializeDb();

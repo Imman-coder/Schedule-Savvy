@@ -35,7 +35,16 @@ class Table {
         const self = this;
         return new Proxy(obj, {
             get(target, key, receiver) {
-                if (key == "dump") return JSON.stringify(obj);
+                if (key == "dump") {
+                    if (obj == self.#EventData){
+                        const t = self.#EventData.EventTable;
+                        const k = self.#EventData.TimeList;
+                        const l = self.#EventData.EventList;
+                        return JSON.stringify({EventTable:t,TimeList:k,EventList:l});
+                    }
+                    else
+                        return JSON.stringify(obj);
+                }
                 const value = Reflect.get(target, key, receiver);
                 if (typeof value === "object" && value !== null) {
                     return self.createInterceptor(value, callback);
@@ -46,9 +55,9 @@ class Table {
                 if (key == "dump") {
                     var j = JSON.parse(value);
                     for (var v in j) {
-                        Reflect.set(target, v, j[v], receiver);
+                        Reflect.set(target, v, j[v]);
                     }
-                    return;
+                    return true;
                 }
                 if (key == "active") {
                     value[0] = parseInt(value[0]);
@@ -266,7 +275,7 @@ class Table {
      * coordinates.
      */
     static putEvent(x, y, eventID) {
-        UndoManager.recordUndoState(Table.#EventData,"EventTable");
+        UndoManager.recordUndoState(Table.#EventData, "EventTable");
         this.#EventData.EventTable[x || this.Data.active[0]].splice(y || this.Data.active[1], 0, eventID || this.Data.copiedEvent);
         this.InterceptorFunction("", "Event", "Added", "");
     }
@@ -278,7 +287,7 @@ class Table {
      * array at position "x".
      */
     static deleteEvent(x, y) {
-        UndoManager.recordUndoState(Table.#EventData,"EventTable");
+        UndoManager.recordUndoState(Table.#EventData, "EventTable");
         this.#EventData.EventTable[x || this.Data.active[0]].splice(y || this.Data.active[1], 1);
         this.InterceptorFunction("", "Event", "Deleted", "");
     }
@@ -294,13 +303,13 @@ class Table {
      * the event will be moved to in the EventTable.
      */
     static moveEvent(sx, sy, dx, dy) {
-        UndoManager.recordUndoState(Table.#EventData,"EventTable");
+        UndoManager.recordUndoState(Table.#EventData, "EventTable");
         this.#EventData.EventTable[dx].splice(dy, 0, this.#EventData.EventTable[sx].splice(sy, 1)[0]);
         this.InterceptorFunction("", "Event", "Moved", "");
     }
 
     static putEventAfter(x, y, eventID) {
-        UndoManager.recordUndoState(Table.#EventData,"EventTable");
+        UndoManager.recordUndoState(Table.#EventData, "EventTable");
         this.#EventData.EventTable[x || this.Data.active[0]].splice((y || this.Data.active[1]) + 1, 0, (eventID || this.Data.copiedEvent));
         this.InterceptorFunction("", "Event", "Added", "");
     }
@@ -310,34 +319,42 @@ class Table {
     }
 
     static cutEvent(x, y) {
-        UndoManager.recordUndoState(Table.#EventData,"EventTable");
+        UndoManager.recordUndoState(Table.#EventData, "EventTable");
         this.#EventData.copiedEvent = this.Data.EventTable[x || this.Data.active[0]][y || this.Data.active[1]];
         this.#EventData.EventTable[x || this.Data.active[0]].splice(y || this.Data.active[1], 1);
         this.InterceptorFunction("", "Event", "Cut", "");
     }
 
     static addNewBlankEvent(x, y) {
-        UndoManager.recordUndoState(Table.#EventData,"EventTable");
+        UndoManager.recordUndoState(Table.#EventData, "EventTable");
         var id = getNewEventId();
         this.#EventData.EventList[id.toString()] = JSON.parse(JSON.stringify(EventBlock));
-        this.#EventData.EventList[x].push(id);
+        this.#EventData.EventTable[x].push(id);
         this.Data.active = [x, y];
     }
 
     static addTimeLineStamp(time) {
-        UndoManager.recordUndoState(Table.#EventData,"TimeList");
+        UndoManager.recordUndoState(Table.#EventData, "TimeList");
         this.#EventData.TimeList.push(time);
         if (this.Data.length == 1)
             timeLineStart = timeLineItems[0].getBoundingClientRect().x;
         this.SortTime();
-        this.InterceptorFunction("", "Time", "Added", "")
+        this.InterceptorFunction("", "Time", "Added", "");
     }
 
     static deleteTimeLineStamp(x) {
-        UndoManager.recordUndoState(Table.#EventData,"TimeList");
-        this.#EventData.TimeList.splice(x,1);
-        this.InterceptorFunction("", "Time", "Added", "")
+        UndoManager.recordUndoState(Table.#EventData, "TimeList");
+        this.#EventData.TimeList.splice(x, 1);
+        this.InterceptorFunction("", "Time", "Added", "");
     }
+
+    static newTable(){
+        //Undo for newTable
+        // UndoManager.recordUndoState(this.#EventData,)
+        Db.loadStartupFile();
+    }
+
+
 
 
 }
