@@ -111,12 +111,15 @@ body {
   border-radius: 15px;
   padding: 0 16px;
   height: 50px;
-  display: grid;
+  display: none;
   align-items: center;
   margin-left: 5px;
 }
 .topnav .install a {
   transform: translateY(-2px);
+}
+.topnav .install:hover {
+  background-color: var(--primary);
 }
 .topnav .menus {
   background-color: var(--primary);
