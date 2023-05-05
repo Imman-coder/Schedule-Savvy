@@ -8,7 +8,7 @@
             "sizes": "192x192"
         }
     ],
-    "start_url": "/Schedule-Savvy/index.html",
+    "start_url": "/Schedule-Savvy/",
     "background_color": "#000000",
     "display": "fullscreen",
     "theme_color": "#000000",
