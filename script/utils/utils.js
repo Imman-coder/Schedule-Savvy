@@ -477,7 +477,7 @@ class UndoManager {
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-        .register('/Schedule-Savvy/sw.js')
+        .register('/sw.js')
         .then(() => { if (SHOW_DEBUG_MESSAGES) console.log('Service Worker Registered'); });
 }
 
