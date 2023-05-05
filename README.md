@@ -6,7 +6,7 @@ Umm.. Schedule Savvy is a web-based application that helps users create their cl
 
 ## Demo
 
-Here's the demo of this project ☞ [Beep!](https://imman-coder.github.io/r/)
+Here's the demo of this project ☞ [Beep!](https://imman-coder.github.io/Schedule-Savvy/)
 
 
 ## Features
