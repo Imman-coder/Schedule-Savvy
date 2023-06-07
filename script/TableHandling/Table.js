@@ -231,7 +231,7 @@ class Table {
      * The function sorts a list of time values in ascending order.
      */
     static SortTime() {
-        this.#EventData.TimeList.sort();
+        this.#EventData.TimeList.sort((a,b)=> {return a-b})
     }
 
     static InterceptorFunction(obj, key, value, receiver) {

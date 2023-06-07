@@ -7,7 +7,7 @@ var PreferenceVars = {
     autoSave: true,
     undoStep: 32,
     autoBackupInterval: 60000,
-    theme:"vlue",
+    theme:"dark",
     dump: undefined,
     showDebugMenu: false,
 };
