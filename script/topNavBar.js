@@ -20,7 +20,9 @@ inputFile.onchange = (event) => {
 }
 const downloadFile = () => {
     const link = document.createElement("a");
-    const content = JSON.stringify(Table.Data.dump, undefined, '\t');
+    var content = JSON.stringify(Table.Data.dump, undefined, '\t');
+    content = content.substring(1,content.length-1)
+    content = content.replaceAll("\\\"","\"")
     const file = new Blob([content], { type: 'application/json' });
     link.href = URL.createObjectURL(file);
     link.download = "Table.json";

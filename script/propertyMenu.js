@@ -45,6 +45,7 @@ function toggleMenu(event) {
     menu.classList.toggle("menu-open");
 }
 
+
 for (let index = 0; index < options.length; index++) {
     const option = options[index];
     option.addEventListener("click", () => {
