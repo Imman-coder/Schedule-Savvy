@@ -154,18 +154,18 @@ class Table {
                         subs = base[ar].subjects[0]?.subject || "";
                     else if (base[ar].subjects.length == 1) {
                         subs =
-                            getFirstLetters(base[ar].subjects[0].subject) +
+                        simplifySubjectName(base[ar].subjects[0].subject) +
                             "(" +
-                            getFirstLetters(base[ar].subjects[0]?.teacher || "") +
+                            simplifyTeacherName(base[ar].subjects[0]?.teacher || "") +
                             ")";
                     } else {
                         subs = "";
                         for (let a = 0; a < base[ar].subjects.length; a++) {
                             const lsu = base[ar].subjects[a];
                             subs +=
-                                getFirstLetters(lsu.subject) +
+                            simplifySubjectName(lsu.subject) +
                                 "(" +
-                                getFirstLetters(lsu.teacher) +
+                                simplifyTeacherName(lsu.teacher) +
                                 ")";
                             if (a != base[ar].subjects.length - 1) subs += "/";
                         }

@@ -138,6 +138,29 @@ function getFirstLetters(name) {
   return firstLetters;
 }
 
+function simplifySubjectName(name){
+  let acr = name.substring(name.indexOf("(")+1,name.indexOf(")"))
+  if(acr !== "") return acr
+  if(name.length < 5) return name
+  let words = name.split(" ");
+  for (let i = 0; i < words.length; i++) {
+    debugger
+    if (!words[i].includes("(")) acr += words[i][0] 
+  }
+  return acr
+}
+
+function simplifyTeacherName(name){
+  let acr = name.substring(name.indexOf("(")+1,name.indexOf(")"))
+  if(acr !== "") return acr
+  if(name.length < 5) return name
+  let words = name.split(" ");
+  for (let i = 0; i < words.length; i++) {
+    if (!words[i].toLowerCase().includes("prof")) acr += words[i][0] || "";
+  }
+  return acr
+}
+
 /*---------------------Color Palette-----------------------------*/
 
 // helper function to calculate color difference
