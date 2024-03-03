@@ -48,7 +48,7 @@ var sJson = {
                 {
                     "subject": "Design Analysis Algorithm",
                     "subject_code": "",
-                    "teacher": "Sikheresh Barik / S G"
+                    "teacher": "Sikheresh Barik / Sudeep Gochayat"
                 }
             ],
             "class_type": "1"
@@ -92,7 +92,7 @@ var sJson = {
                 {
                     "subject": "Organizational Behavior",
                     "subject_code": "",
-                    "teacher": "Sushant Kuma N"
+                    "teacher": "Sushant Kuma Nayak"
                 }
             ],
             "class_type": 0
@@ -114,7 +114,7 @@ var sJson = {
                 {
                     "subject": "Computer Architecture Organization",
                     "subject_code": "",
-                    "teacher": "S T"
+                    "teacher": "Subhranshu Tripathy"
                 }
             ],
             "class_type": 0
@@ -147,7 +147,7 @@ var sJson = {
                 {
                     "subject": "Java Programming",
                     "subject_code": "",
-                    "teacher": "Mousami Acharya / R D"
+                    "teacher": "Mousami Acharya / Rosalin Das"
                 }
             ],
             "class_type": "1"
@@ -167,9 +167,9 @@ var sJson = {
             "time_span": "3",
             "subjects": [
                 {
-                    "subject": "M A T",
+                    "subject": "MAT(MAT)",
                     "subject_code": "",
-                    "teacher": "S T / N T"
+                    "teacher": "Subhranshu Tripathy / Neeva Tripathy"
                 }
             ],
             "class_type": "1"
@@ -185,7 +185,7 @@ var sJson = {
                 {
                     "subject": "Discrete Structure",
                     "subject_code": "",
-                    "teacher": "S K"
+                    "teacher": "SK(SK)"
                 }
             ],
             "class_type": 0
