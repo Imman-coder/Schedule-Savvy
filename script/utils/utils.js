@@ -144,7 +144,6 @@ function simplifySubjectName(name){
   if(name.length < 5) return name
   let words = name.split(" ");
   for (let i = 0; i < words.length; i++) {
-    debugger
     if (!words[i].includes("(")) acr += words[i][0] 
   }
   return acr

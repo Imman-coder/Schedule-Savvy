@@ -26,7 +26,7 @@ function printToCanvas(title = undefined) {
   ctx.lineWidth = 1;
 
   var hasTitle = title != undefined;
-  var titlePadding = hasTitle ? 01 : 0;
+  var titlePadding = hasTitle ? 1 : 0;
 
   var w_spacing = wx / Table.Data.TimeList.length;
   var h_spacing = hx / (7 + titlePadding);
@@ -133,12 +133,26 @@ function printToCanvas(title = undefined) {
   }
 }
 
+/**
+ * The function `tableAsImage` converts a table to an image and downloads it as a JPEG file.
+ */
 function tableAsImage() {
   printToCanvas();
   var dataURL = canvas.toDataURL("image/jpeg", 1.0);
   downloadImage(dataURL, 'my-canvas.jpeg');
 }
 
+
+/**
+ * The function `downloadImage` creates a link to download an image with the specified data and
+ * filename.
+ * @param data - The `data` parameter in the `downloadImage` function is the URL or base64 data of the
+ * image that you want to download. This parameter specifies the image content that will be downloaded
+ * when the function is called.
+ * @param [filename=untitled.jpeg] - The `filename` parameter in the `downloadImage` function is a
+ * string that specifies the name of the file when it is downloaded. If no `filename` is provided, the
+ * default value is set to 'untitled.jpeg'.
+ */
 function downloadImage(data, filename = 'untitled.jpeg') {
   var a = document.createElement('a');
   a.href = data;

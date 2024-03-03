@@ -296,6 +296,30 @@ class saveAsImage extends popupMenuDisplayModule {
     }
 }
 
+class ConfirmLoadProject extends popupMenuDisplayModule {
+    constructor(okCallback){
+        super();
+        this._content = `Do you really want to load this project?`
+        this._cancelable = true;
+        this._button_type = 0;
+        this._okCallback = okCallback
+        enablePopupOkBtn(true)
+    }
+
+    onPopupMenuOpen(){
+        super.onPopupMenuOpen()
+        popupMenuBody.innerHTML = this._content;
+
+    }
+    onPopupMenuClose(){
+
+    }
+    onOkBtnClick(){
+        closePopupMenu();
+        this._okCallback()
+    }
+}
+
 /*------------------Module Specific functions------------------*/
 function initTimeAdderModule() {
     reserved_for = new TimeAdderModule();
@@ -305,6 +329,11 @@ function initLoadLastModule() {
         reserved_for = new LoadLastSessionModule();
         openPopupMenu();
     }
+}
+
+function initLoadProject(callback){
+    reserved_for = new ConfirmLoadProject(callback)
+    openPopupMenu()
 }
 
 function initSaveAsImageModule() {

@@ -1,4 +1,5 @@
-const backupsTrackerId = "backuptracker";
+const backupsTrackerId = "BackupTracker";
+const forceClosedBackupsTrackerId = "ForceClosedBackup"
 const PreferenceId = "PreferenceCache";
 
 
@@ -7,6 +8,7 @@ var PreferenceVars = {
     autoSave: true,
     undoStep: 32,
     autoBackupInterval: 60000,
+    keepBackupCount:7,
     theme:"dark",
     dump: undefined,
     showDebugMenu: false,
@@ -82,3 +84,4 @@ function onThemeChange(){
 
 
 onShowDebugMenuChange();
+updateBackupTimmer()

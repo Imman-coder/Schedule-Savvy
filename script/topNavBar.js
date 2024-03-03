@@ -48,8 +48,9 @@ var menu2 = [
             { title: "Open", shortcut: "Ctrl O", action: () => { inputFile.click(); } },
             {
                 title: "Recover", child: [
-                    { title: "Last Save", action: () => { Db.loadFromBrowser() }, enabled: () => Db.hasSavedToBrowser },
+                    { title: "Last Auto Save", action: () => { Db.loadFromBrowser() }, enabled: () => Db.hasSavedToBrowser },
                     { title: "Auto Save", action: () => { }, enabled: () => false },
+                    { title: "Close Save", action: () => { }, enabled: () => false },
                 ]
             },
             {
@@ -164,7 +165,7 @@ function addChild(child) {
 
 
 function refreshTopNavBar() {
-
+    refreshTopNavBarRef()
     topNavMenu.firstChild.onclick = () => {
         topNavMenu.innerHTML = "";
         var nav = addChild(menu2);
@@ -177,6 +178,39 @@ function refreshTopNavBar() {
     topNavMenu.firstChild.addEventListener("mouseleave", () => {
         topNavMenu.classList.remove("ss")
     });
+}
+
+function refreshTopNavBarRef() { 
+    menu2[0].child[2].child[0].action = undefined;
+    menu2[0].child[2].child[1].child = undefined;
+    menu2[0].child[2].child[1].enabled = ()=>false;
+    menu2[0].child[2].child[2].child = undefined;
+    menu2[0].child[2].child[2].enabled = ()=>false;
+    var sla=[];
+    getAutoSaveFiles().forEach(file =>{
+        var sl = {
+            title: file,
+            action: ()=>{loadBackup(file)}
+        }
+        sla.push(sl)
+    })
+    if(sla.length>0){
+        menu2[0].child[2].child[1].enabled = ()=>true;
+        menu2[0].child[2].child[1].child = sla;
+    }
+
+    sla = []
+    getForceCloseBackupFiles().forEach(file =>{
+        var sl = {
+            title: file,
+            action: ()=>{loadBackup(file)}
+        }
+        sla.push(sl)
+    })
+    if(sla.length>0){
+        menu2[0].child[2].child[2].enabled = ()=>true;
+        menu2[0].child[2].child[2].child = sla;
+    }
 }
 
 function initTopNavBar() {

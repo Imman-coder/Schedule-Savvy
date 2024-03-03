@@ -194,11 +194,11 @@ body {
   padding: 1px;
   box-shadow: 0 0 0.8em var(--secondary-container);
 }
-.topnav .menus > ul > li ul li {
+.topnav .menus > ul > li > ul > li {
   padding: 1px;
   position: relative;
 }
-.topnav .menus > ul > li ul li > a {
+.topnav .menus > ul > li > ul > li a {
   display: block;
   border-radius: 5px;
   text-align: start;
@@ -206,50 +206,41 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.topnav .menus > ul > li ul li > a .shortcut {
+.topnav .menus > ul > li > ul > li a .shortcut {
   font-weight: 100;
   padding: 0px 0px 0px 35px;
   font-size: small;
   right: 0;
   opacity: 0.4;
 }
-.topnav .menus > ul > li ul li.checked:after {
+.topnav .menus > ul > li > ul > li .checked:after {
   content: "☑";
   position: absolute;
   top: 0px;
   right: 10px;
   transform: translateY(45%);
 }
-.topnav .menus > ul > li ul li.unchecked:after {
+.topnav .menus > ul > li > ul > li .unchecked:after {
   content: "☐";
   position: absolute;
   top: 0px;
   right: 10px;
   transform: translateY(45%);
 }
-.topnav .menus > ul > li ul li.selected:after {
+.topnav .menus > ul > li > ul > li .selected:after {
   content: "●";
   position: absolute;
   top: 0px;
   right: 10px;
   transform: translateY(45%);
 }
-.topnav .menus > ul > li ul li.disabled > a {
+.topnav .menus > ul > li > ul > li .disabled > a {
   opacity: 0.4;
 }
-.topnav .menus > ul > li ul li.disabled > a .shortcut {
+.topnav .menus > ul > li > ul > li .disabled > a .shortcut {
   opacity: 1;
 }
-.topnav .menus > ul > li ul li:hover {
-  border: 2px;
-}
-.topnav .menus > ul > li ul li:hover > a {
-  background-color: var(--primary-container);
-}
-.topnav .menus > ul > li ul li:hover ul {
-  display: block;
-}
-.topnav .menus > ul > li ul li:has(ul)::after {
+.topnav .menus > ul > li > ul li:has(ul)::after {
   content: "▶";
   position: absolute;
   right: 10px;
@@ -257,14 +248,23 @@ body {
   transform: translateY(50%);
   font-size: 10px;
 }
-.topnav .menus > ul > li ul li ul {
+.topnav .menus > ul > li > ul li:hover {
+  border: 2px;
+}
+.topnav .menus > ul > li > ul li:hover > a {
+  background-color: var(--primary-container);
+}
+.topnav .menus > ul > li > ul li:hover > ul {
+  display: block;
+}
+.topnav .menus > ul > li > ul li > ul {
   position: absolute;
   left: 100%;
   display: none;
   transform: translateY(-2px);
   top: 0;
 }
-.topnav .menus > ul > li ul li ul li {
+.topnav .menus > ul > li > ul li > ul > li {
   position: relative;
   width: auto;
 }
@@ -471,7 +471,7 @@ body {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 6px solid #fff;
+  border-top: 6px solid #ffffff;
   transition: 0.3s;
 }
 .select .e .caret-rotate {

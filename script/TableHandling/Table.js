@@ -57,7 +57,7 @@ class Table {
                     for (var v in j) {
                         Reflect.set(target, v, j[v]);
                     }
-                    return true;
+                    // return true;
                 }
                 if (key == "active") {
                     value[0] = parseInt(value[0]);
@@ -352,6 +352,14 @@ class Table {
         //Undo for newTable
         // UndoManager.recordUndoState(this.#EventData,)
         Db.loadStartupFile();
+    }
+
+    static loadTableContent(content){
+        initLoadProject(()=>{
+            this.Data.dump = content;
+            snackbar.show("Loaded table","success");
+        })
+        
     }
 
 
