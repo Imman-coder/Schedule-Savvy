@@ -4,6 +4,7 @@
     z-index: 9;
     user-select: none;
     height: 50px;
+    // height: 40px;
     // @include d-shape();
     margin: 5px;
     display: flex;
@@ -14,6 +15,7 @@
         @include d-shape();
         padding: 0 16px;
         height: 50px;
+        // height: 40px;
         display: none;
         align-items: center;
         a{
@@ -33,6 +35,7 @@
         @include d-shape();
         flex-grow: 1;
         height: 50px;
+        // height: 40px;
         padding-left: 16px;
         padding-right: 16px;
 

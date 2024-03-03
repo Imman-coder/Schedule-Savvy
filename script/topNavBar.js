@@ -105,7 +105,14 @@ var menu2 = [
                     { title: "5 min", selected: () => Preferences.autoBackupInterval === 300000, action: () => { Preferences.autoBackupInterval = 300000; } },
                 ]
             },
-            // { title: "Auto Save", action: () => { Preferences.autoSave = !Preferences.autoSave }, checked: () => { return Preferences.autoSave } },
+            { title: "Backup Count", child:[
+                    { title: "5", selected: () => Preferences.keepBackupCount === 5, action: () => { Preferences.keepBackupCount = 5; } },
+                    { title: "7", selected: () => Preferences.keepBackupCount === 7, action: () => { Preferences.keepBackupCount = 7; } },
+                    { title: "12", selected: () => Preferences.keepBackupCount === 12, action: () => { Preferences.keepBackupCount = 12; } },
+                    { title: "16", selected: () => Preferences.keepBackupCount === 16, action: () => { Preferences.keepBackupCount = 16; } },
+                    { title: "20", selected: () => Preferences.keepBackupCount === 20, action: () => { Preferences.keepBackupCount = 20; } },
+                ] 
+            },
             {
                 title: "Undo Steps", child: [
                     { title: "8", selected: () => Preferences.undoStep === 8, action: () => { Preferences.undoStep = 8; } },
@@ -181,6 +188,7 @@ function refreshTopNavBar() {
 }
 
 function refreshTopNavBarRef() { 
+    menu2[0].child[2].child[0].enabled = ()=>false;
     menu2[0].child[2].child[0].action = undefined;
     menu2[0].child[2].child[1].child = undefined;
     menu2[0].child[2].child[1].enabled = ()=>false;
@@ -197,6 +205,8 @@ function refreshTopNavBarRef() {
     if(sla.length>0){
         menu2[0].child[2].child[1].enabled = ()=>true;
         menu2[0].child[2].child[1].child = sla;
+        menu2[0].child[2].child[0].enabled = ()=>true;
+        menu2[0].child[2].child[0].action = ()=>{loadBackup(sla[sla.length-1])};
     }
 
     sla = []

@@ -5,12 +5,12 @@
 
 
 .fade-group {
-    position: fixed;
+    position: absolute;
     background-image: linear-gradient(to right,
             var(--primary),
            #ffffff00);
     transform: translate(95 + 20px,0%);
-    height: 410px;
+    height: 328px;
     width: 20px;
     z-index: 1;
 }

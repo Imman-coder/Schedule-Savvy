@@ -58,3 +58,9 @@ body {
         transition: none;
     }
 }
+
+@media (min-resolution: 120dpi) {
+    html {
+        zoom: 0.8;
+    }
+}
