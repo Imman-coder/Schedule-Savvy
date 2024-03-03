@@ -216,6 +216,9 @@ class Table {
                 `</span></div>
         `;
         }
+        
+        m +=`<div class="schedule-timeline" onClick="onContextAddTimeline()"><div x="99" class="circle"></div><span x="99" > Add Time </span></div>`;
+
         timeDivider.innerHTML = m;
         (main = document.getElementById("main")),
             (singleEvents = document.getElementsByClassName("subCard")),
