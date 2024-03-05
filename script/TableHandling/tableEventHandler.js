@@ -21,7 +21,7 @@ function initListeners() {
     }
   }
 
-  for (let index = 0; index < timeLineItems.length; index++) {
+  for (let index = 0; index < timeLineItems.length-1; index++) {
     const e = timeLineItems[index];
     e.addEventListener("contextmenu", onTimelineRightClick);
   }
@@ -32,8 +32,8 @@ function onTimelineRightClick(event) {
   showContextMenu(
     event,
     "timeline",
-    [contextItemDelete, contextItemAddTimeline],
-    [contextItemDelete, contextItemAddTimeline]
+    [contextItemDelete, contextItemAddTimeline, contextItemEditTimeline],
+    [contextItemDelete, contextItemAddTimeline, contextItemEditTimeline]
   );
 }
 

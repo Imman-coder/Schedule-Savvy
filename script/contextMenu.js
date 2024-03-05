@@ -6,7 +6,8 @@ const contextMenu = document.getElementById("context-menu"),
     contextItemPaste = 4,
     contextItemDelete = 5,
     contextItemPreference = 6,
-    contextItemAddTimeline = 7;
+    contextItemAddTimeline = 7,
+    contextItemEditTimeline = 8;
 injectContextMenu();
 
 const contextMenuItems = contextMenu.getElementsByClassName("item");
@@ -80,6 +81,11 @@ function onContextAddTimeline() {
     openPopupMenu();
 }
 
+function onContextEditTimeline() {
+    
+    initTimeEditModule();
+    openPopupMenu();
+}
 
 
 /*--------------Hide/Show Menu Items-------------*/
@@ -172,6 +178,9 @@ function injectContextMenu() {
     </div>
     <div onclick="onContextAddTimeline(this)" class="item">
       Add Timeline
+    </div>
+    <div onclick="onContextEditTimeline(this)" class="item">
+      Edit Timeline
     </div>`;
 }
 

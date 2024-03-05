@@ -207,6 +207,7 @@ function refreshTopNavBarRef() {
         menu2[0].child[2].child[1].child = sla;
         menu2[0].child[2].child[0].enabled = ()=>true;
         menu2[0].child[2].child[0].action = ()=>{loadBackup(sla[sla.length-1])};
+        
     }
 
     sla = []

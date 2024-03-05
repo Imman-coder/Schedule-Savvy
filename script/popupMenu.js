@@ -84,24 +84,27 @@ popupMenu.addEventListener("click", (event) => {
 
 /*-------------------Module Specific Class Declerations-------------------*/
 class TimeAdderModule extends popupMenuDisplayModule {
-    constructor() {
+    constructor(initTime,callback) {
         super();
         this._content = `
         <a>Add Time </a>
-        <input class="time" type="time" autofocus />`;
+        <input class="time" value="`+invertFormatTime(intToTime(initTime))+`:00" type="time" autofocus />`;
 
         this.modalTextBox;
         this._cancelable = true;
         this._button_type = 1;
+        this._callback =  callback;
+        this._initTime = initTime;
     }
     isValid() {
         return this.modalTextBox.value != "";
     }
     onOkBtnClick() {
         var l = timeToInt(formatTime(this.modalTextBox.value));
-        if (!Table.Data.TimeList.includes(l.toString())) Table.addTimeLineStamp(l);
-        else snackbar.show("Time already added!", snackbar.Error, 3000);
-        closePopupMenu();
+        this._callback(l)
+        // if (!Table.Data.TimeList.includes(l.toString())) Table.addTimeLineStamp(l);
+        // else snackbar.show("Time already added!", snackbar.Error, 3000);
+        // closePopupMenu();
     }
     onPopupMenuClose() {
         this.modalTextBox.removeEventListener("change", () => {
@@ -322,7 +325,23 @@ class ConfirmLoadProject extends popupMenuDisplayModule {
 
 /*------------------Module Specific functions------------------*/
 function initTimeAdderModule() {
-    reserved_for = new TimeAdderModule();
+    reserved_for = new TimeAdderModule(0,(l)=>{
+        if (!Table.Data.TimeList.includes(l.toString())) Table.addTimeLineStamp(l);
+        else snackbar.show("Time already added!", snackbar.Error, 3000);
+        closePopupMenu();
+    });
+}
+function initTimeEditModule() {
+    const id = contextMenu.x()
+    const time = Table.Data.TimeList[id]
+    reserved_for = new TimeAdderModule(time,(l)=>{
+        if (!Table.Data.TimeList.includes(l.toString())) {
+            Table.deleteTimeLineStamp(id);
+            Table.addTimeLineStamp(l);
+        }
+        else snackbar.show("Time already exists!", snackbar.Error, 3000);
+        closePopupMenu();
+    });
 }
 function initLoadLastModule() {
     if (localStorage.getItem(tableId) != undefined) {

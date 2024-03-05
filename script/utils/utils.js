@@ -70,6 +70,13 @@ function formatTime(timeString) {
   return s.length == 6 ? "0" + s : s;
 }
 
+function invertFormatTime(timeString) {
+  const [hourString, minute] = timeString.split(":");
+  const hour = parseInt(hourString) + (minute.includes("PM")*12)
+  const min = minute.split("A")[0].split("P")[0]
+  return (hour<10 ? "0"+hour :hour) +":"+min
+}
+
 /**
  * The function converts a time string in 12-hour format to an integer representing the number of
  * minutes since midnight.
