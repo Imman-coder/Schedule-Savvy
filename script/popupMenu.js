@@ -2,7 +2,7 @@
 const popupMenu = document.getElementById("modal-box");
 const popupMenuBody = popupMenu.getElementsByClassName("box-content")[0];
 var popupMenuOkBtn = document.getElementById("modal-ok-btn");
-const popupMenuCancelBtn = document.getElementById("modal-cancel-btn");
+var popupMenuCancelBtn = document.getElementById("modal-cancel-btn");
 var reserved_for;
 
 /*------------------Popup Display Module-----------------*/
@@ -52,8 +52,11 @@ class popupMenuDisplayModule {
 
 /*---------------------------Popup Menu Functions---------------------------*/
 function closePopupMenu() {
-    if (reserved_for != undefined) reserved_for.onPopupMenuClose();
-    popupMenu.classList.remove("show-popupMenu");
+    if (reserved_for != undefined ) {
+        let k = reserved_for.onPopupMenuClose();
+        if(k == undefined || k == true)
+            popupMenu.classList.remove("show-popupMenu");
+    }
 }
 
 function openPopupMenu() {
@@ -71,9 +74,16 @@ function enablePopupOkBtn(enable = false) {
         popupMenuOkBtn.classList.add("disable");
     }
 }
+function enablePopupCancelBtn(enable = false) {
+    if (enable) {
+        popupMenuCancelBtn.classList.remove("disable");
+    } else {
+        popupMenuCancelBtn.classList.add("disable");
+    }
+}
 
 /*---------------------Handler functions---------------------*/
-popupMenuCancelBtn.addEventListener("click", closePopupMenu);
+popupMenuCancelBtn.addEventListener("click",closePopupMenu);
 
 popupMenu.addEventListener("click", (event) => {
     if (event.target == popupMenu) {
@@ -323,6 +333,82 @@ class ConfirmLoadProject extends popupMenuDisplayModule {
     }
 }
 
+class FirstTimeWalkthrough extends popupMenuDisplayModule {
+    constructor(){
+        super();
+        this._button_type = ["Previous", "Next"];
+        enablePopupCancelBtn()
+        enablePopupOkBtn(true)
+        this._page_no = 5
+        this._page_count;
+        this.refreshPageContent()
+    }
+
+    refreshPageContent(){
+        var pageContent = [
+            `
+            <H1>Welcome!!</H1>
+            <br> 
+            This  tool is designed to create timetable images and datasets seamlessly. With just a few clicks, you'll have organized data ready to fuel your future projects. Let's dive in and optimize your time!
+            `,
+            `
+            <H3>Creating Timeslots</H3>
+            <br> You create timeslots and enter by clicking on Add Time or in the Edit menu in top left menu. This creates slots for events to be scheduled.
+            `,
+            `
+            <H3>Editing or Deleting Timeslot</H3>
+            <br> Right clicking on timeslot will open up a context menu to edit or delete the timeslot.
+            `,
+            `
+            <H3>Creating Events</H3>
+            <br> You can directly create events by clicking on + button corresponding to each day you want to add. Additionally you can enter details related to that Event in the bottom section.
+            `,
+            `
+            <H3>Managing Events</H3>
+            <br> You can easily drag and drop events to arrange. You can also ctrl+ drag drop to create duplicates. Right clicking opens up context menu for more flexiblity.
+            <br><br> PS: You need not to create duplicate events for each already existing event.
+            `,
+            `
+            <H3>Exporting</H3>
+            <br> This tools allows you to export the data in json format which then can be used elsewhere or export it directly as Image.
+            `
+        ]
+        this._page_count = pageContent.length
+
+        popupMenuBody.innerHTML = pageContent[this._page_no];
+        enablePopupCancelBtn(this._page_no > 0);
+        enablePopupOkBtn(this._page_no < pageContent.length );
+        if(this._page_no == this._page_count -1){
+            this._button_type = ["Previous", "Finish"];
+        } else {
+            this._button_type = ["Previous", "Next"];
+        }
+        this.onPopupMenuOpen();
+    }
+    onOkBtnClick(){
+        this._page_no ++;
+        if(this._page_no == this._page_count){
+            closePopupMenu();
+        }
+        console.log(this._page_no);
+        this.refreshPageContent()
+    }
+
+    onPopupMenuClose(){
+        if(this._page_no == this._page_count){
+            return true;
+        }
+        this._page_no --;
+        this.refreshPageContent()
+        return false;
+    }
+
+    onPopupMenuOpen(){
+        super.onPopupMenuOpen()
+
+    }
+}
+
 /*------------------Module Specific functions------------------*/
 function initTimeAdderModule() {
     reserved_for = new TimeAdderModule(0,(l)=>{
@@ -359,3 +445,10 @@ function initSaveAsImageModule() {
     reserved_for = new saveAsImage();
     openPopupMenu();
 }
+
+function showFirstTimeScreen(){
+    reserved_for = new FirstTimeWalkthrough();
+    openPopupMenu();
+}
+
+showFirstTimeScreen()
